@@ -1,3 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfigureSystemSettings {
 
@@ -7,15 +11,15 @@ public class ConfigureSystemSettings {
 	int []agemod=new int[3];
 	int []daymod=new int[3];
 	
-	int []holidays=new int[50];
+	int []holidays=new int[365];
 	
 	ConfigureSystemSettings()
 	{
-		for(int j=0;j<10;j++)
+		for(int j=0;j<365;j++)
 		{
-			holidays[j]= -1;
+			holidays[j]= 0;
 		}
-		holidays[1]=2512;
+		holidays[299]=1;
 		baseticketprice=10;
 		
 		typemod[0]=0;//normal
@@ -34,23 +38,137 @@ public class ConfigureSystemSettings {
 		daymod[1]=2;//weekend
 		daymod[2]=5;//holiday
 	}
-	
-	void addholiday()
+	void storesettings()
 	{
-		int i=0;
-		while(holidays[i]==-1&&i<50)
+		ArrayList<String> data = new ArrayList<String>();
+		data.add(Integer.toString(baseticketprice));
+		data.add("\n");
+		data.add(Integer.toString(typemod[0]));
+		data.add("\n");
+		data.add(Integer.toString(typemod[1]));
+		data.add("\n");
+		data.add(Integer.toString(typemod[2]));
+		data.add("\n");
+		data.add(Integer.toString(classmod[0]));
+		data.add("\n");
+		data.add(Integer.toString(classmod[1]));
+		data.add("\n");
+		data.add(Integer.toString(classmod[2]));
+		data.add("\n");
+		data.add(Integer.toString(agemod[0]));
+		data.add("\n");
+		data.add(Integer.toString(agemod[1]));
+		data.add("\n");
+		data.add(Integer.toString(agemod[2]));
+		data.add("\n");
+		data.add(Integer.toString(daymod[0]));
+		data.add("\n");
+		data.add(Integer.toString(daymod[1]));
+		data.add("\n");
+		data.add(Integer.toString(daymod[2]));
+		
+		
+		try {
+			DbIO.writeFile("Settings", data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ArrayList<String> data2 = new ArrayList<String>();
+		for(int j=0;j<365;j++)
 		{
-			i=i+1;
+			data2.add(Integer.toString(holidays[j]));
+			data2.add("\n");
+		}
+		
+		
+		try {
+			DbIO.writeFile("Holidays", data2);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	void loadsettings()
+	{
+		List<String> data = null;
+		try {
+			data=DbIO.readFile("Settings");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		baseticketprice=Integer.parseInt(data.get(0));
+		typemod[0]=Integer.parseInt(data.get(1));
+		typemod[1]=Integer.parseInt(data.get(2));
+		typemod[2]=Integer.parseInt(data.get(3));
+		classmod[0]=Integer.parseInt(data.get(4));
+		classmod[1]=Integer.parseInt(data.get(5));
+		classmod[2]=Integer.parseInt(data.get(6));
+		agemod[0]=Integer.parseInt(data.get(7));
+		agemod[1]=Integer.parseInt(data.get(8));
+		agemod[2]=Integer.parseInt(data.get(9));
+		daymod[0]=Integer.parseInt(data.get(10));
+		daymod[1]=Integer.parseInt(data.get(11));
+		daymod[2]=Integer.parseInt(data.get(12));
+		
+		List<String> data2 = null;
+		try {
+			data2=DbIO.readFile("Holidays");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for(int j=0;j<365;j++)
+		{
+			holidays[j]=Integer.parseInt(data2.get(j));
 		}
 	}
-	void removeholiday(int date)
+	void printsettings()
 	{
-		int i=0;
-		while(holidays[i]==date&&i<50)
+		System.out.print("normal movie price modifier: ");
+		System.out.print(Integer.toString(typemod[0]));
+		System.out.print("\n3D movie price modifier: ");
+		System.out.print(Integer.toString(typemod[1]));
+		System.out.print("\nBlockbuster movie price modifier: ");
+		System.out.print(Integer.toString(typemod[2]));
+		System.out.print("\nnormal class price modifier: ");
+		System.out.print(Integer.toString(classmod[0]));
+		System.out.print("\nPlatinum Movie Suites price modifier: ");
+		System.out.print(Integer.toString(classmod[1]));
+		System.out.print("\nBudget class price modifier: ");
+		System.out.print(Integer.toString(classmod[2]));
+		System.out.print("\nadult price modifier: ");
+		System.out.print(Integer.toString(agemod[0]));
+		System.out.print("\nchild price modifier: ");
+		System.out.print(Integer.toString(agemod[1]));
+		System.out.print("\nsenior citizen price modifier: ");
+		System.out.print(Integer.toString(agemod[2]));
+		System.out.print("\nweekday price modifier: ");
+		System.out.print(Integer.toString(daymod[0]));
+		System.out.print("\nweekend price modifier: ");
+		System.out.print(Integer.toString(daymod[1]));
+		System.out.print("\nholiday class price modifier: ");
+		System.out.print(Integer.toString(daymod[2]));
+		System.out.print("\nholidays:");
+		for(int j=0;j<365;j++)
 		{
-			i=i+1;
+			if (holidays[j]==1)
+			{
+				System.out.print(Integer.toString(j));
+				System.out.print(" ");
+			}
 		}
-		holidays[i]=-1;
+	}
+	void addholiday(int day)
+	{
+		holidays[day]=1;
+	}
+	void removeholiday(int day)
+	{
+		holidays[day]=0;
 	}
 	void changebaseprice(int newprice)
 	{
