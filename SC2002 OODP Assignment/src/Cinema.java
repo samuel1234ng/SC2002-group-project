@@ -6,24 +6,28 @@ import java.util.List;
 public class Cinema {
 	String []movie=new String[8];
 	int numEmptySeat;
+	int cinematype;
 	
-	Cinema()
+	Cinema(int type)
 	{
+		cinematype=type;
 		for(int j=0;j<8;j++)
 		{
-			movie[j]= "";
+			movie[j+1]= "";
 		}
 	}
 	
 	void storesettings()
 	{
 		ArrayList<String> data = new ArrayList<String>();
-		
+		data.add(Integer.toString(cinematype));
+		data.add("\n");
 		for(int j=0;j<8;j++)
 		{
 			data.add(movie[j]);
 			data.add("\n");
 		}
+		
 		
 		try {
 			DbIO.writeFile("CinemaSettings", data);
@@ -43,9 +47,10 @@ public class Cinema {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		cinematype=Integer.parseInt(data.get(0));
 		for(int j=0;j<8;j++)
 		{
-			movie[j]= data.get(j);
+			movie[j+1]= data.get(j+1);
 		}
 	}
 	
@@ -81,4 +86,3 @@ public class Cinema {
 	}
 
 }
-
