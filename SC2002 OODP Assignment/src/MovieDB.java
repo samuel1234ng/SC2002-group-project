@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 import java.io.FileInputStream;
 import java.util.*;
 
-public class MovieDBText {
+public class MovieDB {
     public static final String SEPARATOR = "|";
 
     // an example of reading
@@ -22,16 +22,17 @@ public class MovieDBText {
             // get individual 'fields' of the string separated by SEPARATOR
             StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 
-            String title = star.nextToken().trim();                                     // first token
-            status = Movie.ShowingStatus.valueOf(star.nextToken().trim());              // second token
-            String synopsis = star.nextToken().trim();                                  // third token
-            String director = star.nextToken().trim();	                                // fourth token
-            cast.add(star.nextToken().trim());                                          // fifth token
-            String overallReviewerRating =star.nextToken().trim(); // sixth token
-            pastReviews.add(star.nextToken().trim());
+            String title = star.nextToken().trim();                         // first token
+            status = Movie.ShowingStatus.valueOf(star.nextToken().trim());  // second token
+            String synopsis = star.nextToken().trim();                      // third token
+            String director = star.nextToken().trim();	                    // fourth token
+            cast.add(star.nextToken().trim());                              // fifth token
+            String overallReviewerRating = star.nextToken().trim();         // sixth token
+            pastReviews.add(star.nextToken().trim());                       // seventh token
+            int tickets = Integer.parseInt(star.nextToken().trim());        // eight token
 
             // create movie object from file data
-            Movie movie = new Movie(title, status, synopsis, director, cast, overallReviewerRating, pastReviews);
+            Movie movie = new Movie(title, status, synopsis, director, cast, overallReviewerRating, pastReviews, tickets);
             // add to movie list
             movRead.add(movie) ;
         }
@@ -62,6 +63,8 @@ public class MovieDBText {
             String pastReviewsDisplay = movie.getPastReviews().toString().replace("[", "").replace("]", ""); // to remove square brackets in text file
             //pastReviewsDisplay = pastReviewsDisplay.substring(1, pastReviewsDisplay.length() - 1);
             st.append(pastReviewsDisplay);
+            st.append(SEPARATOR);
+            st.append(movie.getNoOfTickets());
 
             movWrite.add(st.toString()) ;
         }

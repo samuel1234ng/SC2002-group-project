@@ -1,8 +1,6 @@
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
 
 public class Movie implements Serializable {
     private String title ;
@@ -13,11 +11,12 @@ public class Movie implements Serializable {
     private ArrayList<String> cast;
     private String overallReviewerRating;
     private ArrayList<String> pastReviews;
+    private int noOfTickets;
     private ShowingStatus status;
-    private String reviewFile = "reviews.txt" ; // review file path
+    private String reviewFile = "data/reviews.txt" ; // review file path
 
     public Movie(String title, ShowingStatus status, String synopsis, String director,
-                 ArrayList<String> cast, String overallReviewerRating, ArrayList<String> pastReviews){
+                 ArrayList<String> cast, String overallReviewerRating, ArrayList<String> pastReviews, int noOfTickets){
         this.title = title;
         this.status = status;
         this.synopsis = synopsis;
@@ -25,7 +24,8 @@ public class Movie implements Serializable {
         this.cast = cast;
         this.overallReviewerRating = overallReviewerRating;
         this.pastReviews = pastReviews;
-        reviewsRatings(); // updates the average ratings and user reviews everytime with the latest changes
+        this.noOfTickets = noOfTickets;
+        updateReviewsRatings(); // updates the average ratings and user reviews everytime with the latest changes
     }
 
     public String getTitle() {
@@ -56,15 +56,21 @@ public class Movie implements Serializable {
         return pastReviews;
     }
 
-    public void reviewsRatings(){
-        double ans = 0.0, result = 0.0;
+    public int getNoOfTickets() {
+        return noOfTickets;
+    }
+
+    private void updateReviewsRatings(){
+        double ans = 0.0, result;
         int count = 0;
         try{
-            ArrayList reviewList = ReviewDBText.readReviews(reviewFile);
+            ArrayList reviewList = ReviewDB.readReviews(reviewFile);
             pastReviews.clear();
             for (int i = 0; i < reviewList.size(); i++) {
                 Review review = (Review) reviewList.get(i);
                 if(review.getMovieTitle().equalsIgnoreCase(getTitle())){
+                    pastReviews.add(review.getReviewerName());
+                    pastReviews.add(String.valueOf(review.getRating()));
                     pastReviews.add(review.getReviewDescription());
                     ans += review.getRating();
                     count++;
@@ -73,8 +79,12 @@ public class Movie implements Serializable {
             if(pastReviews.isEmpty())
                 pastReviews.add("NA");
 
-            overallReviewerRating = String.valueOf(ans/count);
-            if(overallReviewerRating.equalsIgnoreCase("NaN"))
+            if(count > 1){
+                result = ans/count;
+                result = Math.round(result*10)/10.0;
+                overallReviewerRating = String.valueOf(result);
+            }
+            else
                 overallReviewerRating = "NA";
         }
         catch (IOException e) {

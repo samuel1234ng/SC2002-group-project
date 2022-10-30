@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class ReviewDBText{
+public class ReviewDB{
     public static final String SEPARATOR = "|";
 
     // an example of reading
@@ -42,7 +42,7 @@ public class ReviewDBText{
         for (int i = 0 ; i < al.size() ; i++) {
             Review review = (Review) al.get(i);
             StringBuilder st =  new StringBuilder() ;
-            st.append(review.getReviewer().trim());
+            st.append(review.getReviewerName().trim());
             st.append(SEPARATOR);
             st.append(review.getMovieTitle().trim());
             st.append(SEPARATOR);

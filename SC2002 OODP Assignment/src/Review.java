@@ -1,18 +1,18 @@
 public class Review {
-    private String reviewer;
+    private String reviewerName;
     private String movieTitle;
     private double rating;
     private String reviewDescription;
 
-    public Review(String reviewer, String movieTitle, double rating, String reviewDescription){
-        this.reviewer = reviewer;
+    public Review(String reviewerName, String movieTitle, double rating, String reviewDescription){
+        this.reviewerName = reviewerName;
         this.movieTitle = movieTitle;
         this.rating = rating;
         this.reviewDescription = reviewDescription;
     }
 
-    public String getReviewer() {
-        return reviewer;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
     public String getMovieTitle() {

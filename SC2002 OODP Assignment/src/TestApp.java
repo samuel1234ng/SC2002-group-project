@@ -4,14 +4,15 @@ import java.util.Scanner;
 
 public class TestApp {
     public static void main(String[] aArgs)  {
-        String movieFile = "movies.txt" ;
+        String movieFile = "data/movies.txt" ;
         Scanner sc = new Scanner(System.in);
 
         try {
             // read file containing Movies records.
-            ArrayList movieList = MovieDBText.readMovies(movieFile);
+            ArrayList movieList = MovieDB.readMovies(movieFile);
 
             for (int i = 0 ; i < movieList.size() ; i++) {
+                int count = 0;
                 Movie movie = (Movie) movieList.get(i);
                 System.out.println("Movie Title: " + movie.getTitle());
                 System.out.println("Showing Status: " + movie.getStatus());
@@ -19,7 +20,21 @@ public class TestApp {
                 System.out.println("Director: " + movie.getDirector());
                 System.out.println("Cast: " + movie.getCast());
                 System.out.println("Overall Reviewer Rating: " + movie.getOverallReviewerRating());
-                System.out.println("Past Reviews: " + movie.getPastReviews());
+                System.out.println("Past Reviews: ");
+                for(String element : movie.getPastReviews()){
+                    if(element.equalsIgnoreCase("NA")) {
+                        System.out.print(element);
+                        break;
+                    }
+                    if(count >= 3) {
+                        System.out.println();
+                        count = 0;
+                    }
+                    System.out.print(element + "|");
+                    count++;
+                }
+                System.out.println();
+                System.out.println("Number of tickets sold: " + movie.getNoOfTickets());
                 System.out.println();
             }
 
@@ -67,13 +82,13 @@ public class TestApp {
 
             ArrayList<String> reviewDescription = new ArrayList<>();
 
-            Movie m1 = new Movie(title, status, synopsis, director, cast, "NA", reviewDescription);
+            Movie m1 = new Movie(title, status, synopsis, director, cast, "NA", reviewDescription, 0);
 
             // movieList is an array list containing movie objects
             movieList.add(m1);
 
             // write movie records to file.
-            MovieDBText.saveMovies(movieFile, movieList);
+            MovieDB.saveMovies(movieFile, movieList);
 
         /*// reviewList is an array list containing review objects
 
