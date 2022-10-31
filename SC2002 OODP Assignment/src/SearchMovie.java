@@ -1,4 +1,3 @@
-package sc2002.project;
 
 public class SearchMovie {
     //moviebyname, moviebyrating, moviebytickets, array of currentmovies(now_showing), listall
