@@ -1,4 +1,3 @@
-package sc2002.project;
 
 public class Seat {
     //class attributes
