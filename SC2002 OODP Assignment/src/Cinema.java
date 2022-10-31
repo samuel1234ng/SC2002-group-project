@@ -4,30 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cinema {
-	String []movie=new String[8];
+	Movielisting[] movie=new Movielisting[8];
 	int numEmptySeat;
-	int cinematype;
+	boolean[][] seat= new boolean[20][20];
+	int cinemaid;
 	
-	Cinema(int type)
+	
+	Cinema(int id)
 	{
-		cinematype=type;
-		for(int j=0;j<8;j++)
+		for(int i=0;i<8;i++)
 		{
-			movie[j+1]= "";
+			movie[i]= new Movielisting();
 		}
+		for(int j=0;j<20;j++)
+		{
+			for(int k=0;k<20;k++)
+			{
+				seat[j][k]=false;
+			}
+		}
+		id=cinemaid;
 	}
 	
 	void storesettings()
 	{
 		ArrayList<String> data = new ArrayList<String>();
-		data.add(Integer.toString(cinematype));
-		data.add("\n");
+		
 		for(int j=0;j<8;j++)
 		{
 			data.add(movie[j]);
 			data.add("\n");
 		}
-		
 		
 		try {
 			DbIO.writeFile("CinemaSettings", data);
@@ -47,42 +54,107 @@ public class Cinema {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		cinematype=Integer.parseInt(data.get(0));
 		for(int j=0;j<8;j++)
 		{
-			movie[j+1]= data.get(j+1);
+			movie[j]= data.get(j);
 		}
 	}
 	
-	void Createcinemashowtime(int time, String movielisting)
+	int reserveseat(int x, int y)
 	{
-		int timeslot=(time-800)/200;
-		if (movie[timeslot]=="")
+		if(seat[x][y]==true)
 		{
-			movie[timeslot]=movielisting;
+			//System.out.print("This seat is already booked \n");
+			return 1;//error
 		}
 		else
 		{
-			System.out.print("There is already a movie schedule at this time \n");
+			seat[x][y]=true;
+			return 0;
 		}
 	}
-	void Updatecinemashowtime(int time, String movielisting)
+	
+	int unreserveseat(int x, int y)
 	{
-		int timeslot=(time-800)/200;
-		if (movie[timeslot]=="")
+		if(seat[x][y]==true)
 		{
-			movie[timeslot]=movielisting;
+			//System.out.print("This seat is not booked \n");
+			return 1;//error
 		}
 		else
 		{
-			System.out.print("There is no movie schedule at this time \n");
+			seat[x][y]=false;
+			return 0;
 		}
 	}
-	void Removecinemashowtime(int time)
+	
+	int Createcinemashowtime(int time, String movielisting)
 	{
-		int timeslot=(time-800)/200;
-		movie[timeslot]="";
+		int i=0;
+		while(i<8)
+		{
+			if (movie[i].time==time)
+			{
+				//System.out.print("There is already a movie at this time \n");
+				return 1;
+			}
+			i++;
+		}
+		i=0;
+		while(i<8)
+		{
+			if (movie[i].name=="")
+			{
+				movie[i].name=movielisting;
+				movie[i].time=time;
+				return 0;
+			}
+			i++;
+		}
+		//System.out.print("No more time slots \n");
+		return 1;
+	}
+	int Updatecinemashowtime(int time, String movielisting)
+	{
+		int i=0;
+		while(movie[i].name!=movielisting&&i<8)
+		{
+			
+			i++;
+			if (i>8)
+			{
+				//System.out.print("no movie of this name scheduled\n");
+				return 0;
+			}
+		}
 		
+		if (i==8)
+		{
+			//System.out.print("no movie of this name scheduled\n");
+			return 0;
+		}
+		else
+		{
+			movie[i].name=movielisting;
+			movie[i].time=time;
+			return 1;
+		}
+	}
+	int Removecinemashowtime(int time)
+	{
+		int i=0;
+		while(i<8)
+		{
+			if (movie[i].time==time)
+			{
+				movie[i].name="";
+				movie[i].time=-1;
+				return 0;
+			}
+			i++;
+		}
+		System.out.print("no movie of this name scheduled\n");
+		return 1;
 	}
 
 }
