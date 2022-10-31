@@ -60,19 +60,14 @@ public class MovieListing {
 		
 		
 	}
-	MovieListing[] remove_Element(MovieListing[] arr,  int index) {
-		if (arr == null || index < 0
-	            || index >= arr.length) {
-	 
-	            return arr;
-	        }
-	 
+	MovieListing[] removeElement(MovieListing[] arr,  string Name) {
 
+	 
 	        MovieListing[] anotherArray = new MovieListing[arr.length - 1];
 	
 	        for (int i = 0, k = 0; i < arr.length; i++) {
 
-	            if (i == index) {
+	            if (Name == arr[i].movie.title) {
 	                continue;
 	            }
 	            anotherArray[k++] = arr[i];
