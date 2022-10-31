@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Viewer {
@@ -7,7 +8,7 @@ public class Viewer {
 
     static {
         try {
-            idCounter = DbIO.readViewerID("src/data/Viewer.txt")+1;
+            idCounter = DbIO.readViewerID("src/data/Viewer.txt") + 1;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -16,8 +17,9 @@ public class Viewer {
     private final String email;
     private final String fullName;
     private final String mobileNumber;
-
     private final String viewerid;
+
+    private ArrayList<String> bookingHistory = new ArrayList<>();
 
 
     public Viewer(String email, String fullName, String mobileNumber) {
@@ -26,7 +28,17 @@ public class Viewer {
         this.mobileNumber = mobileNumber;
         this.viewerid = Integer.toString(idCounter);
         idCounter++;
+        this.bookingHistory.add("NA");
 
+    }
+
+    public void addBookingToHistory(String booking) throws IOException {
+        ArrayList<String> current = getBookingHistory();
+        if (current.get(0).equals("NA")) {
+            current.remove(0);
+        }
+        current.add(booking);
+        this.bookingHistory = current;
     }
 
     public String getViewerid() {
@@ -45,18 +57,21 @@ public class Viewer {
         return fullName;
     }
 
-    public void getHistory() {
-        try{
-            for(String line : DbIO.readViewer("src/data/Viewer.txt").get(this.getEmail())){
-                StringTokenizer star = new StringTokenizer(line, "-");
-                String bdate = star.nextToken().trim();
-                String movie = star.nextToken().trim();
-                String mdate = star.nextToken().trim();
-                String cineplex = star.nextToken().trim();
-                 System.out.printf("Movie %s booked on %s for %s in Cineplex %s\n", movie, bdate, mdate, cineplex);
-            }
-        }catch (Exception e){
+    public ArrayList<String> getBookingHistory() {
+        try {
+//            for(String line : DbIO.readViewer("src/data/Viewer.txt").get(this.getEmail())){
+//                StringTokenizer star = new StringTokenizer(line, "-");
+//                String bdate = star.nextToken().trim();
+//                String movie = star.nextToken().trim();
+//                String mdate = star.nextToken().trim();
+//                String cineplex = star.nextToken().trim();
+//                 System.out.printf("Movie %s booked on %s for %s in Cineplex %s\n", movie, bdate, mdate, cineplex);
+//            }
+            return DbIO.readViewer("src/data/Viewer.txt").get(this.getEmail());
+        } catch (Exception e) {
             System.out.println("IOException > " + e.getMessage());
+
         }
+        return new ArrayList<>();
     }
 }
