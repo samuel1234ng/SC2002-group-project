@@ -1,4 +1,3 @@
-package sc2002.project;
 
 public class Booking { //seat object should be part of movielisting
     private Viewer viewer;
@@ -25,7 +24,4 @@ public class Booking { //seat object should be part of movielisting
     
     
     
-    //cinema class needs cinema code
-    //select movie, select cinema(movie), select time, available seats(cinema), select seat(will display)(cinema), makebooking
-    //bookinghistory(should it be in this class)
 }
