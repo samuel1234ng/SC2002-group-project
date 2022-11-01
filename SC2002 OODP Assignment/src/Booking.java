@@ -44,7 +44,7 @@ public class Booking {
         }
     }
 
-    public int makeBooking(MovieListing movieListing,Cinema cinema){
+    public void makeBooking(MovieListing movieListing,Cinema cinema){
         //assign a seat from 2D seat array in movieListing
         Seat[][] seats = movieListing.getSeat();
         Scanner sc = new Scanner(System.in);
