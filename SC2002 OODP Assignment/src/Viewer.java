@@ -128,7 +128,19 @@ public class Viewer {
         }
     }
 
-//    public static void main(String[] args){
-//        System.out.println(pseudoLogin("o@gmail.com").bookingHistory);
-//    }
+    /**
+     * Creates and stores a new booking
+     * @param transactionID
+     * the transactionID of the booking
+     * @param seatID
+     * The seat in the cinema which was booked for the movie
+     * @param movieName
+     * the movie which was booked
+     */
+    public void createNewBookingLine(long transactionID, String seatID, String movieName){
+        String tID = Long.toString(transactionID); // XXXYYYYMMDDHHMM
+        String booking = tID + "-" + seatID + "-";
+        String date = tID.substring(9, 11) + "/" + tID.substring(7, 9) + "/" + tID.substring(3, 7);
+        this.addBookingToHistory(booking+date);
+    }
 }
