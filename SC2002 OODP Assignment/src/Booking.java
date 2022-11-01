@@ -5,7 +5,7 @@ public class Booking {
     //each movielisting has 2D array of seat objects
     
     private Viewer viewer;
-    char[] letters = {'I','H','G','F','E','D','C','B','A'};
+    private final char[] letters = {'I','H','G','F','E','D','C','B','A'};
     //private long transactionId; 
     //private MovieListing movieListing;
     
