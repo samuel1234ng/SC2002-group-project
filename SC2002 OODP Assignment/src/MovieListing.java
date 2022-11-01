@@ -10,7 +10,7 @@ public class MovieListing {
 	private movietypes movietype;
 	private int[]timeSlot;
 	private double[] TicketPrice;
-	private Seat[15][12] seats;
+	private Seat[][] seats;
 	
 	public MovieListing( movie movie,int[] timeslot,double[] TicketPrice,movietype movietype) {
 		this.movieName=movie;
