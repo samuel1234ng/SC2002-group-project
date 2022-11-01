@@ -10,12 +10,18 @@ public class MovieListing {
 	private movietype movietype;
 	private int[]timeSlot;
 	private double[] TicketPrice;
+	private Seat[15][12] seats;
 	
 	public MovieListing( moive movie,int[] timeslot,double[] TicketPrice,movietype movietype) {
 		this.movieName=movie;
 		this.timeSlot=timeslot;
 		this.TicketPrice=TicketPrice;
 		this.movietype=movietype;
+		for(int i=0;i<16;i++) {
+			for(int j=0;j<13;j++) {
+				this.seats[i][j]=0;
+			}
+		}
 		
 		
 		
