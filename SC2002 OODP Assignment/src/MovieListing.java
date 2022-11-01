@@ -30,7 +30,7 @@ public class MovieListing {
 	
 	void updateMovieListing(MovieListing[] movieListing, double[] TicketPrice,String name,int[] timeslot) {
 		for(int i=0;i<movieListing.length;i++) {
-			if(name==MovieListing[i].movieName.title)
+			if(name==movieListing[i].movieName.title)
 			
 			movieListing[i].timeSlot=timeslot;
 			movieListing[i].TicketPrice=TicketPrice;
