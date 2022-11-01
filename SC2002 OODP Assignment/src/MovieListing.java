@@ -41,6 +41,11 @@ public class MovieListing {
 	}
 	void createMovieListing(movie[] movie) {
 		MovieListing Movie[]= new MovieListing[movie.length];
+		for(int i=0;i<16;i++) {
+			for(int j=0;j<13;j++) {
+				Movie.seats[i][j]=0;
+			}
+		}
 		for(int k=0;k<movie.length;k++) {
 			Movie[k].movieName=movie[k];
 			Scanner scan=new Scanner(System.in);
