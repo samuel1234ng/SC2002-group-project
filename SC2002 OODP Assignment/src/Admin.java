@@ -3,42 +3,56 @@ import java.util.HashMap;
 
 
 /**
- * A class of objects that represent Admins of the Movie booking System
+ * Represent Admins of the Movie booking System. Each Cineplex has two admins.
+ * Each admin may only work under one cineplex
  */
 public class Admin {
 
+    /**
+     * The first, middle and last name of an admin
+     */
     private final String fullName;
-    private String username;
-    private String password;
 
+    /**
+     * The username of an admin.
+     * used for log in to perform administrative functions
+     */
+    private final String username;
+
+    /**
+     * password of the admin
+     * used for log in to perform administrative functions
+     */
+    private final String password;
+
+    /**
+     * Creates a new admin with the given fullName, username and password
+     * @param fullName
+     * name of the admin
+     * @param username
+     * username of the admin
+     * @param password
+     * password of the admin
+     */
     public Admin(String fullName, String username, String password){
         this.fullName = fullName;
         this.username = username;
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public static boolean login(String username, String password) throws IOException {
-        HashMap<String, String> data = DbIO.loginHelper();
+    /**
+     * Verifies the username and password against the usernames and passwords
+     * against the data in the Admin text file
+     * @param username
+     * username used for login
+     * @param password
+     * password corresponding to the username used
+     * @return
+     * True if the login is successful, else false
+     */
+    public static boolean login(String username, String password){
+        String fileName = "src/data/Admin.txt";
+        HashMap<String, String> data = AdminDB.getAdminData(fileName);
         try{
             if (password.equals(data.get(username))){
                 return true;
@@ -47,18 +61,5 @@ public class Admin {
             System.out.println("Exception > " + e.getMessage());
         }
         return false;
-    }
-
-    public boolean changePasswordValidation(Admin admin){
-        return (this.getFullName().equals(admin.getFullName())) && (this.getUsername().equals(admin.getUsername()));
-    }
-
-    public boolean changeUsernameValidation(Admin admin){
-        return (this.getFullName().equals(admin.getFullName())) && (this.getPassword().equals(admin.getPassword()));
-
-    }
-
-    public void updateDb(){
-        DbIO.updateAdminRecords(this);
     }
 }
