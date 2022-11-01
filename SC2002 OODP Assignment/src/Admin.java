@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 /**
- * Represent Admins of the Movie booking System. Each Cineplex has two admins.
+ * Represents Admins of the Movie booking System. Each Cineplex has two admins.
  * Each admin may only work under one cineplex
  */
 public class Admin {
