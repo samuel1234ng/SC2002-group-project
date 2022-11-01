@@ -5,14 +5,14 @@ import java.util.Arrays;
 
 
 public class MovieListing {
-	enum movietype{blockbuster,imax3D};
+	enum movietypes{blockbuster,imax3D};
 	private movie movieName;	
-	private movietype movietype;
+	private movietypes movietype;
 	private int[]timeSlot;
 	private double[] TicketPrice;
 	private Seat[15][12] seats;
 	
-	public MovieListing( moive movie,int[] timeslot,double[] TicketPrice,movietype movietype) {
+	public MovieListing( movie movie,int[] timeslot,double[] TicketPrice,movietype movietype) {
 		this.movieName=movie;
 		this.timeSlot=timeslot;
 		this.TicketPrice=TicketPrice;
@@ -43,14 +43,14 @@ public class MovieListing {
 		MovieListing Movie[]= new MovieListing[movie.length];
 		for(int i=0;i<16;i++) {
 			for(int j=0;j<13;j++) {
-				Movie.seats[i][j]=0;
+				this.movie[i][j]=0;
 			}
 		}
 		for(int k=0;k<movie.length;k++) {
 			Movie[k].movieName=movie[k];
 			Scanner scan=new Scanner(System.in);
 			System.out.println("Enter number of MovieType:");
-			Movie[k].movietype= valueOf(scan.nextLine());
+			Movie[k].movietype= movietypes.valueOf(scan.nextLine());
 			System.out.println("Enter number of Timeslot:");
 			int size=scan.nextInt();
 			System.out.println("Enter "+size +" Timeslots:");
@@ -85,6 +85,8 @@ public class MovieListing {
 	        }
 	        return anotherArray;
 	}
+	
+
 		
 
 }
