@@ -1,4 +1,4 @@
-package sc2002.project;
+
 import java.util.Scanner;
 
 public class Booking { 
@@ -89,7 +89,5 @@ public class Booking {
     
     
     
-    //cinema class needs cinema code
-    //select movie, select cinema(movie), select time, available seats(cinema), select seat(will display)(cinema), makebooking
-    //bookinghistory(should it be in this class)
+    
 }
