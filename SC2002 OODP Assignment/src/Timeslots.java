@@ -2,7 +2,7 @@ public class timeSlots {
 	int timing;
 	Seat[][] seating;
 	
-	Seat[][] getSeats(){
+public Seat[][] getSeats(){
 		return this.seating;
 		
 	}
