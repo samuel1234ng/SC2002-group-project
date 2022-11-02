@@ -61,6 +61,14 @@ public class MovieListing {
 			for (int j = 0 ; j < size; j++ ) {
 		           Movie[k].timeSlots.timing = scan.nextInt();
 		        }
+			for(int i=0;i<10;i++) {
+			String alpha = letters[i];
+			for(int j=0;j<16;j++) {
+				String num = Integer.toString(j+1);
+				String code = num+alpha;
+				Movie[k].timeSlots.seating[i][j]=new Seat(code);
+			}
+		}
 			System.out.println("Enter 3 TicketPrice for children, adults and seniors respectively:");
 			for (int l = 0 ; l < 3; l++ ) {
 		           Movie[k].TicketPrice[l] = scan.nextDouble();
