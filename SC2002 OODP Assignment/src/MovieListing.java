@@ -5,19 +5,19 @@ import java.util.Arrays;
 
 
 public class MovieListing {
-	enum movietypes{blockbuster,imax3D};
-	private movie movieName;	
-	private movietypes movietype;
+	enum Movietypes{blockbuster,imax3D};
+	private Movie movieName;	
+	private Movietypes movietype;
 	private final char[] letters = {'I','H','G','F','E','D','C','B','A'};
-	private timeSlots[] timeSlots;
+	private TimeSlots[] timeSlots;
 	private double[] TicketPrice;
 
 	
 	public MovieListing( movie movie,int timeslot,double[] TicketPrice,movietype movietype) {
 		this.movieName=movie;
-		this.timeSlots.timing=timeslot;
+		this.TimeSlots.timing=timeslot;
 		this.TicketPrice=TicketPrice;
-		this.movietype=movietype;
+		this.Movietype=movietype;
 		for(int i=0;i<10;i++) {
 			String alpha = letters[i];
 			for(int j=0;j<16;j++) {
