@@ -6,8 +6,9 @@ import java.util.Arrays;
 
 public class MovieListing {
 	enum movietypes{blockbuster,imax3D};
-	private movie movieName;	
+	private Movie movieName;	
 	private movietypes movietype;
+	private final char[] letters = {'I','H','G','F','E','D','C','B','A'};
 	private int[]timeSlot;
 	private double[] TicketPrice;
 	private Seat[][] seats;
@@ -17,9 +18,12 @@ public class MovieListing {
 		this.timeSlot=timeslot;
 		this.TicketPrice=TicketPrice;
 		this.movietype=movietype;
-		for(int i=0;i<16;i++) {
-			for(int j=0;j<13;j++) {
-				this.seats[i][j]=0;
+		for(int i=0;i<10;i++) {
+			String alpha = letters[i];
+			for(int j=0;j<16;j++) {
+				String num = Integer.toString(j+1);
+				String code = num+alpha;
+				this.seats[i][j]=new Seat(code);
 			}
 		}
 		
