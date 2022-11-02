@@ -97,12 +97,7 @@ public class MovieListing {
 	        }
 	        return anotherArray;
 	}
-	getSeats(){
-		
-		
-		
-		
-	}
+
 
 		
 
