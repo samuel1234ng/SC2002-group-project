@@ -6,24 +6,20 @@ import java.util.Arrays;
 
 public class MovieListing {
 	enum movietypes{blockbuster,imax3D};
-	private Movie movieName;	
+	private movie movieName;	
 	private movietypes movietype;
-	private final char[] letters = {'I','H','G','F','E','D','C','B','A'};
-	private int[]timeSlot;
+	private timeSlots[] timeSlots;
 	private double[] TicketPrice;
-	private Seat[][] seats;
+
 	
-	public MovieListing( movie movie,int[] timeslot,double[] TicketPrice,movietype movietype) {
+	public MovieListing( movie movie,int timeslot,double[] TicketPrice,movietype movietype) {
 		this.movieName=movie;
-		this.timeSlot=timeslot;
+		this.timeSlots.timing=timeslot;
 		this.TicketPrice=TicketPrice;
 		this.movietype=movietype;
-		for(int i=0;i<10;i++) {
-			String alpha = letters[i];
-			for(int j=0;j<16;j++) {
-				String num = Integer.toString(j+1);
-				String code = num+alpha;
-				this.seats[i][j]=new Seat(code);
+		for(int i=0;i<16;i++) {
+			for(int j=0;j<13;j++) {
+				this.timeSlots.seats[i][j]=0;
 			}
 		}
 		
@@ -59,7 +55,7 @@ public class MovieListing {
 			int size=scan.nextInt();
 			System.out.println("Enter "+size +" Timeslots:");
 			for (int j = 0 ; j < size; j++ ) {
-		           Movie[k].timeSlot[j] = scan.nextInt();
+		           Movie[k].timeSlots.timing = scan.nextInt();
 		        }
 			System.out.println("Enter 3 TicketPrice for children, adults and seniors respectively:");
 			for (int l = 0 ; l < 3; l++ ) {
@@ -89,7 +85,12 @@ public class MovieListing {
 	        }
 	        return anotherArray;
 	}
-	
+	getSeats(){
+		
+		
+		
+		
+	}
 
 		
 
