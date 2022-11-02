@@ -32,7 +32,7 @@ public class MovieListing {
 	}
 	
 	
-	void updateMovieListing(MovieListing[] movieListing, double[] TicketPrice,String name,int[] timeslot) {
+	void updateMovieListing(MovieListing[] movieListing, double[] TicketPrice,String name,TimeSlots[] timeslot) {
 		for(int i=0;i<movieListing.length;i++) {
 			if(name==movieListing[i].movieName.title)
 			
