@@ -1,4 +1,4 @@
-public class timeSlots {
+public class TimeSlots {
 	int timing;
 	Seat[][] seating;
 	
