@@ -23,7 +23,7 @@ public class MovieListing {
 			for(int j=0;j<16;j++) {
 				String num = Integer.toString(j+1);
 				String code = num+alpha;
-				this.timeSlots.seats[i][j]=new Seat(code);
+				this.timeSlots.seating[i][j]=new Seat(code);
 			}
 		}
 		
