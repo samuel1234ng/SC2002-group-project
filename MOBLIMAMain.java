@@ -474,8 +474,15 @@ public class MOBLIMAMain {
     }
 
     public static void main(String[] args) {
-        Cineplex[] cineplexes = new Cineplex[3];
         Scanner sc = new Scanner(System.in);
+        
+        String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
+    	Cineplex[] cineplexes = new Cineplex[cineplexnames.length];
+    	for (int i=0;i<cineplexnames.length;i++)
+    	{
+    		cineplexes[i]=new Cineplex(cineplexnames[i], 5);
+    	}
+        
         System.out.println("""
                 Dear User, Welcome!
                 Please login to the Booking system.
