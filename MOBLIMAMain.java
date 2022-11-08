@@ -5,7 +5,9 @@ import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 public class MOBLIMAMain {
-    public static void guestUser(Scanner sc) {
+	public static String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
+	
+	public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
         System.out.println("""
                 Welcome to the booking system!
                 Please follow the instructions below to create a new Viewer account.
@@ -22,12 +24,12 @@ public class MOBLIMAMain {
                 We will now proceed to direct you to the Viewer Menu.
                 """);
         ViewerDB.createViewerInFile(v);
-        viewerUser(sc, v);
+        viewerUser(sc, v, cineplexes);
 
 
     }
 
-    public static void viewerUser(Scanner sc, Viewer v) {
+    public static void viewerUser(Scanner sc, Viewer v, Cineplex[] cineplexes) {
         /*
         Movie-goer module
         1. Search/List movie
@@ -39,8 +41,15 @@ public class MOBLIMAMain {
         */
 
         // ADD CHOOSE CINEPLEX CODE
-
-        Cineplex c1 = new Cineplex("testCineplex", 5);
+    	System.out.println("Please choose cineplex:");
+    	for (int i=0;i<3;i++)
+    	{
+    		System.out.print("(");
+    		System.out.print(i+1);
+    		System.out.print(") ");
+    		System.out.println(cineplexnames[i]);
+    	}
+    	int cineplexoption = sc.nextInt()-1;
 
         System.out.printf(""" 
                 Welcome %s ! What would you like to do? Enter your choice:
@@ -77,7 +86,7 @@ public class MOBLIMAMain {
                     System.out.println("Select movie : ");
                     String selection = sc.next();
                     //Add search cinema by movie function to Cineplex class
-                    Cinema cinema = c1.cinemaByMovie(selection);
+                    Cinema cinema = cineplexes[cineplexoption].cinemaByMovie(selection);
                     //Assume cinema already has MovieListing arraylist initialized
                     MovieListing listing = cinema.getListing(selection);
                     //Show user available timings 
@@ -96,7 +105,7 @@ public class MOBLIMAMain {
                     System.out.println("Select movie : ");
                     String selection = sc.next();
                     //Add search cinema by movie function to Cineplex class
-                    Cinema cinema = c1.cinemaByMovie(selection);
+                    Cinema cinema = cineplexes[cineplexoption].cinemaByMovie(selection);
                     //Assume cinema already has MovieListing arraylist initialized
                     MovieListing listing = cinema.getListing(selection);
                     //Show user available timings 
@@ -361,12 +370,15 @@ public class MOBLIMAMain {
 
 
                             }
-                            System.out.println("""
-                                    Select a Cineplex to add movie
-                                    (1) Cineplex a
-                                    (2) Cineplex b
-                                    (3) Cineplex c
-                                    """);
+                            
+                            System.out.println("Select a Cineplex to add movie");
+                        	for (int i1=0;i1<3;i1++)
+                        	{
+                        		System.out.print("(");
+                        		System.out.print(i1+1);
+                        		System.out.print(") ");
+                        		System.out.println(cineplexnames[i1]);
+                        	}
                             int optionCineplex = sc.nextInt();
                             System.out.println("""
                                     Select a Cinema to add movie
@@ -385,12 +397,14 @@ public class MOBLIMAMain {
                 }
                 case 3 -> {
                     // Edit a movie
-                    System.out.println("""
-                            Select a Cineplex to add movie
-                            (1) Cineplex a
-                            (2) Cineplex b
-                            (3) Cineplex c
-                            """);
+                	 System.out.println("Select a Cineplex to add movie");
+                 	for (int i1=0;i1<3;i1++)
+                 	{
+                 		System.out.print("(");
+                 		System.out.print(i1+1);
+                 		System.out.print(") ");
+                 		System.out.println(cineplexnames[i1]);
+                 	}
                     int optionCineplex = sc.nextInt();
                     System.out.println("""
                             Select a Cinema to add movie
@@ -476,13 +490,22 @@ public class MOBLIMAMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
     	Cineplex[] cineplexes = new Cineplex[cineplexnames.length];
     	for (int i=0;i<cineplexnames.length;i++)
     	{
     		cineplexes[i]=new Cineplex(cineplexnames[i], 5);
     	}
-        
+    	//System.out.println("Please choose cineplex:");
+    	//for (int i=0;i<3;i++)
+    	//{
+    	//	System.out.print("(");
+    	//	System.out.print(i+1);
+    	//	System.out.print(") ");
+    	//	System.out.println(cineplexnames[i]);
+    	//}
+    	//int cineplexoption = sc.nextInt()-1;
+    	
+    	
         System.out.println("""
                 Dear User, Welcome!
                 Please login to the Booking system.
@@ -496,7 +519,7 @@ public class MOBLIMAMain {
             System.out.println("Enter your username or Email:");
             String username = sc.nextLine();
             if (username.equals("g")) {
-                guestUser(sc);
+                guestUser(sc, cineplexes);
             }
             System.out.println("Enter your password or mobile Number:");
             String password = sc.nextLine();
@@ -507,7 +530,7 @@ public class MOBLIMAMain {
                     adminUser(sc, cineplexes);
                 }
                 case 2 -> {
-                    viewerUser(sc, ViewerDB.getViewer(username));
+                    viewerUser(sc, ViewerDB.getViewer(username), cineplexes);
                 }
                 case 3 -> {
                     System.out.println("The login details entered were wrong. Would you like to try again?");
@@ -519,9 +542,9 @@ public class MOBLIMAMain {
                     }
                     Viewer final_test = ViewerDB.getViewer(username);
                     if (final_test.getFullName().equals("")) {
-                        guestUser(sc);
+                        guestUser(sc, cineplexes);
                     } else {
-                        viewerUser(sc, final_test);
+                        viewerUser(sc, final_test, cineplexes);
                     }
                 }
             }
