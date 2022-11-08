@@ -143,24 +143,25 @@ public class MOBLIMAMain {
                     }
                 }
                 case 6 -> { // leave reviews for movie
-                    ArrayList<String> reviewList = ReviewDBText.readReviews(reviewFile);
+                        String reviewFile = "data/reviews.txt";
+                        ArrayList<Review> reviewList = ReviewDB.readReviews(reviewFile);
 
-                    System.out.print("Please enter your name: ");
-                    String name = sc.nextLine();
-                    System.out.print("Please enter the movie title: ");
-                    String movieTitle = sc.nextLine();
-                    System.out.print("Please input your rating (1-5): ");
-                    double rating = sc.nextFloat();
-                    sc.nextLine();
-                    System.out.println("Please input your review: ");
-                    String review = sc.nextLine();
+                        System.out.print("Please enter your name: ");
+                        String name = sc.nextLine();
+                        System.out.print("Please enter the movie title: ");
+                        String movieTitle = sc.nextLine();
+                        System.out.print("Please input your rating (1-5): ");
+                        double rating = sc.nextFloat();
+                        sc.nextLine();
+                        System.out.println("Please input your review: ");
+                        String review = sc.nextLine();
 
-                    Review newReview = new Review(name, movieTitle, rating, review); // create new review object
+                        Review newReview = new Review(name, movieTitle, rating, review); // create new review object
 
-                    reviewList.add(newReview);
+                        reviewList.add(newReview);
 
-                    // write review records to file.
-                    ReviewDBText.saveReviews(reviewFile, reviewList);
+                        // write review records to file.
+                        ReviewDB.saveReviews(reviewFile, reviewList);
                 }
                 case 7 -> {
                     /* View the Top 5 ranked movies by
@@ -183,7 +184,7 @@ public class MOBLIMAMain {
                         }
                     }
                 }
-                case 7 -> {
+                case 8 -> {
                     return;
                     // logout
                 }
