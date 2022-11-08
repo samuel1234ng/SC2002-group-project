@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Cineplex{
-	private final String Cineplexname;
+	public final String Cineplexname;
 	private final Cinema[] cinemas;
 	
 	
