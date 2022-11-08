@@ -8,7 +8,7 @@ import java.util.*;
  * Represents a movie database which can be used to write and read from a text file (movies.txt).
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-05
+ * @since 2022-11-08
  */
 public class MovieDB {
 
