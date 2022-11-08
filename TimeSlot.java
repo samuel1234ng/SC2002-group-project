@@ -3,7 +3,7 @@ public class TimeSlot {
 	Seat[][] seating = new Seat[10][16];
 
 	public TimeSlot(int timing) {
-		char[] letters = {'I','H','G','F','E','D','C','B','A'};
+		char[] letters = {'*','I','H','G','F','E','D','C','B','A'};
 		this.timing=timing;
 		for(int i=0;i<10;i++) {
 		    char alpha = letters[i];
