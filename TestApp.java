@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TestApp {
-
     // use below constants in print to change output colours
     public static final String BOLD = "\u001B[1m";
     public static final String RESET = "\u001B[0m";
@@ -28,7 +27,6 @@ public class TestApp {
                 int count = 0;
                 Movie movie = (Movie) movieList.get(i);
                 System.out.println(BOLD + "Movie Title: " + RESET + PURPLE + movie.getTitle() + RESET); // prints in bold and purple
-                System.out.println(BOLD + "Showing Status: " + RESET + PURPLE + movie.getStatus() + RESET);
                 System.out.println(BOLD + "Synopsis: " + RESET + PURPLE + movie.getSynopsis() + RESET);
                 System.out.println(BOLD + "Director: " + RESET + PURPLE + movie.getDirector() + RESET);
                 System.out.println(BOLD + "Cast: " + RESET + PURPLE + movie.getCast() + RESET);
@@ -59,34 +57,10 @@ public class TestApp {
             //ArrayList movieList = new ArrayList<>(); //MovieDBText.readMovies(movieFile);
 
             ArrayList<String> cast = new ArrayList<>();
-            Movie.ShowingStatus status = null;
             String casting;
 
             System.out.print("Title: ");
             String title = sc.nextLine();
-            System.out.println("Choose Showing Status: ");
-            System.out.println("1. Coming Soon");
-            System.out.println("2. Preview");
-            System.out.println("3. Now Showing");
-            System.out.println("4. End Of Showing");
-            int choice = sc.nextInt();
-
-            switch (choice){
-                case 1:
-                    status = Movie.ShowingStatus.COMING_SOON;
-                    break;
-                case 2:
-                    status = Movie.ShowingStatus.PREVIEW;
-                    break;
-                case 3:
-                    status = Movie.ShowingStatus.NOW_SHOWING;
-                    break;
-                case 4:
-                    status = Movie.ShowingStatus.END_OF_SHOWING;
-                    break;
-            }
-            sc.nextLine();
-
             System.out.print("Synopsis: ");
             String synopsis = sc.nextLine();
             System.out.print("Director: ");
@@ -109,10 +83,9 @@ public class TestApp {
             System.out.print("Release: ");
             String release = sc.nextLine();
 
-
             ArrayList<String> reviewDescription = new ArrayList<>();
 
-            Movie m1 = new Movie(title, status, synopsis, director, cast, genre, language, runtime,
+            Movie m1 = new Movie(title, synopsis, director, cast, genre, language, runtime,
                     rating, release, "NA", reviewDescription, 0);
 
             // movieList is an array list containing movie objects
