@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  * Represents a review database which can be used to write and read from a text file (reviews.txt).
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-05
+ * @since 2022-11-08
  */
 public class ReviewDB{
 
@@ -30,9 +30,10 @@ public class ReviewDB{
         ArrayList<String> stringArray = read(filename); // read String from text file
         ArrayList<Review> reviewRead = new ArrayList<>(); // to store reviews data
 
-        for (String st : stringArray) {
+        for (String s : stringArray) {
+
             // get individual 'fields' of the string separated by SEPARATOR
-            StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
+            StringTokenizer star = new StringTokenizer(s, SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 
             // extracts each field to its respective variable
             String reviewer = star.nextToken().trim();
@@ -44,7 +45,7 @@ public class ReviewDB{
             Review review = new Review(reviewer, movieTitle, rating, reviewDescription);
 
             // add to review list
-            reviewRead.add(review);
+            reviewRead.add(review) ;
         }
         return reviewRead;
     }
@@ -53,23 +54,24 @@ public class ReviewDB{
      * Converts a new review object into a string and stores it into list.
      * This list is written to the existing reviews.txt file.
      * @param filename The file path of the reviews.txt file which contains all the reviews and ratings.
-     * @param al A list containing the new review object.
+     * @param al An arraylist containing the new review object.
      * @throws IOException
      * @see #write(String, ArrayList)
      */
     public static void saveReviews(String filename, ArrayList<Review> al) throws IOException {
         ArrayList<String> reviewWrite = new ArrayList<>() ;// to store reviews data
 
-        for (Review o : al) {
-            String st = o.getReviewerName().trim() +
-                    SEPARATOR +
-                    o.getMovieTitle().trim() +
-                    SEPARATOR +
-                    o.getRating() +
-                    SEPARATOR +
-                    o.getReviewDescription().trim();
+        for (Review r : al){
+            StringBuilder st =  new StringBuilder();
+            st.append(r.getReviewerName().trim());
+            st.append(SEPARATOR);
+            st.append(r.getMovieTitle().trim());
+            st.append(SEPARATOR);
+            st.append(r.getRating());
+            st.append(SEPARATOR);
+            st.append(r.getReviewDescription().trim());
 
-            reviewWrite.add(st);
+            reviewWrite.add(st.toString());
         }
         write(filename,reviewWrite);
     }
@@ -77,17 +79,21 @@ public class ReviewDB{
     /**
      * Writes the review data obtained from saveReviews() into the reviews.txt file.
      * @param fileName The file path of the reviews.txt file which contains all the reviews and ratings.
-     * @param data A list containing the review data in string format.
+     * @param data An arraylist containing the review data in string format.
      * @throws IOException
      * @see PrintWriter
      * @see FileWriter
      */
     public static void write(String fileName, ArrayList<String> data) throws IOException  {
+        PrintWriter out = new PrintWriter(new FileWriter(fileName));
 
-        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+        try {
             for (String datum : data) {
                 out.println(datum);
             }
+        }
+        finally {
+            out.close();
         }
     }
 
@@ -100,11 +106,15 @@ public class ReviewDB{
      * @see FileInputStream
      */
     public static ArrayList<String> read(String fileName) throws IOException {
-        ArrayList<String> data = new ArrayList<>() ;
-        try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
-            while (scanner.hasNextLine()) {
+        ArrayList<String> data = new ArrayList<>();
+        Scanner scanner = new Scanner(new FileInputStream(fileName));
+        try {
+            while (scanner.hasNextLine()){
                 data.add(scanner.nextLine());
             }
+        }
+        finally{
+            scanner.close();
         }
         return data;
     }
