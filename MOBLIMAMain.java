@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 public class MOBLIMAMain {
-	public static String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
+	
 	
 	public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
         System.out.println("""
@@ -47,7 +47,7 @@ public class MOBLIMAMain {
     		System.out.print("(");
     		System.out.print(i+1);
     		System.out.print(") ");
-    		System.out.println(cineplexnames[i]);
+    		System.out.println(cineplexes[i].Cineplexname);
     	}
     	int cineplexoption = sc.nextInt()-1;
 
@@ -254,12 +254,12 @@ public class MOBLIMAMain {
                         System.out.println("""
                                 What would you like to do?
                                 (1) Print settings
-                                (2) changebaseprice
-                                (3) changeticketprice
-                                (4) addholiday
-                                (5) removeholiday
-                                (6) reload settings from file
-                                (7) save and return
+                                (2) Change base price
+                                (3) Change ticket price
+                                (4) Add holiday
+                                (5) Remove holiday
+                                (6) Reload settings from file
+                                (7) Save and return
                                 """);
                         choice2 = sc.nextInt();
                         while (choice2 > 7 || choice2 < 1) {
@@ -377,7 +377,7 @@ public class MOBLIMAMain {
                         		System.out.print("(");
                         		System.out.print(i1+1);
                         		System.out.print(") ");
-                        		System.out.println(cineplexnames[i1]);
+                        		System.out.println(cineplexes[i].Cineplexname);
                         	}
                             int optionCineplex = sc.nextInt();
                             System.out.println("""
@@ -403,7 +403,7 @@ public class MOBLIMAMain {
                  		System.out.print("(");
                  		System.out.print(i1+1);
                  		System.out.print(") ");
-                 		System.out.println(cineplexnames[i1]);
+                 		System.out.println(cineplexes[i1].Cineplexname);
                  	}
                     int optionCineplex = sc.nextInt();
                     System.out.println("""
@@ -489,7 +489,7 @@ public class MOBLIMAMain {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+        String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
     	Cineplex[] cineplexes = new Cineplex[cineplexnames.length];
     	for (int i=0;i<cineplexnames.length;i++)
     	{
