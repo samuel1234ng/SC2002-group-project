@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * There can be multiple movies stored in the movie database.
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-05
+ * @since 2022-11-08
  */
 public class Movie implements Serializable {
 
