@@ -1,6 +1,6 @@
 public class Seat {
     //class attributes
-    private String seatId;
+    private final String seatId;
     private boolean assigned;
     private String viewerId; //from the viewer class
     //constructor
@@ -9,6 +9,8 @@ public class Seat {
         this.assigned = false;
         this.viewerId = "0";
     }
+
+
     //methods
     public String getSeatId(){
         return this.seatId;
@@ -23,10 +25,13 @@ public class Seat {
         this.viewerId = viewer_id;
         this.assigned = true;
     }
+
+    public void assign(){
+        this.assigned = true;
+    }
     public void unassign(){
         this.viewerId = "0";
         this.assigned = false;
     }
-
 
 }
