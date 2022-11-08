@@ -11,6 +11,13 @@ public class Cinema {
 	Cinema(String id)
 	{
 		this.cinemaId=id;
+		ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
+		for (int i = 0; i < movies.size(); i++) 
+		{
+			MovieListing mvl = new MovieListing(movies.get(i), "blockbuster","nowShowing");
+			movielistings.add(mvl);
+		}
+		
 	}
 	
 	
