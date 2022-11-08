@@ -143,7 +143,7 @@ public class MOBLIMAMain {
                     }
                 }
                 case 6 -> { // leave reviews for movie
-                    ArrayList reviewList = ReviewDBText.readReviews(reviewFile);
+                    ArrayList<String> reviewList = ReviewDBText.readReviews(reviewFile);
 
                     System.out.print("Please enter your name: ");
                     String name = sc.nextLine();
