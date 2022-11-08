@@ -5,9 +5,8 @@ import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 public class MOBLIMAMain {
-	
-	
-	public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
+
+    public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
         System.out.println("""
                 Welcome to the booking system!
                 Please follow the instructions below to create a new Viewer account.
@@ -25,8 +24,6 @@ public class MOBLIMAMain {
                 """);
         ViewerDB.createViewerInFile(v);
         viewerUser(sc, v, cineplexes);
-
-
     }
 
     public static void viewerUser(Scanner sc, Viewer v, Cineplex[] cineplexes) {
@@ -37,35 +34,36 @@ public class MOBLIMAMain {
         3. Check seat availability and selection of seat/s.
         4. Book and purchase ticket
         5. View booking history
-        6. List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
+        6. Review a movie
+        7. List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
         */
 
         // ADD CHOOSE CINEPLEX CODE
-    	System.out.println("Please choose cineplex:");
-    	for (int i=0;i<3;i++)
-    	{
-    		System.out.print("(");
-    		System.out.print(i+1);
-    		System.out.print(") ");
-    		System.out.println(cineplexes[i].getCineplexname());
-    	}
-    	int cineplexoption = sc.nextInt()-1;
+        System.out.println("Please choose cineplex:");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("(");
+            System.out.print(i + 1);
+            System.out.print(") ");
+            System.out.println(cineplexes[i].getCineplexname());
+        }
+        int cineplexoption = sc.nextInt() - 1;
 
         System.out.printf(""" 
                 Welcome %s ! What would you like to do? Enter your choice:
                 (1) Search for a Movie and view its details
                 (2) View a list of all the movies
                 (3) Check seat availability for show-times
-                (4) Select  and purchase seats and make a Booking
+                (4) Select and purchase seats and make a Booking
                 (5) View your booking history
-                (6) View the Top 5 ranked movies by
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by
                     (i) Ticket sales
                     (ii) Overall reviewers’ ratings
-                (7) Logout
+                (8) Logout
                 """, v.getFullName());
 
         int choice = sc.nextInt();
-        while (choice <= 7 && choice >= 0) {
+        while (choice <= 8 && choice >= 0) {
             switch (choice) {
                 case 1 -> {
                     //Search for a Movie
@@ -144,7 +142,27 @@ public class MOBLIMAMain {
                                 	""", movie_name, seat, date, transaction_id);
                     }
                 }
-                case 6 -> {
+                case 6 -> { // leave reviews for movie
+                    ArrayList reviewList = ReviewDBText.readReviews(reviewFile);
+
+                    System.out.print("Please enter your name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Please enter the movie title: ");
+                    String movieTitle = sc.nextLine();
+                    System.out.print("Please input your rating (1-5): ");
+                    double rating = sc.nextFloat();
+                    sc.nextLine();
+                    System.out.println("Please input your review: ");
+                    String review = sc.nextLine();
+
+                    Review newReview = new Review(name, movieTitle, rating, review); // create new review object
+
+                    reviewList.add(newReview);
+
+                    // write review records to file.
+                    ReviewDBText.saveReviews(reviewFile, reviewList);
+                }
+                case 7 -> {
                     /* View the Top 5 ranked movies by
                           (i) Ticket sales
                          (ii) Overall reviewers’ ratings */
@@ -370,15 +388,14 @@ public class MOBLIMAMain {
 
 
                             }
-                            
+
                             System.out.println("Select a Cineplex to add movie");
-                        	for (int i1=0;i1<3;i1++)
-                        	{
-                        		System.out.print("(");
-                        		System.out.print(i1+1);
-                        		System.out.print(") ");
-                        		System.out.println(cineplexes[i].getCineplexname());
-                        	}
+                            for (int i1 = 0; i1 < 3; i1++) {
+                                System.out.print("(");
+                                System.out.print(i1 + 1);
+                                System.out.print(") ");
+                                System.out.println(cineplexes[i].getCineplexname());
+                            }
                             int optionCineplex = sc.nextInt();
                             System.out.println("""
                                     Select a Cinema to add movie
@@ -397,14 +414,13 @@ public class MOBLIMAMain {
                 }
                 case 3 -> {
                     // Edit a movie
-                	 System.out.println("Select a Cineplex to add movie");
-                 	for (int i1=0;i1<3;i1++)
-                 	{
-                 		System.out.print("(");
-                 		System.out.print(i1+1);
-                 		System.out.print(") ");
-                 		System.out.println(cineplexes[i1].getCineplexname());
-                 	}
+                    System.out.println("Select a Cineplex to add movie");
+                    for (int i1 = 0; i1 < 3; i1++) {
+                        System.out.print("(");
+                        System.out.print(i1 + 1);
+                        System.out.print(") ");
+                        System.out.println(cineplexes[i1].getCineplexname());
+                    }
                     int optionCineplex = sc.nextInt();
                     System.out.println("""
                             Select a Cinema to add movie
@@ -450,16 +466,9 @@ public class MOBLIMAMain {
                                             int newTime = sc.nextInt();
                                             cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movielistings.get(i).timeSlots.get(o).setTiming(newTime);
                                         }
-
-
                                     }
-
-
                                 }
-
-
                             }
-
                         }
                     }
                 }
@@ -490,22 +499,21 @@ public class MOBLIMAMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[] cineplexnames = {"cineplex1", "cineplex2", "cineplex3"};
-    	Cineplex[] cineplexes = new Cineplex[cineplexnames.length];
-    	for (int i=0;i<cineplexnames.length;i++)
-    	{
-    		cineplexes[i]=new Cineplex(cineplexnames[i], 5);
-    	}
-    	//System.out.println("Please choose cineplex:");
-    	//for (int i=0;i<3;i++)
-    	//{
-    	//	System.out.print("(");
-    	//	System.out.print(i+1);
-    	//	System.out.print(") ");
-    	//	System.out.println(cineplexnames[i]);
-    	//}
-    	//int cineplexoption = sc.nextInt()-1;
-    	
-    	
+        Cineplex[] cineplexes = new Cineplex[cineplexnames.length];
+        for (int i = 0; i < cineplexnames.length; i++) {
+            cineplexes[i] = new Cineplex(cineplexnames[i], 5);
+        }
+        //System.out.println("Please choose cineplex:");
+        //for (int i=0;i<3;i++)
+        //{
+        //	System.out.print("(");
+        //	System.out.print(i+1);
+        //	System.out.print(") ");
+        //	System.out.println(cineplexnames[i]);
+        //}
+        //int cineplexoption = sc.nextInt()-1;
+
+
         System.out.println("""
                 Dear User, Welcome!
                 Please login to the Booking system.
