@@ -17,11 +17,6 @@ public class Movie implements Serializable {
     private String title;
 
     /**
-     * The showing status of this movie in Cinema.
-     */
-    public enum ShowingStatus{COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING}
-
-    /**
      * The synopsis of this movie.
      */
     private String synopsis;
@@ -77,11 +72,6 @@ public class Movie implements Serializable {
     private int noOfTickets;
 
     /**
-     * Stores the current status of this movie.
-     */
-    private ShowingStatus status;
-
-    /**
      * The review file part of the reviews.txt file.
      */
     private String reviewFile = "data/reviews.txt" ;
@@ -89,7 +79,6 @@ public class Movie implements Serializable {
     /**
      * Creates a new movie with the given parameters.
      * @param title This Movie's title.
-     * @param status This Movie's status.
      * @param synopsis This Movie's synopsis.
      * @param director This Movie's director.
      * @param cast This Movie's list of cast.
@@ -103,11 +92,10 @@ public class Movie implements Serializable {
      * @param noOfTickets This Movie's number of tickets sold.
      * @see #updateReviewsRatings()
      */
-    public Movie(String title, ShowingStatus status, String synopsis, String director, ArrayList<String> cast,
+    public Movie(String title, String synopsis, String director, ArrayList<String> cast,
                  String language, String genre, String runTime, String movieRating, String release,
                  String overallReviewerRating, ArrayList<String> pastReviews, int noOfTickets){
         this.title = title;
-        this.status = status;
         this.synopsis = synopsis;
         this.director = director;
         this.cast = cast;
@@ -128,14 +116,6 @@ public class Movie implements Serializable {
      */
     public String getTitle() {
         return title;
-    }
-
-    /**
-     * Gets the current status of this Movie in cinemas.
-     * @return this Movie's current status.
-     */
-    public ShowingStatus getStatus() {
-        return status;
     }
 
     /**
