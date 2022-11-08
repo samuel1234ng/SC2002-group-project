@@ -47,7 +47,7 @@ public class MOBLIMAMain {
     		System.out.print("(");
     		System.out.print(i+1);
     		System.out.print(") ");
-    		System.out.println(cineplexes[i].Cineplexname);
+    		System.out.println(cineplexes[i].getCineplexname());
     	}
     	int cineplexoption = sc.nextInt()-1;
 
@@ -377,7 +377,7 @@ public class MOBLIMAMain {
                         		System.out.print("(");
                         		System.out.print(i1+1);
                         		System.out.print(") ");
-                        		System.out.println(cineplexes[i].Cineplexname);
+                        		System.out.println(cineplexes[i].getCineplexname());
                         	}
                             int optionCineplex = sc.nextInt();
                             System.out.println("""
@@ -403,7 +403,7 @@ public class MOBLIMAMain {
                  		System.out.print("(");
                  		System.out.print(i1+1);
                  		System.out.print(") ");
-                 		System.out.println(cineplexes[i1].Cineplexname);
+                 		System.out.println(cineplexes[i1].getCineplexname());
                  	}
                     int optionCineplex = sc.nextInt();
                     System.out.println("""
