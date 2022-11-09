@@ -55,7 +55,6 @@ public class AdminDB {
         }catch (Exception e){
             System.out.println("Exception >> " + e.getMessage());
         }
-        file_data.remove(file_data.size()-1);
         return file_data;
     }
 
