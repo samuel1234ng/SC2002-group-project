@@ -1,23 +1,40 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
+/**
+ * A class which writes and reads data to and from the movielisting text file
+ * @author Chinmay Prasad
+ * @version 1.0
+ * @since 2022-11-05
+ */
 public class MovieListingDB {
+    /**
+     * The character that separates movilistings in the text file
+     */
     public static final String SEPARATOR1 = "|";
+
+    /**
+     * The character that separates timeslots in the text file
+     */
     public static final String SEPARATOR2 = ";";
+
+    /**
+     * The character that separates rows of the seat array in the text file
+     */
     public static final String SEPARATOR3 = "-";
 
 
     /**
      * Reads data from a file and returns its contents in an ArrayList
-     * @param fileName
-     * the path of the file(from the content root)
      * @return
      * an ArrayList of strings containing lines of the read file
      */
-    public static ArrayList<String> readFile(String fileName) {
-        File f = new File(fileName);
+    public static ArrayList<String> readFile() {
+        File f = new File("data/movielisting.txt");
         ArrayList<String> file_data = new ArrayList<>();
         try (Scanner scanner = new Scanner(f)) {
             while (scanner.hasNextLine()) {
@@ -26,10 +43,22 @@ public class MovieListingDB {
         }catch (Exception e){
             System.out.println("Exception >> " + e.getMessage());
         }
-        file_data.remove(file_data.size()-1);
         return file_data;
     }
 
+    /**
+     * reads the movielisting file and finds the required movielisting by cineplex and cinema
+     * @param cineplexNumber
+     * the number of the cineplex for which the movielisting arraylist is required
+     * @param cinemaNumber
+     * the number of the cinema for which the movielisting arraylist is required
+     * @param data
+     * data read from the movielisting file
+     * @param allMovies
+     * movie data
+     * @return
+     * the cinema's movielistings
+     */
     public static ArrayList<MovieListing> getCinemaListing(int cineplexNumber, int cinemaNumber, ArrayList<String> data, ArrayList<Movie> allMovies){
         ArrayList<MovieListing> movieListings = new ArrayList<>();
         String string_listing = "";
@@ -52,7 +81,7 @@ public class MovieListingDB {
 
         // separates movieListings
         while(st.hasMoreTokens()){
-            MovieListing ml = null;
+            MovieListing ml;
             ArrayList<TimeSlot> timeSlots = new ArrayList<>();
             String movie = st.nextToken();
             StringTokenizer st2 = new StringTokenizer(movie, SEPARATOR2);
@@ -84,5 +113,99 @@ public class MovieListingDB {
             movieListings.add(ml);
         }
         return movieListings;
+    }
+
+    /**
+     * converts a  cinema's movielistings to a string equivalent
+     * @param movieListings
+     * a cinema's movielistings
+     * @return
+     * the string equivalent of the cinema's movielistings
+     */
+    public static String movieListingToString(ArrayList<MovieListing> movieListings){
+        StringBuilder output = new StringBuilder();
+        output.append(" ");
+        for(MovieListing ml: movieListings){
+            if(output.charAt(output.length()-1)==';'){
+                output.deleteCharAt(output.length()-1);
+                output.append("|");
+            }
+            String movieName = ml.getMovie().getTitle();
+            output.append(movieName).append(";");
+            for(TimeSlot timeSlot: ml.getTimeSlots()){
+                String date = timeSlot.getDate();
+                int time = timeSlot.getTiming();
+                output.append(date).append("-").append(time);
+                for(Seat[] row:timeSlot.getSeats()){
+                    StringBuilder string_row = new StringBuilder();
+                    output.append("-");
+                    for(Seat seat : row){
+                        if(seat.isAssigned()){
+                            string_row.append("x");
+                        }else{
+                            string_row.append("o");
+                        }
+                    }
+                    output.append(string_row);
+                }
+                output.append(";");
+            }
+            output.append("|");
+        }
+        output.deleteCharAt(output.length()-1);
+        output.deleteCharAt(output.length()-1);
+        output.deleteCharAt(0);
+
+        return output.toString();
+    }
+
+    /**
+     * writes data from an arraylist into the movielisting file after swapping out the necessary line with the new line
+     * @param data
+     * data to write into the file before the change
+     * @param newData
+     * a String which gets swapped with the old String data
+     * @param cineplexNumber
+     * the number of the cineplex which contains the required cinema
+     * @param cinemaNumber
+     * the number of the cinema which contains the required movielisting to edit
+     */
+    public static void changeLine(ArrayList<String> data, String newData, int cineplexNumber, int cinemaNumber){
+        int index = 0;
+        // find index of data in the arraylist to edit
+        switch (cineplexNumber){
+            case 1->{
+                index = cinemaNumber;
+            }
+            case 2->{
+                index = Integer.parseInt(data.get(0))+ 1 + cinemaNumber;
+            }
+            case 3 ->{
+                int num1 = Integer.parseInt(data.get(0));
+                int num2 = Integer.parseInt(data.get(num1+1));
+                index = num1+num2+2+cinemaNumber;
+            }
+        }
+        data.set(index, newData);
+        writeFile(data);
+    }
+
+    /**
+     * Writes an arraylist if String data into the movielisting text file
+     * @param data
+     * the data to write into the file
+     */
+    public static void writeFile(ArrayList<String> data) {
+
+        String fileName = "data/movielisting.txt";
+        File f = new File(fileName);
+        try (FileWriter out = new FileWriter(f, false)) {
+            for (String line : data) {
+                out.write(line + "\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception >> " + e.getMessage());
+
+        }
     }
 }
