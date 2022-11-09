@@ -5,12 +5,19 @@ import java.time.LocalDateTime;
 
 public class Booking {
 
-    public static void availableTimings(MovieListing movieListing){
+    public static ArrayList<Integer> availableTimings(MovieListing movieListing){
         ArrayList<TimeSlot> timings = movieListing.getTimeSlots();
+        ArrayList<Integer> times = new ArrayList<>();
         System.out.println("Available timings:");
         for(int i=0;i<timings.size();i++){
-            System.out.printf("Timeslot %d : %d\n",i+1,timings.get(i).getTiming());
+            String date = timings.get(i).getDate();
+            int time = timings.get(i).getTime();
+            String timeS = String.valueOf(time);
+            String output = timeS+" , "+date;
+            System.out.printf("Timeslot %d : %s\n",i+1,output);
+            times.add(i,time);
         }
+        return times;
     }
 
         
@@ -79,7 +86,7 @@ public class Booking {
         }
     }
 
-    public static void makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, ConfigureSystemSettings settings){
+    public static void makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings){
         //assign a seat from 2D seat array in movieListing
         Seat[][] seats = timeslot.getSeats();
 
