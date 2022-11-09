@@ -448,41 +448,41 @@ public class MOBLIMAMain {
                                     """);
                             int option = sc.nextInt();
                             switch (option) {
-                                // TODO: FIXXX
                                 case 1 -> {
                                     System.out.println("""
                                             Enter new status of movie:
-                                            (1)comingSoon
-                                            (2)nowShowing
-                                            (3)endOfShowing
+                                            (1)COMING_SOON
+                                            (2)NOW_SHOWING
+                                            (3)END_OF_SHOWING
                                             """);
-                                    String status = sc.nextLine();
-                                    cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).setStatus(status);
-                                    if (status.equals("endOfShowing")) {
-                                        cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.remove(i);
-
+                                    int intStatus = sc.nextInt();
+                                    String status;
+                                    switch (intStatus){
+                                        case 1-> {
+                                            status = "COMING_SOON";
+                                            cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).setStatus(status);
+                                        }
+                                        case 2-> {
+                                            status = "NOW_SHOWING";
+                                            cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).setStatus(status);
+                                        }
+                                        case 3->
+                                            cineplexes[optionCineplex-1].getCinemas()[optionCinema - 1].movieListings.remove(i);
                                     }
                                 }
                                 case 2 -> {
                                     MovieListing movieNew = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i);
                                     System.out.println("Enter timing you would like to replace: ");
                                     int oldTime = sc.nextInt();
-                                    for (int o = 0; o < cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).timeSlots.size(); o++) {
-                                        if (oldTime == cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).timeSlots.get(o).getTiming()) {
+                                    for (int o = 0; o < movieNew.timeSlots.size(); o++) {
+                                        if (oldTime == movieNew.timeSlots.get(o).getTiming()) {
                                             System.out.println("Enter new timing : ");
                                             int newTime = sc.nextInt();
-                                            cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i).timeSlots.get(o).setTiming(newTime);
+                                            movieNew.timeSlots.get(o).setTiming(newTime);
                                         }
-
-
                                     }
-
-
                                 }
-
-
                             }
-
                         }
                     }
                 }
