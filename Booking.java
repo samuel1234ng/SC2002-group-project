@@ -9,7 +9,7 @@ public class Booking {
         ArrayList<TimeSlot> timings = movieListing.getTimeSlots();
         System.out.println("Available timings:");
         for(int i=0;i<timings.size();i++){
-            System.out.printf("Timeslot %d : %d\n",i+1,timings.get(i).getTiming());
+            System.out.printf("Timeslot %d : %d\n",i+1,timings.get(i).getTime());
         }
     }
 

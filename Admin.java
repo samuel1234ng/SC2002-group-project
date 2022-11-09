@@ -54,7 +54,7 @@ public class Admin {
      * True if the login is successful, else false
      */
     public static boolean login(String username, String password){
-        String fileName = "src/data/Admin.txt";
+        String fileName = "src/data/admin.txt";
         HashMap<String, String> data = AdminDB.getAdminData(fileName);
         try{
             if (password.equals(data.get(username))){

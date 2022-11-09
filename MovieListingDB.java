@@ -134,7 +134,7 @@ public class MovieListingDB {
             output.append(movieName).append(";");
             for(TimeSlot timeSlot: ml.getTimeSlots()){
                 String date = timeSlot.getDate();
-                int time = timeSlot.getTiming();
+                int time = timeSlot.getTime();
                 output.append(date).append("-").append(time);
                 for(Seat[] row:timeSlot.getSeats()){
                     StringBuilder string_row = new StringBuilder();

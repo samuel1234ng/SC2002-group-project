@@ -9,7 +9,7 @@ public class Cineplex{
 		this.cineplexName = cineplexName;
 		this.cinemas= new Cinema[numCinemas];
         for(int i = 0; i < numCinemas; i++){
-            this.cinemas[i] = new Cinema(i, cineplexNumber);
+            this.cinemas[i] = new Cinema(i+1, cineplexNumber);
         }
 	}
 

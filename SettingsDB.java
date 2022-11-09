@@ -57,7 +57,7 @@ public class SettingsDB {
 
     public static HashMap<String, String> loginHelper() throws FileNotFoundException {
         HashMap<String, String> hm= new HashMap<>();
-        ArrayList<String> stringArray = (ArrayList<String>) readFile("src/data/Admin.txt");
+        ArrayList<String> stringArray = (ArrayList<String>) readFile("src/data/admin.txt");
         stringArray.remove(stringArray.size()-1);
         for (String s : stringArray) {
             StringTokenizer star = new StringTokenizer(s, SEPARATOR);

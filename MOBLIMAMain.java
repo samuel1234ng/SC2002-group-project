@@ -52,6 +52,7 @@ public class MOBLIMAMain {
                 cineplexes[2].getCineplexName());
 
         int cineplexChoice = sc.nextInt();
+        sc.nextLine();
         Cineplex cineplex = cineplexes[cineplexChoice-1];
 
         System.out.printf(""" 
@@ -70,6 +71,7 @@ public class MOBLIMAMain {
                 """, cineplex.getCineplexName());
 
         int choice = sc.nextInt();
+        sc.nextLine();
         while (choice <= 8 && choice >= 0) {
             switch (choice) {
                 case 1 -> {
@@ -99,6 +101,7 @@ public class MOBLIMAMain {
                     //User selects timing
                     System.out.println("Enter timing : ");
                     int timeChosen = sc.nextInt();
+                    sc.nextLine();
                     TimeSlot chosenTiming = listing.getTime(timeChosen);
                     //Show seats
                     Booking.availableSeats(chosenTiming);
@@ -118,6 +121,7 @@ public class MOBLIMAMain {
                     //User selects timing
                     System.out.println("Enter timing : ");
                     int timeChosen = sc.nextInt();
+                    sc.nextLine();
                     TimeSlot chosenTiming = listing.getTime(timeChosen);
                     //Show seats
                     Booking.availableSeats(chosenTiming);
@@ -184,6 +188,7 @@ public class MOBLIMAMain {
                     System.out.println("1. Ticket sales");
                     System.out.println("2. Ratings");
                     int ans = sc.nextInt();
+                    sc.nextLine();
                     if (ans == 1) {
                         ArrayList<Movie> sortedMovies = SearchMovie.movieByTickets(movies);
                         for (int i = 0; i < 5; i++) {
@@ -221,6 +226,7 @@ public class MOBLIMAMain {
                     (7) Logout
                     """, v.getFullName());
             choice = sc.nextInt();
+            sc.nextLine();
         }
 
     }
@@ -235,14 +241,14 @@ public class MOBLIMAMain {
      */
     public static int login(String userName, String password) {
         // admin login
-        String adminFile = "data/Admin.txt";
+        String adminFile = "data/admin.txt";
         HashMap<String, String> adata = AdminDB.getAdminData(adminFile);
         if (password.equals(adata.get(userName))) {
             return 1;
         }
 
         // user login
-        String viewerFile = "data/Viewer.txt";
+        String viewerFile = "data/viewer.txt";
         HashMap<String, String> vdata = ViewerDB.getViewerData(viewerFile);
         if (password.equals(vdata.get(userName))) {
             return 2;
@@ -263,12 +269,12 @@ public class MOBLIMAMain {
         */
 
 
-        ConfigureSystemSettings set = new ConfigureSystemSettings();
+        Settings set = new Settings();
         set.loadsettings();
         int choice, choice2, choice3, choice4, choice5;
-        System.out.println("Hi Admin");
+        System.out.println("Welcome, Admin!");
         do {
-            System.out.println("""
+            System.out.print("""
                     What would you like to do?
                     (1) Configure the System's Settings
                     (2) Add an upcoming movie to the Booking System
@@ -278,6 +284,7 @@ public class MOBLIMAMain {
                     (6) Logout
                     """);
             choice = sc.nextInt();
+            sc.nextLine();
             switch (choice) {
                 case 1 -> {
                     // Configure the System's Settings
@@ -293,9 +300,11 @@ public class MOBLIMAMain {
                                 (7) save and return
                                 """);
                         choice2 = sc.nextInt();
+                        sc.nextLine();
                         while (choice2 > 7 || choice2 < 1) {
                             System.out.println("Invalid option");
                             choice2 = sc.nextInt();
+                            sc.nextLine();
                         }
                         switch (choice2) {
                             case 1 -> {
@@ -304,6 +313,8 @@ public class MOBLIMAMain {
                             case 2 -> {
                                 System.out.println("New base price");
                                 choice3 = sc.nextInt();
+                                sc.nextLine();
+
                                 set.changebaseprice(choice3);
                             }
                             case 3 -> {
@@ -315,9 +326,13 @@ public class MOBLIMAMain {
                                         (4) Cost of day
                                         """);
                                 choice3 = sc.nextInt();
+                                sc.nextLine();
+
                                 while (choice3 > 4 || choice3 < 1) {
                                     System.out.println("Invalid option");
                                     choice3 = sc.nextInt();
+                                    sc.nextLine();
+
                                 }
                                 switch (choice3) {
                                     case 1 -> {
@@ -354,18 +369,26 @@ public class MOBLIMAMain {
                                     }
                                 }
                                 choice4 = sc.nextInt();
+                                sc.nextLine();
+
                                 System.out.println("New price:");
                                 choice5 = sc.nextInt();
+                                sc.nextLine();
+
                                 set.changeticketprice(choice3, choice4, choice5);
                             }
                             case 4 -> {
                                 System.out.println("Day to set as holiday:");
                                 choice = sc.nextInt();
+                                sc.nextLine();
+
                                 set.addholiday(choice);
                             }
                             case 5 -> {
                                 System.out.println("Day to unset as holiday:");
                                 choice = sc.nextInt();
+                                sc.nextLine();
+
                                 set.removeholiday(choice);
                             }
                             case 6 -> {
@@ -387,11 +410,15 @@ public class MOBLIMAMain {
                                     
                                     """, cineplexes[0].getCineplexName(), cineplexes[1].getCineplexName(), cineplexes[2].getCineplexName());
                     int optionCineplex = sc.nextInt();
+                    sc.nextLine();
+
                     System.out.println("Select a Cinema to add a movie to: ");
                     for(int i = 0; i< cineplexes[optionCineplex-1].getCinemas().length; i++){
                         System.out.printf("(%d) Cinema %d\n", i, i);
                     }
                     int optionCinema = sc.nextInt();
+                    sc.nextLine();
+
                     System.out.println("Enter movieType: ");
                     String movieType = sc.nextLine();
                     ArrayList<Movie> movieList = MovieDB.readMovies("data/movies.txt");
@@ -402,11 +429,15 @@ public class MOBLIMAMain {
                             MovieListing newListing = new MovieListing(movie, movieType, "NOW_SHOWING");
                             System.out.println("Enter the numbers shows you would like to add to the movie listing : ");
                             int numberOfShows = sc.nextInt();
+                            sc.nextLine();
+
                             for (int j = 0; j < numberOfShows; j++) {
                                 System.out.printf("Enter a date for showtime #%d in the format DD/MM/YYYY: \n", j);
                                 String date = sc.nextLine();
                                 System.out.printf("Enter the time for showtime #%d of new movie: \n", j);
                                 int time = sc.nextInt();
+                                sc.nextLine();
+
                                 newListing.addShowtime(time, date);
                             }
                             // add movielisting to movieListings
@@ -429,6 +460,8 @@ public class MOBLIMAMain {
                             (3) Cineplex c
                             """);
                     int optionCineplex = sc.nextInt();
+                    sc.nextLine();
+
                     System.out.println("""
                             Select a Cinema to add movie
                             (1) Cinema 1
@@ -436,6 +469,8 @@ public class MOBLIMAMain {
                             (3) Cinema 3
                             """);
                     int optionCinema = sc.nextInt();
+                    sc.nextLine();
+
                     System.out.println("Enter name of new movie: ");
                     String nameMovie = sc.nextLine();
                     for (int i = 0; i < cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.size(); i++) {
@@ -447,6 +482,8 @@ public class MOBLIMAMain {
                                     (2) Timing
                                     """);
                             int option = sc.nextInt();
+                            sc.nextLine();
+
                             switch (option) {
                                 case 1 -> {
                                     System.out.println("""
@@ -456,6 +493,8 @@ public class MOBLIMAMain {
                                             (3)END_OF_SHOWING
                                             """);
                                     int intStatus = sc.nextInt();
+                                    sc.nextLine();
+
                                     String status;
                                     switch (intStatus){
                                         case 1-> {
@@ -474,11 +513,15 @@ public class MOBLIMAMain {
                                     MovieListing movieNew = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i);
                                     System.out.println("Enter timing you would like to replace: ");
                                     int oldTime = sc.nextInt();
+                                    sc.nextLine();
+
                                     for (int o = 0; o < movieNew.timeSlots.size(); o++) {
-                                        if (oldTime == movieNew.timeSlots.get(o).getTiming()) {
+                                        if (oldTime == movieNew.timeSlots.get(o).getTime()) {
                                             System.out.println("Enter new timing : ");
                                             int newTime = sc.nextInt();
-                                            movieNew.timeSlots.get(o).setTiming(newTime);
+                                            sc.nextLine();
+
+                                            movieNew.timeSlots.get(o).setTime(newTime);
                                         }
                                     }
                                 }
@@ -512,6 +555,10 @@ public class MOBLIMAMain {
 
     public static void main(String[] args) {
         Cineplex[] cineplexes = new Cineplex[3];
+        cineplexes[0] = new Cineplex("Jurong", 5, 1);
+        cineplexes[1] = new Cineplex("Sengkang", 3, 2);
+        cineplexes[2] = new Cineplex("Sentosa", 4, 3);
+
         Scanner sc = new Scanner(System.in);
         System.out.println("""
                 Dear User, Welcome!
@@ -553,6 +600,13 @@ public class MOBLIMAMain {
                     } else {
                         viewerUser(sc, final_test, cineplexes);
                     }
+                }
+            }
+            if(logged_in) {
+                System.out.println("Logged out! Would you like to log in again? (y/n)");
+                String ans = sc.nextLine();
+                if (ans.equals("y")) {
+                    logged_in = false;
                 }
             }
         }

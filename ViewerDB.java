@@ -41,7 +41,7 @@ public class ViewerDB {
      */
     public static void writeFile(ArrayList<String> data) {
 
-        String fileName = "data/Viewer.txt";
+        String fileName = "data/viewer.txt";
         File f = new File(fileName);
         try (FileWriter out = new FileWriter(f, false)) {
             for (String line : data) {
@@ -59,7 +59,7 @@ public class ViewerDB {
      * @return A Hashmap of email ids corresponding to an Arraylist of the viewer's booking history
      */
     public static HashMap<String, ArrayList<String>> getViewersHistory() {
-        String fileName = "data/Viewer.txt";
+        String fileName = "data/viewer.txt";
         ArrayList<String> string_data = readFile(fileName);
         HashMap<String, ArrayList<String>> viewers_history = new HashMap<>();
         for (String line : string_data) {
@@ -88,7 +88,7 @@ public class ViewerDB {
      * @return The Viewer ID of the viewer
      */
     public static int getViewerID(String email) {
-        String fileName = "data/Viewer.txt";
+        String fileName = "data/viewer.txt";
         ArrayList<String> string_data = readFile(fileName);
         for (String line : string_data) {
             ArrayList<String> history = new ArrayList<>();
@@ -110,7 +110,7 @@ public class ViewerDB {
      */
     public static int getLastViewerID() {
         try {
-            String fileName = "data/Viewer.txt";
+            String fileName = "data/viewer.txt";
             File f = new File(fileName);
             String id;
             String line = "1021|";
@@ -137,7 +137,7 @@ public class ViewerDB {
      * @return booking data that can be used to write into the text file
      */
     public static ArrayList<String> updateBookingHistory(String email, ArrayList<String> booking) {
-        ArrayList<String> data = readFile("data/Viewer.txt");
+        ArrayList<String> data = readFile("data/viewer.txt");
         int update_index = 0;
         String id = "";
         String name = "";
@@ -180,7 +180,7 @@ public class ViewerDB {
     }
 
     public static Viewer getViewer(String email) {
-        ArrayList<String> data = readFile("data/Viewer.txt");
+        ArrayList<String> data = readFile("data/viewer.txt");
 
         String number = "";
         String id = "";
@@ -200,7 +200,7 @@ public class ViewerDB {
 
     public static void createViewerInFile(Viewer v) {
         StringBuilder s = new StringBuilder(v.getViewerID() + "|" + v.getFullName() + "|" + v.getEmail() + v.getMobileNumber());
-        String fileName = "data/Viewer.txt";
+        String fileName = "data/viewer.txt";
         for (String booking : v.getBookingHistory()) {
             s.append("|").append(booking);
         }

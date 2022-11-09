@@ -62,7 +62,7 @@ public class MovieListing {
 
     public TimeSlot getTime(int time) {
         for (TimeSlot timeSlot : timeSlots) {
-            if (timeSlot.getTiming() == time) {
+            if (timeSlot.getTime() == time) {
                 return timeSlot;
             }
         }
@@ -71,6 +71,11 @@ public class MovieListing {
 
     public void setTimeSlots(ArrayList<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
+    }
+
+    public void addShowtime(int time, String date){
+        TimeSlot t = new TimeSlot(time, date);
+        this.timeSlots.add(t);
     }
 
     enum Movietypes {BLOCKBUSTER, IMAX_3D, IMAX_2D};
