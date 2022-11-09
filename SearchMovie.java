@@ -23,7 +23,7 @@ public class SearchMovie {
 
     public static Movie movieByName(String movieName, ArrayList<Movie> movies){
         for (Movie movie : movies) {
-            //movielisting object has movie object attribute
+            //movieListing object has movie object attribute
             if (Objects.equals(movie.getTitle(), movieName)) {
                 return movie;
             }
@@ -32,7 +32,7 @@ public class SearchMovie {
     }
 
     public void movieByCinema(Cinema cinema){
-        ArrayList<MovieListing> all_listings = cinema.movielistings;
+        ArrayList<MovieListing> all_listings = cinema.movieListings;
         for(int i=0;i<all_listings.size();i++){
             MovieListing listing = all_listings.get(i);
             Movie movie = listing.getMovie();
@@ -42,7 +42,20 @@ public class SearchMovie {
 
     public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies){
         Movie temp;
+        boolean finished = false;
+        while (!finished){
+            for (int i = 0; i < pre_sorted_movies.size(); i++) {
+                if (pre_sorted_movies.get(i).getOverallReviewerRating().equals("NA")) {
+                    pre_sorted_movies.remove(i);
+                    break;
+                }
+                if (i == pre_sorted_movies.size() - 1) {
+                    finished = true;
+                }
+            }
+        }
         for(int i=1;i<pre_sorted_movies.size();i++){
+
             for(int j=i;j>0;j--){
                 String curr_rating = pre_sorted_movies.get(j).getOverallReviewerRating();
                 double currRating = Double.parseDouble(curr_rating);
@@ -61,8 +74,6 @@ public class SearchMovie {
         }
         return pre_sorted_movies;
     }
-
-
 
     public static ArrayList<Movie> movieByTickets(ArrayList<Movie> pre_sorted_movies) {
         Movie temp;

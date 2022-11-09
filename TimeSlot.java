@@ -1,8 +1,8 @@
 public class TimeSlot {
-    int timing;
-    Seat[][] seating = new Seat[10][16];
+    private int timing;
+    private Seat[][] seating = new Seat[10][16];
 
-    String date;
+    private final String date;
 
     public TimeSlot(int timing, String date) {
 
@@ -17,6 +17,10 @@ public class TimeSlot {
                 this.seating[i][j] = new Seat(code);
             }
         }
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public Seat[][] getSeats() {

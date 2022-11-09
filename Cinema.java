@@ -1,89 +1,23 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Cinema {
-	ArrayList<MovieListing> movielistings=new ArrayList<>();
+	ArrayList<MovieListing> movieListings;
 	private final String cinemaId;
-	
-	
-	Cinema(String id)
+
+
+	public Cinema(int id, int cineplexNumber)
 	{
-		this.cinemaId=id;
-		ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
-		for (int i = 0; i < movies.size(); i++) 
-		{
-			MovieListing mvl = new MovieListing(movies.get(i), "blockbuster","nowShowing");
-			movielistings.add(mvl);
-		}
-		
+		this.cinemaId="00" + id;
+
+		MovieListingDB.getCinemaListing(cineplexNumber, id, MovieListingDB.readFile(), MovieDB.readMovies("data/movies.txt"));
 	}
-	
-	
-//	public void Createcinemashowtime(int time, Movie movie)
-//	{
-//		for (MovieListing movielisting : movielistings) {
-//			if (movielisting.getMovie() == movie) {
-//				movielisting.updateMovieListing(time);
-//			}
-//		}
-//		//TODO: FIX!!
-//		MovieListing mvl = new MovieListing();
-//		mvl.createMovieListing(movie);
-//        mvl.updateMovieListing(time);
-//		movielistings.add(mvl);
-//
-//	}
-//	void Removecinemashowtime(int time, Movie movie)
-//	{
-//		for (int i = 0; i < movielistings.size(); i++)
-//		{
-//			if ((movielistings.get(i)).getMovie()==movie)
-//			{
-//				movielistings.get(i).removeTime(time);
-//				return;
-//			}
-//		}
-//	}
-//	void Removecinemamovie(int time, Movie movie)
-//	{
-//		for (int i = 0; i < movielistings.size(); i++)
-//		{
-//			if ((movielistings.get(i)).getMovie()==movie)
-//			{
-//				movielistings.remove(i);
-//				return;
-//			}
-//		}
-//	}
-//	Movie getmovie(int time)
-//	{
-//		for (MovieListing movielisting : movielistings) {
-//			if (movielisting.getMovieTime() == time) {
-//				return movielisting.getMovie();
-//			}
-//		}
-//		System.out.print("no movie at this time scheduled\n");
-//		return null;
-//	}
-//    public MovieListing gettime(Movie movie)
-//	{
-//		for (MovieListing movielisting : movielistings) {
-//			if (movielisting.getMovie() == movie) {
-//				return movielisting;
-//			}
-//		}
-//		System.out.print("this movie is not scheduled\n");
-//		return null;
-//	}
 
     public String getCinemaId(){
         return this.cinemaId;
     }
 
     public MovieListing getListing(String movieName){
-		for (MovieListing movielisting : movielistings) {
+		for (MovieListing movielisting : movieListings) {
 			String name = movielisting.getMovie().getTitle();
 			if (name.equals(movieName)) {
 				return movielisting;
@@ -92,4 +26,7 @@ public class Cinema {
 		return null;
 	}
 
+	public ArrayList<MovieListing> getMovieListings() {
+		return movieListings;
+	}
 }
