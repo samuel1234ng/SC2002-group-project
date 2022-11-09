@@ -37,7 +37,8 @@ public class MOBLIMAMain {
         5. View booking history
         6. List the Top 5 ranking by ticket sales OR by overall reviewers’ ratings
         */
-
+        Settings set = new Settings();
+        set.loadsettings();
         // ADD CHOOSE CINEPLEX CODE
         System.out.printf(
                """ 
@@ -97,11 +98,13 @@ public class MOBLIMAMain {
                     //Assume cinema already has MovieListing arraylist initialized
                     MovieListing listing = cinema.getListing(selection);
                     //Show user available timings 
-                    Booking.availableTimings(listing);
+                    ArrayList<Integer> times = Booking.availableTimings(listing);
                     //User selects timing
-                    System.out.println("Enter timing : ");
-                    int timeChosen = sc.nextInt();
+                    System.out.println("Select timeslot : ");
+                    int selectedTime = sc.nextInt();
+
                     sc.nextLine();
+                    int timeChosen = times.get(selectedTime-1);
                     TimeSlot chosenTiming = listing.getTime(timeChosen);
                     //Show seats
                     Booking.availableSeats(chosenTiming);
@@ -117,16 +120,17 @@ public class MOBLIMAMain {
                     //Assume cinema already has MovieListing arraylist initialized
                     MovieListing listing = cinema.getListing(selection);
                     //Show user available timings 
-                    Booking.availableTimings(listing);
+                    ArrayList<Integer> times = Booking.availableTimings(listing);
                     //User selects timing
-                    System.out.println("Enter timing : ");
-                    int timeChosen = sc.nextInt();
+                    System.out.println("Select timeslot : ");
+                    int selectedTime = sc.nextInt();
                     sc.nextLine();
+                    int timeChosen = times.get(selectedTime-1);
                     TimeSlot chosenTiming = listing.getTime(timeChosen);
                     //Show seats
                     Booking.availableSeats(chosenTiming);
 
-                    Booking.makeBooking(chosenTiming, v);
+                    Booking.makeBooking(listing, chosenTiming, v,set);
                     //add calculating ticket price
                     System.out.println("Payment completed!");
                     Booking.completePayment(cinema);
