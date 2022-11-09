@@ -37,9 +37,21 @@ public class MovieListing {
         this.moviestatus = Moviestatus.valueOf(status);
     }
 
-//    public Movietypes getMovieType() {
-//        return movietype;
-//    }
+public int getMovieType() {
+        String typeMovie = this.movietype.name();
+        int returnType;
+        if(typeMovie=="IMAX_3D"){
+            returnType = 1;
+        }
+        else if(typeMovie=="BLOCKBUSTER"){
+            returnType = 2;
+        }
+        else{
+            returnType = 0;
+        }
+        return returnType;
+
+    }
 
     public ArrayList<TimeSlot> getTimeSlots() {
         return timeSlots;
