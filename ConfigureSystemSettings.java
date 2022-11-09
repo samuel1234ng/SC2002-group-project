@@ -22,8 +22,8 @@ public class ConfigureSystemSettings {
 		holidays[299]=1;
 		baseticketprice=10;
 		
-		typemod[0]=0;//normal
-		typemod[1]=2;//3D
+		typemod[0]=0;//imax_2d
+		typemod[1]=2;//imax_3d
 		typemod[2]=3;//Blockbuster
 		
 		classmod[0]=0;//normal
