@@ -22,13 +22,13 @@ public class Settings {
 		holidays[299]=1;
 		baseticketprice=10;
 		
-		typemod[0]=0;//normal
-		typemod[1]=2;//3D
+		typemod[0]=0;//imax2d
+		typemod[1]=2;//imax3d
 		typemod[2]=3;//Blockbuster
 		
 		classmod[0]=0;//normal
 		classmod[1]=2;//Elite 
-		classmod[2]=-2;//Budget
+		//classmod[2]=-2;//Budget
 
 		agemod[0]=0;//adult
 		agemod[1]=-2;//child
@@ -53,8 +53,8 @@ public class Settings {
 		data.add("\n");
 		data.add(Integer.toString(classmod[1]));
 		data.add("\n");
-		data.add(Integer.toString(classmod[2]));
-		data.add("\n");
+		//data.add(Integer.toString(classmod[2]));
+		//data.add("\n");
 		data.add(Integer.toString(agemod[0]));
 		data.add("\n");
 		data.add(Integer.toString(agemod[1]));
@@ -128,18 +128,18 @@ public class Settings {
 	}
 	void printsettings()
 	{
-		System.out.print("normal movie price modifier: ");
+		System.out.print("Imax 2D movie price modifier: ");
 		System.out.print(Integer.toString(typemod[0]));
-		System.out.print("\n3D movie price modifier: ");
+		System.out.print("\nImax 3D movie price modifier: ");
 		System.out.print(Integer.toString(typemod[1]));
 		System.out.print("\nBlockbuster movie price modifier: ");
 		System.out.print(Integer.toString(typemod[2]));
-		System.out.print("\nnormal class price modifier: ");
+		System.out.print("\nNormal seat price modifier: ");
 		System.out.print(Integer.toString(classmod[0]));
-		System.out.print("\nPlatinum Movie Suites price modifier: ");
+		System.out.print("\nElite seat price modifier: ");
 		System.out.print(Integer.toString(classmod[1]));
-		System.out.print("\nBudget class price modifier: ");
-		System.out.print(Integer.toString(classmod[2]));
+		//System.out.print("\nBudget class price modifier: ");
+		//System.out.print(Integer.toString(classmod[2]));
 		System.out.print("\nadult price modifier: ");
 		System.out.print(Integer.toString(agemod[0]));
 		System.out.print("\nchild price modifier: ");
