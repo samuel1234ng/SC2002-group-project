@@ -45,7 +45,6 @@ public class ViewerDB {
         File f = new File(fileName);
         try (FileWriter out = new FileWriter(f, false)) {
             for (String line : data) {
-                System.out.println(line);
                 out.write(line + "\n");
             }
         } catch (Exception e) {
