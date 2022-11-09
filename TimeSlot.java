@@ -71,5 +71,15 @@ public class TimeSlot {
         int day = this.dateTime.getDayOfMonth();
         this.dateTime = LocalDateTime.of(year, month, day, hour, minute);
     }
+	
+public int getDayType(){
+	
+	String dayType = this.dateTime.getDayOfWeek().name();
+	if(dayType=="SATURDAY" || dayType=="SUNDAY"){
+		return 1;
+	}
+	return 0;
+	
+}
 
 }
