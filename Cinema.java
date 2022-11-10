@@ -9,7 +9,7 @@ public class Cinema {
 	{
 		this.cinemaId="00" + id;
 
-		MovieListingDB.getCinemaListing(cineplexNumber, id, MovieListingDB.readFile(), MovieDB.readMovies("data/movies.txt"));
+		this.movieListings = MovieListingDB.getCinemaListing(cineplexNumber, id, MovieListingDB.readFile(), MovieDB.readMovies("data/movies.txt"));
 	}
 
     public String getCinemaId(){
