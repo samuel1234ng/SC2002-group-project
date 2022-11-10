@@ -92,7 +92,7 @@ public class MOBLIMAMain {
                     ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
                     SearchMovie.listCurrentMovies(movies);
                     System.out.println("Select movie : ");
-                    String selection = sc.next();
+                    String selection = sc.nextLine();
                     //Add search cinema by movie function to Cineplex class
                     Cinema cinema = cineplex.cinemaByMovie(selection);
                     //Assume cinema already has MovieListing arraylist initialized
@@ -114,7 +114,7 @@ public class MOBLIMAMain {
                     ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
                     SearchMovie.listCurrentMovies(movies);
                     System.out.println("Select movie : ");
-                    String selection = sc.next();
+                    String selection = sc.nextLine();
                     //Add search cinema by movie function to Cineplex class
                     Cinema cinema = cineplex.cinemaByMovie(selection);
                     //Assume cinema already has MovieListing arraylist initialized
