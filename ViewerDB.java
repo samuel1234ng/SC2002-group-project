@@ -199,7 +199,7 @@ public class ViewerDB {
     }
 
     public static void createViewerInFile(Viewer v) {
-        StringBuilder s = new StringBuilder(v.getViewerID() + "|" + v.getFullName() + "|" + v.getEmail() + v.getMobileNumber());
+        StringBuilder s = new StringBuilder(v.getViewerID() + "|" + v.getFullName() + "|" + v.getEmail() + "|" + v.getMobileNumber());
         String fileName = "data/viewer.txt";
         for (String booking : v.getBookingHistory()) {
             s.append("|").append(booking);
