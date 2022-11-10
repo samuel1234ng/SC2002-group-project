@@ -8,7 +8,7 @@ import java.util.*;
  * Represents a movie database which can be used to write and read from a text file (movies.txt).
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-05
+ * @since 2022-11-10
  */
 public class MovieDB {
 
@@ -23,7 +23,7 @@ public class MovieDB {
      * @return An array list containing multiple movie objects.
      * @see #read(String)
      */
-    public static ArrayList<Movie> readMovies(String filename)  {
+    public static ArrayList<Movie> readMovies(String filename){
         ArrayList<String> stringArray = read(filename); // read String from text file
         ArrayList<Movie> movRead = new ArrayList<>(); // to store movie objects
 
@@ -110,16 +110,17 @@ public class MovieDB {
      * Writes the movie data obtained from saveMovies() into the movies.txt file.
      * @param fileName The file path of the movies.txt file which contains all the movies.
      * @param data A list containing the movie data in string format.
-     * @throws IOException
      * @see PrintWriter
      * @see FileWriter
      */
-    public static void write(String fileName, ArrayList<String> data) throws IOException  {
-
+    public static void write(String fileName, ArrayList<String> data){
         try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
             for (String line : data) {
                 out.println(line);
             }
+        }
+        catch (Exception e){
+            System.out.println("Exception >> " + e);
         }
     }
 
