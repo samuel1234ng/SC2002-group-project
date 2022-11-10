@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class Booking {
 
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String RESET = "\u001B[0m";
+
+
     public static void availableSeats(TimeSlot timeslot) { //add numbering
         Seat[][] seats = timeslot.getSeats();
 
@@ -31,32 +36,27 @@ public class Booking {
                     System.out.print("  ");
                     continue;
                 }
-
                 if (seats[row][column].isAssigned()) {
                     if (row == 8 || row == 9) {
-
                         if (column % 2 != 0) {
-                            System.out.printf("%-3s", "X");
-
+                            System.out.printf("%s%-3s%s", RED, "X", RESET);
                         } else {
-                            System.out.printf("%-3s", "X--");
+                            System.out.printf("%s%-3s%s", RED, "X--", RESET);
                         }
                     } else {
-
-                        System.out.printf("%-3s", "X");
+                        System.out.printf("%s%-3s%s", RED, "X", RESET);
                     }
                 } else {
                     if (row == 8 || row == 9) {
 
                         if (column % 2 != 0) {
-                            System.out.printf("%-3s", "O");
+                            System.out.printf("%s%-3s%s", GREEN, "O", RESET);
 
                         } else {
-                            System.out.printf("%-3s", "O--");
+                            System.out.printf("%s%-3s%s", GREEN, "O--", RESET);
                         }
                     } else {
-
-                        System.out.printf("%-3s", "O");
+                        System.out.printf("%s%-3s%s", GREEN, "O", RESET);
                     }
                 }
                 column++;
@@ -64,8 +64,10 @@ public class Booking {
             System.out.println();
         }
         System.out.println("Legend:");
+        System.out.printf("Seats that can be booked: %sO%s\n", GREEN, RESET);
+        System.out.printf("Seats that are occupied: %sX%s\n", RED, RESET);
         System.out.printf("%-15s\n","Elite Seat: *");
-        System.out.printf("%-15s\n","Couple Seat: O--O");
+        System.out.printf("%-15s\n\n","Couple Seat: O--O");
     }
 
     public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings) {
@@ -76,40 +78,49 @@ public class Booking {
 //        String[] selectedSeats = new String[];
         ArrayList<String> selectedSeats = new ArrayList<>();
         ArrayList<Integer> ages = new ArrayList<>();
-        int numBooking = 0;
-        while (true) {
-            System.out.println("Book a seat? (yes/no): ");
-            String flag = sc.nextLine();
-            if (flag.equals("no")) {
-                break;
+        boolean firstBooking = true;
+        a:while (true) {
+            if(firstBooking){
+                System.out.println("Would you like to book a seat? (y/n): ");
+                firstBooking = false;
+            }else{
+                System.out.println("Would you like to book another seat? (y/n): ");
+            }
+            String flag;
+            while(!(flag = sc.nextLine()).equals("y")) {
+                if (flag.equals("n")) {
+                    break a;
+                }
+                System.out.println("Invalid Entry. Please try again. ");
+                System.out.println("Would you like to book another seat? (y/n): ");
             }
             System.out.println("Enter your choice of seat (eg. 1A):");
             String seatNo = sc.nextLine();
 
-            if (seatNo.charAt(1) == 'B' || seatNo.charAt(1) == 'A') {
+            if (seatNo.charAt(seatNo.length()-1) == 'B' || seatNo.charAt(seatNo.length()-1) == 'A') {
                 for (int numAges = 0; numAges < 2; numAges++) {
-                    System.out.printf("Enter age of person %d in couple:", numAges + 1);
+                    System.out.printf("Enter age of person %d in couple: \n", numAges + 1);
                     int age = sc.nextInt();
                     sc.nextLine();
                     ages.add(age);
                 }
-                selectedSeats.add(numBooking++, seatNo);
+                selectedSeats.add(seatNo);
                 int seatNum = Integer.parseInt(seatNo.substring(0, seatNo.length()-1));
                 if(seatNum%2==0){
-                    selectedSeats.add(numBooking++, seatNum - 1 + seatNo.substring(seatNo.length()-1));
+                    selectedSeats.add(seatNum - 1 + seatNo.substring(seatNo.length()-1));
                 }else {
-                    selectedSeats.add(numBooking++, seatNum + 1 + seatNo.substring(seatNo.length()-1));
+                    selectedSeats.add(seatNum + 1 + seatNo.substring(seatNo.length()-1));
                 }
             } else {
-                System.out.println("Enter age:");
+                System.out.println("Enter age of the viewer: ");
                 int age2 = sc.nextInt();
                 sc.nextLine();
                 ages.add(age2);
-                selectedSeats.add(numBooking++, seatNo);
+                selectedSeats.add(seatNo);
             }
         }
         double totalPrice = 0.0;
-        for (int i = 0; i < numBooking; i++) {
+        for (int i = 0; i < selectedSeats.size(); i++) {
             String seatSelect = selectedSeats.get(i);
             int num = Integer.parseInt(seatSelect.substring(0, seatSelect.length() - 1));
             char alpha = seatSelect.charAt(seatSelect.length() - 1);
@@ -127,41 +138,23 @@ public class Booking {
                 myAge = getAgeType(myAge);
                 int day = timeslot.getDayType();
 
-                priceAdded = settings.calculateticketprice(movieType, 1, myAge, day);
+                priceAdded = settings.calculateTicketPrice(movieType, 1, myAge, day);
             }
-//            else if (letter == 8 || letter == 9) { //couple
-//                seats[letter][num - 1].assign(viewer.getViewerID());
-//                if (num % 2 != 0) {
-//                    seats[letter][num].assign(viewer.getViewerID());
-//                } else {
-//                    seats[letter][num - 1].assign(viewer.getViewerID());
-//                }
-//
-//                int movieType = listing.getMovieType();
-//                int myAge1 = ages.get(p++);
-//                myAge1 = getAgeType(myAge1);
-//                int myAge2 = ages.get(p++);
-//                myAge2 = getAgeType(myAge2);
-//                int day = timeslot.getDayType();
-//
-//                priceAdded = settings.calculateticketprice(movieType, 0, myAge1, day);
-//                priceAdded += settings.calculateticketprice(movieType, 0, myAge2, day);
-//            }
-            else {
+              else {
                 seats[letter][num - 1].assign(viewer.getViewerID());
                 int movieType = listing.getMovieType();
                 int myAge = ages.get(i);
                 myAge = getAgeType(myAge);
                 int day = timeslot.getDayType();
 
-                priceAdded = settings.calculateticketprice(movieType, 0, myAge, day);
+                priceAdded = settings.calculateTicketPrice(movieType, 0, myAge, day);
             }
             totalPrice += priceAdded;
             timeslot.setSeats(seats);
             //set value of seats
 
         }
-        System.out.printf("The amount for your tickets is: %.2f\n", totalPrice);
+        System.out.printf("The amount for your tickets is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
 
         return selectedSeats;
     }

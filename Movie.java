@@ -258,7 +258,7 @@ public class Movie implements Serializable {
             else
                 overallReviewerRating = "NA";
         }
-        catch (IOException e) {
+        catch (Exception e) {
             System.out.println("IOException > " + e.getMessage());
         }
     }
