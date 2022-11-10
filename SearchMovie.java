@@ -2,14 +2,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SearchMovie {
-    public static void listMovies(ArrayList<Movie> movies){
-        for (Movie movie : movies) {
-            System.out.println("Movie Title: " + movie.getTitle());
-            System.out.println("Showing Status: " + movie.getStatus());
-            System.out.println("Synopsis: " + movie.getSynopsis());
-            System.out.println();
-        }
-    }
 
     public static void listCurrentMovies(ArrayList<Movie> movies){
         int k = 1;
@@ -31,13 +23,15 @@ public class SearchMovie {
         return null;
     }
 
-    public void movieByCinema(Cinema cinema){
+    public static ArrayList<Movie> movieByCinema(Cinema cinema){
         ArrayList<MovieListing> all_listings = cinema.movieListings;
-        for(int i=0;i<all_listings.size();i++){
-            MovieListing listing = all_listings.get(i);
+        ArrayList<Movie> movies  = new ArrayList<>();
+        for (MovieListing listing : all_listings) {
             Movie movie = listing.getMovie();
-            System.out.printf("Movie %d : %s\n",i+1,movie.getTitle());
+//            System.out.printf("Movie %d : %s\n",i+1,movie.getTitle());
+            movies.add(movie);
         }
+        return movies;
     }
 
     public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies){

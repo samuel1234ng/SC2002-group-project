@@ -17,21 +17,47 @@ public class Cineplex{
         return this.cinemas;
     }
 
-    public Cinema cinemaByMovie(String movieName){
-
+    public ArrayList<Cinema> cinemasByMovie(String movieName){
+		ArrayList<Cinema> movieCinemas= new ArrayList<>();
 		for (Cinema cinema : cinemas) {
 			ArrayList<MovieListing> cinemaListing = cinema.movieListings;
 			for (MovieListing movieListing : cinemaListing) {
 				String name = movieListing.getMovie().getTitle();
 				if (name.equals(movieName)) {
-					return cinema;
+					movieCinemas.add(cinema);
+					break;
 				}
 			}
 		}
-		return null;
+		return movieCinemas;
 	}
 
 	public String getCineplexName() {
 		return cineplexName;
+	}
+
+	public ArrayList<Movie> movieByCineplex(){
+		ArrayList<Movie> cineplexMovies = new ArrayList<>();
+		ArrayList<String> cineplexMovieNames = new ArrayList<>();
+		for (Cinema c: this.cinemas) {
+			ArrayList<Movie> cinemaMovies = SearchMovie.movieByCinema(c);
+			for (Movie movie: cinemaMovies) {
+				if(!cineplexMovieNames.contains(movie.getTitle())){
+					cineplexMovies.add(movie);
+					cineplexMovieNames.add(movie.getTitle());
+				}
+			}
+
+		}
+		return cineplexMovies;
+	}
+
+	public void listMovies(){
+		for (Movie movie : this.movieByCineplex()) {
+			System.out.println("Movie Title: " + movie.getTitle());
+			System.out.println("Showing Status: " + movie.getStatus());
+			System.out.println("Synopsis: " + movie.getSynopsis());
+			System.out.println();
+		}
 	}
 }

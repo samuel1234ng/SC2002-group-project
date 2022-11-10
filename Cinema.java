@@ -1,32 +1,31 @@
 import java.util.ArrayList;
 
 public class Cinema {
-	ArrayList<MovieListing> movieListings;
-	private final String cinemaId;
+    private final String cinemaId;
+    ArrayList<MovieListing> movieListings;
 
 
-	public Cinema(int id, int cineplexNumber)
-	{
-		this.cinemaId="00" + id;
+    public Cinema(int id, int cineplexNumber) {
+        this.cinemaId = "00" + id;
 
-		this.movieListings = MovieListingDB.getCinemaListing(cineplexNumber, id, MovieListingDB.readFile(), MovieDB.readMovies("data/movies.txt"));
-	}
+        this.movieListings = MovieListingDB.getCinemaListing(cineplexNumber, id, MovieListingDB.readFile(), MovieDB.readMovies("data/movies.txt"));
+    }
 
-    public String getCinemaId(){
+    public String getCinemaId() {
         return this.cinemaId;
     }
 
-    public MovieListing getListing(String movieName){
-		for (MovieListing movielisting : movieListings) {
-			String name = movielisting.getMovie().getTitle();
-			if (name.equals(movieName)) {
-				return movielisting;
-			}
-		}
+    public MovieListing getListing(String movieName) {
+        for (MovieListing movielisting : this.getMovieListings()) {
+            String name = movielisting.getMovie().getTitle();
+            if (name.equals(movieName)) {
+                return movielisting;
+            }
+        }
 		return null;
-	}
+    }
 
-	public ArrayList<MovieListing> getMovieListings() {
-		return movieListings;
-	}
+    public ArrayList<MovieListing> getMovieListings() {
+        return movieListings;
+    }
 }

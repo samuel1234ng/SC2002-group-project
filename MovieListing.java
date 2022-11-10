@@ -15,8 +15,8 @@ public class MovieListing {
         this.movieName = movie;
         this.timeSlots = new ArrayList<TimeSlot>();
         //this.TicketPrice = TicketPrice;
-//        this.movietype = Movietypes.valueOf(movietype);
-//        this.moviestatus = Moviestatus.valueOf(moviestatus);
+        this.movietype = Movietypes.valueOf(movietype);
+        this.moviestatus = Moviestatus.valueOf(moviestatus);
     }
     public MovieListing() {
     }
@@ -40,10 +40,10 @@ public class MovieListing {
 public int getMovieType() {
         String typeMovie = this.movietype.name();
         int returnType;
-        if(typeMovie=="IMAX_3D"){
+        if(typeMovie.equals("IMAX_3D")){
             returnType = 1;
         }
-        else if(typeMovie=="BLOCKBUSTER"){
+        else if(typeMovie.equals("BLOCKBUSTER")){
             returnType = 2;
         }
         else{

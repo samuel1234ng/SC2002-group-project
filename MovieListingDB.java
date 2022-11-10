@@ -87,7 +87,7 @@ public class MovieListingDB {
             StringTokenizer st2 = new StringTokenizer(movie, SEPARATOR2);
             String name = st2.nextToken().trim();
             Movie m = SearchMovie.movieByName(name, allMovies);
-            ml = new MovieListing(m, "3D" , m.getStatus().name());
+            ml = new MovieListing(m, "IMAX_3D" , m.getStatus().name());
 
             // separates show-times
             while(st2.hasMoreTokens()){

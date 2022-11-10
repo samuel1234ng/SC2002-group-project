@@ -20,6 +20,7 @@ public class Settings {
 			holidays[j]= 0;
 		}
 		holidays[299]=1;
+
 		baseticketprice=10;
 		
 		typemod[0]=0;//imax2d
@@ -157,7 +158,7 @@ public class Settings {
 		{
 			if (holidays[j]==1)
 			{
-				System.out.print(Integer.toString(j));
+				System.out.print(j);
 				System.out.print(" ");
 			}
 		}
