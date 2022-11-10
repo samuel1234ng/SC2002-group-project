@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -7,7 +6,7 @@ import java.util.ArrayList;
  * There can be multiple movies stored in the movie database.
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-05
+ * @since 2022-11-10
  */
 public class Movie implements Serializable {
 
@@ -234,7 +233,6 @@ public class Movie implements Serializable {
     private void updateReviewsRatings(){
         double ans = 0.0, result;
         int count = 0;
-        try{
             ArrayList reviewList = ReviewDB.readReviews(reviewFile);
             pastReviews.clear();
             for (int i = 0; i < reviewList.size(); i++) {
@@ -258,8 +256,4 @@ public class Movie implements Serializable {
             else
                 overallReviewerRating = "NA";
         }
-        catch (IOException e) {
-            System.out.println("IOException > " + e.getMessage());
-        }
-    }
 }
