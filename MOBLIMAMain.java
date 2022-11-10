@@ -18,13 +18,11 @@ public class MOBLIMAMain {
         String mobile = sc.nextLine();
         Viewer v = new Viewer(email, name, mobile);
         System.out.println("""
-                Thank you for creating an account in out Booking System!
+                Thank you for creating an account in our Booking System!
                 We will now proceed to direct you to the Viewer Menu.
                 """);
         ViewerDB.createViewerInFile(v);
         viewerUser(sc, v, cineplexes);
-
-
     }
 
     public static void viewerUser(Scanner sc, Viewer v, Cineplex[] cineplexes) {
@@ -62,7 +60,7 @@ public class MOBLIMAMain {
                 (1) Search for a Movie and view its details
                 (2) View a list of all the movies
                 (3) Check seat availability for show-times
-                (4) Select  and purchase seats and make a Booking
+                (4) Select and purchase seats and make a Booking
                 (5) View your booking history
                 (6) Review a movie
                 (7) View the Top 5 ranked movies by
@@ -158,7 +156,6 @@ public class MOBLIMAMain {
                     }
                 }
                 case 6 ->{
-                    try {
                         String reviewFile = "data/reviews.txt";
                         ArrayList<Review> reviewList = ReviewDB.readReviews(reviewFile);
 
@@ -168,6 +165,12 @@ public class MOBLIMAMain {
                         String movieTitle = sc.nextLine();
                         System.out.print("Please input your rating (1-5): ");
                         double rating = sc.nextFloat();
+                        while(rating <=0 || rating >5)
+                        {
+                            System.out.println("Please enter a valid rating between 1 to 5.");
+                            System.out.print("Please input your rating (1-5): ");
+                            rating = sc.nextFloat();
+                        }
                         sc.nextLine();
                         System.out.println("Please input your review: ");
                         String review = sc.nextLine();
@@ -178,9 +181,7 @@ public class MOBLIMAMain {
 
                         // write review records to file.
                         ReviewDB.saveReviews(reviewFile, reviewList);
-                    }catch (Exception e){
-                        System.out.println("Exception << " + e);
-                    }
+                        System.out.println("Your review has been submitted successfully. Thank You!");
                 }
 
                 case 7 -> {
@@ -212,22 +213,23 @@ public class MOBLIMAMain {
             }
 
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(4);
             } catch (InterruptedException e) {
                 System.out.println("Exception << " + e);
             }
-
+            System.out.println();
             System.out.printf(""" 
                     Welcome back %s! What would you like to do? Enter your choice:
                     (1) Search for a Movie and view its details
                     (2) View a list of all the movies
                     (3) Check seat availability for show-times
-                    (4) Select  and purchase seats and make a Booking
+                    (4) Select and purchase seats and make a Booking
                     (5) View your booking history
-                    (6) View the Top 5 ranked movies by
+                    (6) Review a movie
+                    (7) View the Top 5 ranked movies by
                         (i) Ticket sales
                         (ii) Overall reviewers’ ratings
-                    (7) Logout
+                    (8) Logout
                     """, v.getFullName());
             choice = sc.nextInt();
             sc.nextLine();
