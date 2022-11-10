@@ -13,8 +13,8 @@ public class Booking {
             String date = timings.get(i).getDate();
             int time = timings.get(i).getTime();
             String timeS = String.valueOf(time);
-            String output = timeS+" , "+date;
-            System.out.printf("Timeslot %d : %s\n",i+1,output);
+            String output = date+", "+timeS;
+            System.out.printf("Timeslot %d: %s\n",i+1,output);
             times.add(i,time);
         }
         return times;
@@ -24,11 +24,11 @@ public class Booking {
     public static void availableSeats(TimeSlot timeslot){ //add numbering
         Seat[][] seats = timeslot.getSeats();
 
-        System.out.printf("  ");
+        System.out.print("  ");
 		int x = 1;
 		for(int q=0;q<17;q++){
 		    if(q==8){
-                System.out.printf("  ");
+                System.out.print("  ");
                 continue;
             }
                 
@@ -40,11 +40,11 @@ public class Booking {
         
         for(int row=0;row<10;row++){
             System.out.printf("%c",letters[row]);
-            System.out.printf(" ");
+            System.out.print(" ");
             int column = 0;
             for(int j=0;j<17;j++){
                 if(j==8){
-                    System.out.printf("  ");
+                    System.out.print("  ");
                     continue;
                 }
                 
