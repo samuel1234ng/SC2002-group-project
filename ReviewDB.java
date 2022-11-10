@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
  * Represents a review database which can be used to write and read from a text file (reviews.txt).
  * @author Karishein Chandran
  * @version 1.0
- * @since 2022-11-08
+ * @since 2022-11-10
  */
 public class ReviewDB{
 
@@ -23,10 +23,9 @@ public class ReviewDB{
      * Creates an array list of review objects after reading all the reviews and ratings from the reviews.txt file.
      * @param filename The file path of the reviews.txt file which contains all the reviews and ratings.
      * @return An array list containing multiple review objects.
-     * @throws IOException
      * @see #read(String)
      */
-    public static ArrayList<Review> readReviews(String filename) throws IOException {
+    public static ArrayList<Review> readReviews(String filename){
         ArrayList<String> stringArray = read(filename); // read String from text file
         ArrayList<Review> reviewRead = new ArrayList<>(); // to store reviews data
 
@@ -55,10 +54,9 @@ public class ReviewDB{
      * This list is written to the existing reviews.txt file.
      * @param filename The file path of the reviews.txt file which contains all the reviews and ratings.
      * @param al An arraylist containing the new review object.
-     * @throws IOException
      * @see #write(String, ArrayList)
      */
-    public static void saveReviews(String filename, ArrayList<Review> al) throws IOException {
+    public static void saveReviews(String filename, ArrayList<Review> al){
         ArrayList<String> reviewWrite = new ArrayList<>() ;// to store reviews data
 
         for (Review r : al){
@@ -80,20 +78,17 @@ public class ReviewDB{
      * Writes the review data obtained from saveReviews() into the reviews.txt file.
      * @param fileName The file path of the reviews.txt file which contains all the reviews and ratings.
      * @param data An arraylist containing the review data in string format.
-     * @throws IOException
      * @see PrintWriter
      * @see FileWriter
      */
-    public static void write(String fileName, ArrayList<String> data) throws IOException  {
-        PrintWriter out = new PrintWriter(new FileWriter(fileName));
-
-        try {
-            for (String datum : data) {
-                out.println(datum);
+    public static void write(String fileName, ArrayList<String> data){
+        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+            for (String line : data) {
+                out.println(line);
             }
         }
-        finally {
-            out.close();
+        catch (Exception e) {
+            System.out.println("Exception >> " + e);
         }
     }
 
@@ -101,20 +96,18 @@ public class ReviewDB{
      * Reads all the reviews and ratings from the reviews.txt file.
      * @param fileName The file path of the reviews.txt file which contains all the reviews and ratings.
      * @return An array list containing the reviews and ratings in string format.
-     * @throws IOException
      * @see Scanner
      * @see FileInputStream
      */
-    public static ArrayList<String> read(String fileName) throws IOException {
+    public static ArrayList<String> read(String fileName){
         ArrayList<String> data = new ArrayList<>();
-        Scanner scanner = new Scanner(new FileInputStream(fileName));
-        try {
-            while (scanner.hasNextLine()){
+        try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
+            while (scanner.hasNextLine()) {
                 data.add(scanner.nextLine());
             }
         }
-        finally{
-            scanner.close();
+        catch (Exception e){
+            System.out.println("Exception >> " + e);
         }
         return data;
     }
