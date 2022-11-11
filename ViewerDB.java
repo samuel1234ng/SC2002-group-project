@@ -91,7 +91,6 @@ public class ViewerDB {
         String fileName = "data/viewer.txt";
         ArrayList<String> string_data = readFile(fileName);
         for (String line : string_data) {
-            ArrayList<String> history = new ArrayList<>();
             StringTokenizer star = new StringTokenizer(line, SEPARATOR);
             String id = star.nextToken();
             star.nextToken();

@@ -55,18 +55,18 @@ public class SettingsDB {
         return data;
     }
 
-    public static HashMap<String, String> loginHelper() throws FileNotFoundException {
-        HashMap<String, String> hm= new HashMap<>();
-        ArrayList<String> stringArray = (ArrayList<String>) readFile("src/data/admin.txt");
-        stringArray.remove(stringArray.size()-1);
-        for (String s : stringArray) {
-            StringTokenizer star = new StringTokenizer(s, SEPARATOR);
-            String name = star.nextToken().trim();
-            String username = star.nextToken().trim();
-            String password = star.nextToken().trim();
-            hm.put(username, password);
-        }
-        return hm;
-    }
+    // public static HashMap<String, String> loginHelper() throws FileNotFoundException {
+    //     HashMap<String, String> hm= new HashMap<>();
+    //     ArrayList<String> stringArray = (ArrayList<String>) readFile("src/data/admin.txt");
+    //     stringArray.remove(stringArray.size()-1);
+    //     for (String s : stringArray) {
+    //         StringTokenizer star = new StringTokenizer(s, SEPARATOR);
+    //         star.nextToken().trim();
+    //         String username = star.nextToken().trim();
+    //         String password = star.nextToken().trim();
+    //         hm.put(username, password);
+    //     }
+    //     return hm;
+    // }
 
 }

@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -235,10 +234,10 @@ public class Movie implements Serializable {
         double ans = 0.0, result;
         int count = 0;
         try{
-            ArrayList reviewList = ReviewDB.readReviews(reviewFile);
+            ArrayList<Review> reviewList = ReviewDB.readReviews(reviewFile);
             pastReviews.clear();
             for (int i = 0; i < reviewList.size(); i++) {
-                Review review = (Review) reviewList.get(i);
+                Review review = reviewList.get(i);
                 if(review.getMovieTitle().equalsIgnoreCase(getTitle())){
                     pastReviews.add(review.getReviewerName());
                     pastReviews.add(String.valueOf(review.getRating()));
