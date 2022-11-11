@@ -17,6 +17,7 @@ public class MOBLIMAMain {
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
+    
     public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
         System.out.printf("""
                 Welcome to the booking system!
@@ -29,16 +30,27 @@ public class MOBLIMAMain {
         String email = sc.nextLine();
         System.out.println("Please enter your mobile Number");
         String mobile = sc.nextLine();
-        Viewer v = new Viewer(email, name, mobile);
-        System.out.println("""
+        switch(login(email, mobile)){
+            case 1-> adminUser(sc, cineplexes);
+            case 2-> {
+                System.out.println("""
+                An account with these details already exists! Log in successful.
+                We will now proceed to direct you to the Viewer Menu.
+                
+                """);
+                viewerUser(sc, new Viewer(email, name, mobile), cineplexes);
+            }
+            case 3->{
+                Viewer v = new Viewer(email, name, mobile);
+                System.out.println("""
                 Account successfully created!
                 We will now proceed to direct you to the Viewer Menu.
                 
                 """);
-        ViewerDB.createViewerInFile(v);
-        viewerUser(sc, v, cineplexes);
-
-
+                ViewerDB.createViewerInFile(v);
+                viewerUser(sc, v, cineplexes);
+            }
+        }
     }
 
     public static void viewerUser(Scanner sc, Viewer v, Cineplex[] cineplexes) {
