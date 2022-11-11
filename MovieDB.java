@@ -38,6 +38,7 @@ public class MovieDB {
             // extracts each field to its respective variable
             String title = star.nextToken().trim();
             status = Movie.ShowingStatus.valueOf(star.nextToken().trim());
+            String endOfShowDate = star.nextToken().trim();
             String synopsis = star.nextToken().trim();
             String director = star.nextToken().trim();
             cast.add(star.nextToken().trim());
@@ -54,6 +55,7 @@ public class MovieDB {
             Movie movie = new Movie(title, status, synopsis, director, cast, genre, language, runtime,
                     movieRating, release, overallReviewerRating, pastReviews, tickets);
 
+            movie.setEndOfShowingDate(endOfShowDate);
             // add to movie list
             movRead.add(movie);
         }
@@ -65,10 +67,9 @@ public class MovieDB {
      * This list is written to the existing movies.txt file.
      * @param filename The file path of the movies.txt file which contains all the movies.
      * @param al A list containing the new movie object.
-     * @throws IOException
      * @see #write(String, ArrayList)
      */
-    public static void saveMovies(String filename, ArrayList<Movie> al) throws IOException {
+    public static void saveMovies(String filename, ArrayList<Movie> al) {
         ArrayList<String> movWrite = new ArrayList<>() ;// to store movies data
 
         for (Movie movie : al) {
@@ -76,6 +77,8 @@ public class MovieDB {
             st.append(movie.getTitle().trim());
             st.append(SEPARATOR);
             st.append(movie.getStatus());
+            st.append(SEPARATOR);
+            st.append(movie.getEndOfShowingDate());
             st.append(SEPARATOR);
             st.append(movie.getSynopsis().trim());
             st.append(SEPARATOR);

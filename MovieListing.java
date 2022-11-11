@@ -5,15 +5,15 @@ public class MovieListing {
 
     private Movie movieName;
 
-    private MovieStatus movieStatus;
-    private MovieTypes movieType;
+    private Movie.ShowingStatus movieStatus;
+    private Movie.MovieType movieType;
 
     //private double[] TicketPrice;
     public MovieListing(Movie movie, String movieType, String movieStatus) {
         this.movieName = movie;
         this.timeSlots = new ArrayList<>();
-        this.movieType = MovieTypes.valueOf(movieType);
-        this.movieStatus = MovieStatus.valueOf(movieStatus);
+        this.movieType = Movie.MovieType.valueOf(movieType);
+        this.movieStatus = Movie.ShowingStatus.valueOf(movieStatus);
     }
 
     public Movie getMovie() {
@@ -23,20 +23,19 @@ public class MovieListing {
     public void setMovie(Movie movie) {
         this.movieName = movie;
     }
-
     public void setStatus(String status) {
-        this.movieStatus = MovieStatus.valueOf(status);
+        this.movieStatus = Movie.ShowingStatus.valueOf(status);
     }
 
 public int getMovieType() {
-        MovieTypes typeMovie = this.movieType;
-        if(typeMovie== MovieTypes.IMAX_3D){
+        Movie.MovieType typeMovie = this.movieType;
+        if(typeMovie== Movie.MovieType.IMAX_3D){
             return 1;
         }
-        else if(typeMovie== MovieTypes.BLOCKBUSTER){
+        else if(typeMovie== Movie.MovieType.BLOCKBUSTER){
             return 2;
         }
-        else if ((typeMovie== MovieTypes.IMAX_2D)){
+        else if ((typeMovie== Movie.MovieType.IMAX_2D)){
             return 0;
         }else{
             return 0;
@@ -65,7 +64,7 @@ public int getMovieType() {
         return null;
     }
 
-    public MovieStatus getMovieStatus() {
+    public Movie.ShowingStatus getMovieStatus() {
         return movieStatus;
     }
 
@@ -80,10 +79,4 @@ public int getMovieType() {
         TimeSlot t = new TimeSlot(time, date);
         this.timeSlots.add(t);
     }
-
-    enum MovieTypes {BLOCKBUSTER, IMAX_3D, IMAX_2D}
-
-    enum MovieStatus {COMING_SOON, NOW_SHOWING, END_OF_SHOWING}
-
-
 }

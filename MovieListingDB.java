@@ -88,7 +88,7 @@ public class MovieListingDB {
             String name = st2.nextToken().trim();
             String movieType = st2.nextToken().trim();
             Movie m = SearchMovie.movieByName(name, allMovies);
-            ml = new MovieListing(m, movieType , m.getStatus().name());
+            ml = new MovieListing(m, movieType , m.getStatus().toString());
 
             // separates show-times
             while(st2.hasMoreTokens()){

@@ -20,6 +20,9 @@ public class Movie implements Serializable {
      */
     public enum ShowingStatus{COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING}
 
+    public enum MovieType{IMAX_2D,IMAX_3D, BLOCKBUSTER}
+
+
     /**
      * The synopsis of this movie.
      */
@@ -80,6 +83,8 @@ public class Movie implements Serializable {
      */
     private ShowingStatus status;
 
+    private String endOfShowingDate;
+
     /**
      * The review file part of the reviews.txt file.
      */
@@ -118,6 +123,7 @@ public class Movie implements Serializable {
         this.overallReviewerRating = overallReviewerRating;
         this.pastReviews = pastReviews;
         this.noOfTickets = noOfTickets;
+        this.endOfShowingDate = "31/12/2022";
         updateReviewsRatings();
     }
 
@@ -236,9 +242,8 @@ public class Movie implements Serializable {
         try{
             ArrayList<Review> reviewList = ReviewDB.readReviews(reviewFile);
             pastReviews.clear();
-            for (int i = 0; i < reviewList.size(); i++) {
-                Review review = reviewList.get(i);
-                if(review.getMovieTitle().equalsIgnoreCase(getTitle())){
+            for (Review review : reviewList) {
+                if (review.getMovieTitle().equalsIgnoreCase(getTitle())) {
                     pastReviews.add(review.getReviewerName());
                     pastReviews.add(String.valueOf(review.getRating()));
                     pastReviews.add(review.getReviewDescription());
@@ -260,5 +265,17 @@ public class Movie implements Serializable {
         catch (Exception e) {
             System.out.println("IOException > " + e.getMessage());
         }
+    }
+
+    public void setStatus(ShowingStatus status) {
+        this.status = status;
+    }
+
+    public void setEndOfShowingDate(String endOfShowingDate) {
+        this.endOfShowingDate = endOfShowingDate;
+    }
+
+    public String getEndOfShowingDate() {
+        return endOfShowingDate;
     }
 }
