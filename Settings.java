@@ -14,7 +14,7 @@ public class Settings {
 	int [] ageMod = new int[3];
 	int [] dayMod = new int[3];
 	ArrayList<String> holidays = new ArrayList<>();
-	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
+	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	public Settings() {
 		this.loadSettings();
@@ -120,16 +120,16 @@ public class Settings {
 		System.out.println();
 		System.out.println();
 	}
-	public void addHoliday(int date,int month)
+	public void addHoliday(int date,int month,int year)
 	{
-		LocalDateTime time = LocalDateTime.of(0,month,date,0,0,0);
+		LocalDateTime time = LocalDateTime.of(year,month,date,0,0,0);
 		String holidate = dtf.format(time);
 		holidays.add(holidate);
 
 	}
-	public void removeHoliday(int date, int month)
+	public void removeHoliday(int date, int month,int year)
 	{
-		LocalDateTime time = LocalDateTime.of(0,month,date,0,0,0);
+		LocalDateTime time = LocalDateTime.of(year,month,date,0,0,0);
 		String holidate = dtf.format(time);
 		for(int j=0;j<holidays.size();j++){
 			if(holidays.get(j).equals(holidate)){
