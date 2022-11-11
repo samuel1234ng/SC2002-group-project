@@ -135,11 +135,36 @@ public class Booking {
             if (letter == 0) { //elite
                 seats[letter][num - 1].assign(viewer.getViewerID());
                 int movieType = listing.getMovieType();
-                int myAge = ages.get(i);
-                myAge = getAgeType(myAge);
+                int actAge = ages.get(i);
+                int myAge = getAgeType(actAge);
                 int day = timeslot.getDayType(holidays);
 
                 priceAdded = settings.calculateTicketPrice(movieType, 1, myAge, day);
+                String typeMovie;
+                String typeDay;
+                String typeAge;
+                switch(movieType){
+                    case 0->typeMovie = "IMAX_2D";
+                    case 1->typeMovie = "IMAX_3D";
+                    case 2->typeMovie = "BLOCKBUSTER";
+                }
+                switch(day){
+                    case 0->typeDay = "Weekday";
+                    case 1->typeDay = "Weekend";
+                    case 2->typeDay = "Holiday";
+                }
+                switch(actAge){
+                    case 0->typeAge = "Adult";
+                    case 1->typeAge = "Child (<12 years)";
+                    case 2->typeAge = "Senior Citizen (>60 years)";
+                }
+                System.out.printf("Base ticket price : %d",settings.baseTicketPrice);
+                System.out.printf("Additional price for movie type '%s' : %d\n",typeMovie,settings.typeMod[movieType]);
+                System.out.printf("Additional price for day type '%s' : %d\n",typeDay,settings.dayMod[day]);
+                System.out.printf("Reduction in price for '%s' : %d\n",typeAge,-1*settings.ageMod[myAge]);
+                System.out.printf("Price for seat %s : %d\n",seatSelect,priceAdded);
+                System.out.println();
+
             }
               else {
                 seats[letter][num - 1].assign(viewer.getViewerID());
@@ -149,13 +174,37 @@ public class Booking {
                 int day = timeslot.getDayType(holidays);
 
                 priceAdded = settings.calculateTicketPrice(movieType, 0, myAge, day);
+                String typeMovie;
+                String typeDay;
+                String typeAge;
+                switch(movieType){
+                    case 0->typeMovie = "IMAX_2D";
+                    case 1->typeMovie = "IMAX_3D";
+                    case 2->typeMovie = "BLOCKBUSTER";
+                }
+                switch(day){
+                    case 0->typeDay = "Weekday";
+                    case 1->typeDay = "Weekend";
+                    case 2->typeDay = "Holiday";
+                }
+                switch(actAge){
+                    case 0->typeAge = "Adult";
+                    case 1->typeAge = "Child (<12 years)";
+                    case 2->typeAge = "Senior Citizen (>60 years)";
+                }
+                System.out.printf("Base ticket price : %d",settings.baseTicketPrice);
+                System.out.printf("Additional price for movie type '%s' : %d\n",typeMovie,settings.typeMod[movieType]);
+                System.out.printf("Additional price for day type '%s' : %d\n",typeDay,settings.dayMod[day]);
+                System.out.printf("Reduction in price for '%s' : %d\n",typeAge,-1*settings.ageMod[myAge]);
+                System.out.printf("Price for seat %s : %d",seatSelect,priceAdded);
+                System.out.println();
             }
             totalPrice += priceAdded;
             timeslot.setSeats(seats);
             //set value of seats
 
         }
-        System.out.printf("The amount for your tickets is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
+        System.out.printf("The total amount for seats is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
 
         sc.close();
         return selectedSeats;
