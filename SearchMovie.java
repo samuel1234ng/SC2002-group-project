@@ -1,8 +1,17 @@
 import java.util.ArrayList;
 import java.util.Objects;
-
+/**
+ * 
+ * @author Samuel Ng
+ * @version 1.0
+ * @since 2022-11-05
+ *
+ */
 public class SearchMovie {
-
+    /**
+     * Prints list all of movies that have a status of now showing or preview
+     * @param movies arraylist of all movies
+     */
     public static void listCurrentMovies(ArrayList<Movie> movies){
         int k = 1;
         for (Movie movie : movies) {
@@ -12,7 +21,12 @@ public class SearchMovie {
             }
         }
     }
-
+    /**
+     * Find movie object in moviearray
+     * @param movieName of movie
+     * @param movies arraylist of all movies
+     * @return movie object
+     */
     public static Movie movieByName(String movieName, ArrayList<Movie> movies){
         for (Movie movie : movies) {
             //movieListing object has movie object attribute
@@ -22,7 +36,11 @@ public class SearchMovie {
         }
         return null;
     }
-
+    /**
+     * Gets movies in a specific cinema
+     * @param cinema cinema to check
+     * @return movies that are played in the cinema
+     */
     public static ArrayList<Movie> movieByCinema(Cinema cinema){
         ArrayList<MovieListing> all_listings = cinema.movieListings;
         ArrayList<Movie> movies  = new ArrayList<>();
@@ -33,7 +51,11 @@ public class SearchMovie {
         }
         return movies;
     }
-
+    /**
+     * Sorts movies by rating
+     * @param pre_sorted_movies arraylist of all movies
+     * @return arraylist of movies that have been sorted
+     */
     public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies){
         Movie temp;
         boolean finished = false;
@@ -68,7 +90,11 @@ public class SearchMovie {
         }
         return pre_sorted_movies;
     }
-
+    /**
+     * Sorts movies by tickets
+     * @param pre_sorted_movies arraylist of all movies
+     * @return arraylist of movies that have been sorted
+     */
     public static ArrayList<Movie> movieByTickets(ArrayList<Movie> pre_sorted_movies) {
         Movie temp;
         for (int i = 1; i < pre_sorted_movies.size(); i++) {
@@ -88,7 +114,10 @@ public class SearchMovie {
         }
         return pre_sorted_movies;
     }
-    
+    /**
+     * Prints movie details
+     * @param movie movie object
+     */
     public static void printMovieDetails(Movie movie){
         if (movie == null){
             System.out.println("Sorry, there exists no such Movie");
