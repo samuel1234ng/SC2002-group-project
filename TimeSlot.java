@@ -1,4 +1,6 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class TimeSlot {
 //    private int timing;
@@ -71,8 +73,16 @@ public class TimeSlot {
         this.dateTime = LocalDateTime.of(year, month, day, hour, minute);
     }
 	
-public int getDayType(){
+public int getDayType(ArrayList<String> holidays){
 	
+    LocalDateTime date = this.dateTime;
+    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM");
+	String dateType = f.format(date);
+    for(int j=0;j<holidays.size();j++){
+        if(holidays.get(j)==dateType){
+            return 2;
+        }
+    }
 	String dayType = this.dateTime.getDayOfWeek().name();
 	if(dayType=="SATURDAY" || dayType=="SUNDAY"){
 		return 1;
