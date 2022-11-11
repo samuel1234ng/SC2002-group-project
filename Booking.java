@@ -148,10 +148,11 @@ public class Booking {
                 }
             }
             int priceAdded;
+            int actAge = 0;
             if (letter == 0) { //elite
                 seats[letter][num - 1].assign(viewer.getViewerID());
                 int movieType = listing.getMovieType();
-                int actAge = ages.get(i);
+                actAge = ages.get(i);
                 int myAge = getAgeType(actAge);
                 int day = timeslot.getDayType(holidays);
 
@@ -159,30 +160,29 @@ public class Booking {
                 String typeMovie;
                 String typeDay;
                 String typeAge;
-                switch(movieType){
-                    case 0->typeMovie = "IMAX_2D";
-                    case 1->typeMovie = "IMAX_3D";
-                    case 2->typeMovie = "BLOCKBUSTER";
+                switch (movieType) {
+                    case 0 -> typeMovie = "IMAX_2D";
+                    case 1 -> typeMovie = "IMAX_3D";
+                    default -> typeMovie = "BLOCKBUSTER";
                 }
-                switch(day){
-                    case 0->typeDay = "Weekday";
-                    case 1->typeDay = "Weekend";
-                    case 2->typeDay = "Holiday";
+                switch (day) {
+                    case 0 -> typeDay = "Weekday";
+                    case 1 -> typeDay = "Weekend";
+                    default -> typeDay = "Holiday";
                 }
-                switch(actAge){
-                    case 0->typeAge = "Adult";
-                    case 1->typeAge = "Child (<12 years)";
-                    case 2->typeAge = "Senior Citizen (>60 years)";
+                switch (actAge) {
+                    case 0 -> typeAge = "Adult";
+                    case 1 -> typeAge = "Child (<12 years)";
+                    default -> typeAge = "Senior Citizen (>60 years)";
                 }
-                System.out.printf("Base ticket price : %d",settings.baseTicketPrice);
-                System.out.printf("Additional price for movie type '%s' : %d\n",typeMovie,settings.typeMod[movieType]);
-                System.out.printf("Additional price for day type '%s' : %d\n",typeDay,settings.dayMod[day]);
-                System.out.printf("Reduction in price for '%s' : %d\n",typeAge,-1*settings.ageMod[myAge]);
-                System.out.printf("Price for seat %s : %d\n",seatSelect,priceAdded);
+                System.out.printf("Base ticket price : %d\n", settings.baseTicketPrice);
+                System.out.printf("Additional price for movie type '%s' : %d\n", typeMovie, settings.typeMod[movieType]);
+                System.out.printf("Change in price for day type '%s' : %d\n", typeDay, settings.dayMod[day]);
+                System.out.printf("Reduction in price for '%s' : %d\n", typeAge, -1 * settings.ageMod[myAge]);
+                System.out.printf("Total Price for seat %s : %d\n", seatSelect, priceAdded);
                 System.out.println();
 
-            }
-              else {
+            } else {
                 seats[letter][num - 1].assign(viewer.getViewerID());
                 int movieType = listing.getMovieType();
                 int myAge = ages.get(i);
@@ -193,26 +193,26 @@ public class Booking {
                 String typeMovie;
                 String typeDay;
                 String typeAge;
-                switch(movieType){
-                    case 0->typeMovie = "IMAX_2D";
-                    case 1->typeMovie = "IMAX_3D";
-                    case 2->typeMovie = "BLOCKBUSTER";
+                switch (movieType) {
+                    case 0 -> typeMovie = "IMAX_2D";
+                    case 1 -> typeMovie = "IMAX_3D";
+                    default -> typeMovie = "BLOCKBUSTER";
                 }
-                switch(day){
-                    case 0->typeDay = "Weekday";
-                    case 1->typeDay = "Weekend";
-                    case 2->typeDay = "Holiday";
+                switch (day) {
+                    case 0 -> typeDay = "Weekday";
+                    case 1 -> typeDay = "Weekend";
+                    default -> typeDay = "Holiday";
                 }
-                switch(actAge){
-                    case 0->typeAge = "Adult";
-                    case 1->typeAge = "Child (<12 years)";
-                    case 2->typeAge = "Senior Citizen (>60 years)";
+                switch (myAge) {
+                    case 0 -> typeAge = "Adult";
+                    case 1 -> typeAge = "Child (<12 years)";
+                    default -> typeAge = "Senior Citizen (>60 years)";
                 }
-                System.out.printf("Base ticket price : %d",settings.baseTicketPrice);
-                System.out.printf("Additional price for movie type '%s' : %d\n",typeMovie,settings.typeMod[movieType]);
-                System.out.printf("Additional price for day type '%s' : %d\n",typeDay,settings.dayMod[day]);
-                System.out.printf("Reduction in price for '%s' : %d\n",typeAge,-1*settings.ageMod[myAge]);
-                System.out.printf("Price for seat %s : %d",seatSelect,priceAdded);
+                System.out.printf("Base ticket price : %d", settings.baseTicketPrice);
+                System.out.printf("Additional price for movie type '%s' : %d\n", typeMovie, settings.typeMod[movieType]);
+                System.out.printf("Additional price for day type '%s' : %d\n", typeDay, settings.dayMod[day]);
+                System.out.printf("Reduction in price for '%s' : %d\n", typeAge, -1 * settings.ageMod[myAge]);
+                System.out.printf("Price for seat %s : %d", seatSelect, priceAdded);
                 System.out.println();
             }
             totalPrice += priceAdded;
