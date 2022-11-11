@@ -242,14 +242,11 @@ public class MOBLIMAMain {
                                 	""", BOLD, RESET, movie_name,BOLD, RESET, seat, BOLD, RESET, date, BOLD, RESET, transaction_id);
                     }
                 }
-                case 6 ->{
+                case 6 -> {
                     try {
                         String reviewFile = "data/reviews.txt";
                         ArrayList<Review> reviewList = ReviewDB.readReviews(reviewFile);
-
-                        System.out.print("Please enter your name: ");
-                        String name = sc.nextLine();
-                        System.out.print("Please enter the movie title: ");
+                        System.out.print("Please enter the Movie which you want to review: ");
                         String movieTitle = sc.nextLine();
                         System.out.print("Please input your rating (1-5): ");
                         double rating = sc.nextFloat();
@@ -257,13 +254,13 @@ public class MOBLIMAMain {
                         System.out.println("Please input your review: ");
                         String review = sc.nextLine();
 
-                        Review newReview = new Review(name, movieTitle, rating, review); // create new review object
+                        Review newReview = new Review(v.getFullName(), movieTitle, rating, review); // create new review object
 
                         reviewList.add(newReview);
 
                         // write review records to file.
                         ReviewDB.saveReviews(reviewFile, reviewList);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Exception << " + e);
                     }
                 }
@@ -493,152 +490,144 @@ public class MOBLIMAMain {
                         }
                     } while (choice2 < 7);
                 }
-                case 2 -> {
+                 case 2 -> {
                     System.out.printf("""
-                                    Select a Cineplex
-                                    (1) %s
-                                    (2) %s
-                                    (3) %s
-                                    
-                                    """, cineplexes[0].getCineplexName(), cineplexes[1].getCineplexName(), cineplexes[2].getCineplexName());
+                            Select a Cineplex
+                            (1) %s
+                            (2) %s
+                            (3) %s
+                                                                
+                            """, cineplexes[0].getCineplexName(), cineplexes[1].getCineplexName(), cineplexes[2].getCineplexName());
                     int optionCineplex = sc.nextInt();
                     sc.nextLine();
 
                     System.out.println("Select a Cinema to add a movie to: ");
-                    for(int i = 0; i< cineplexes[optionCineplex-1].getCinemas().length; i++){
+                    for (int i = 0; i < cineplexes[optionCineplex - 1].getCinemas().length; i++) {
                         System.out.printf("(%d) Cinema %d\n", i, i);
                     }
                     int optionCinema = sc.nextInt();
                     sc.nextLine();
-                    System.out.println(
-                            """
-                            Enter your choice for the type of the movie:
-                            (1) IMAX_2D
-                            (2) IMAX_3D
-                            (3) BLOCKBUSTER
-                            
-                            """);
-                    String movieType;
-                    int movieTypeChoice = sc.nextInt();
-                    sc.nextLine();
-                    if(movieTypeChoice==1){
-                        movieType = "IMAX_2D";
-                    }else if(movieTypeChoice==2){
-                        movieType = "IMAX_3D";
-                    }else{
-                        movieType = "BLOCKBUSTER";
-                    }
                     ArrayList<Movie> movieList = MovieDB.readMovies("data/movies.txt");
-                    System.out.println("Enter the name of the movie: ");
-                    String nameMovie = sc.nextLine();
-                    for (Movie movie : movieList) {
-                        if (nameMovie.equals(movie.getTitle())) {
-                            MovieListing newListing = new MovieListing(movie, movieType, "NOW_SHOWING");
-                            System.out.println("Enter the numbers shows you would like to add to the movie listing : ");
-                            int numberOfShows = sc.nextInt();
-                            sc.nextLine();
 
-                            for (int j = 0; j < numberOfShows; j++) {
-                                System.out.printf("Enter a date for showtime #%d in the format DD/MM/YYYY: \n", j);
-                                String date = sc.nextLine();
-                                System.out.printf("Enter the time for showtime #%d of new movie: \n", j);
-                                int time = sc.nextInt();
+                    boolean correct_movie = false;
+                    boolean found = false;
+                    while (!correct_movie) {
+                        System.out.println("Enter the name of the movie you would like to add to the Cinema: ");
+                        String nameMovie = sc.nextLine();
+                        for (Movie movie : movieList) {
+                            if (nameMovie.equals(movie.getTitle())) {
+                                found = true;
+                                if ((movie.getStatus() == Movie.ShowingStatus.NOW_SHOWING) || (movie.getStatus() == Movie.ShowingStatus.PREVIEW)) {
+                                    correct_movie = true;
+                                } else {
+                                    break;
+                                }
+
+                                System.out.println(
+                                        """
+                                                Enter your choice for the type of the movie:
+                                                (1) IMAX_2D
+                                                (2) IMAX_3D
+                                                (3) BLOCKBUSTER
+                                                                                        
+                                                """);
+                                String movieType;
+                                int movieTypeChoice = sc.nextInt();
+                                sc.nextLine();
+                                if (movieTypeChoice == 1) {
+                                    movieType = "IMAX_2D";
+                                } else if (movieTypeChoice == 2) {
+                                    movieType = "IMAX_3D";
+                                } else {
+                                    movieType = "BLOCKBUSTER";
+                                }
+
+                                MovieListing newListing = new MovieListing(movie, movieType, movie.getStatus().toString());
+                                System.out.println("Enter the numbers shows you would like to add to the movie listing : ");
+                                int numberOfShows = sc.nextInt();
                                 sc.nextLine();
 
-                                newListing.addShowtime(time, date);
-                            }
-                            // add movielisting to movieListings
-                            Cinema cinema = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1];
-                            cinema.getMovieListings().add(newListing);
+                                for (int j = 0; j < numberOfShows; j++) {
+                                    System.out.printf("Enter a date for showtime #%d in the format DD/MM/YYYY: \n", j);
+                                    String date = sc.nextLine();
+                                    System.out.printf("Enter the time for showtime #%d of new movie: \n", j);
+                                    int time = sc.nextInt();
+                                    sc.nextLine();
 
-                            // update file
-                            String strListing = MovieListingDB.movieListingToString(cinema.getMovieListings());
-                            MovieListingDB.changeLine(MovieListingDB.readFile(), strListing, optionCineplex, optionCinema);
-                            break;
+                                    newListing.addShowtime(time, date);
+                                }
+                                // add movielisting to movieListings
+                                Cinema cinema = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1];
+                                cinema.getMovieListings().add(newListing);
+
+                                // update file
+                                String strListing = MovieListingDB.movieListingToString(cinema.getMovieListings());
+                                MovieListingDB.changeLine(MovieListingDB.readFile(), strListing, optionCineplex, optionCinema);
+                                break;
+                            }
+                        }
+                        if (found) {
+                            if (!correct_movie) {
+                                System.out.println("You can only add movies which are NOW_SHOWING or in PREVIEW.\n Please try again.");
+                            }
+                        } else {
+                            System.out.printf("No movie with name %s was found.\n Please try again.\n", nameMovie);
                         }
                     }
                 }
-                case 3 -> {
+                 case 3 -> {
                     // Edit a movie
-                    System.out.println("""
-                            Select a Cineplex to add movie
-                            (1) Cineplex a
-                            (2) Cineplex b
-                            (3) Cineplex c
-                            """);
-                    int optionCineplex = sc.nextInt();
-                    sc.nextLine();
+                    System.out.println("The Movies registered in the Booking System are: ");
+                    for (Movie m : MovieDB.readMovies("data/movies.txt")) {
+                        System.out.printf("%s - %s\n", m.getTitle(), m.getStatus().toString());
+                    }
+                    ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
 
-                    System.out.println("""
-                            Select a Cinema to add movie
-                            (1) Cinema 1
-                            (2) Cinema 2
-                            (3) Cinema 3
-                            """);
-                    int optionCinema = sc.nextInt();
-                    sc.nextLine();
-                    ArrayList<MovieListing> listings = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].getMovieListings();
-                    System.out.println("Enter name of new movie: ");
-                    String nameMovie = sc.nextLine();
-                    a: for (int i = 0; i < listings.size(); i++) {
-                        Movie movie = listings.get(i).getMovie();
-                        if (nameMovie.equals(movie.getTitle())) {
-                            System.out.println("""
-                                   What would you like to change?:
-                                    (1) Status
-                                    (2) Timing
-                                    """);
-                            int option = sc.nextInt();
-                            sc.nextLine();
-
-                            switch (option) {
-                                case 1 -> {
-                                    System.out.println("""
-                                            Enter new status of movie:
-                                            (1)COMING_SOON
-                                            (2)NOW_SHOWING
-                                            (3)END_OF_SHOWING
-                                            """);
-                                    int intStatus = sc.nextInt();
-                                    sc.nextLine();
-
-                                    String status;
-                                    switch (intStatus){
-                                        case 1-> {
-                                            status = "COMING_SOON";
-                                            listings.get(i).setStatus(status);
-                                            System.out.println("Movie Status Changed!");
-                                        }
-                                        case 2-> {
-                                            status = "NOW_SHOWING";
-                                            listings.get(i).setStatus(status);
-                                            System.out.println("Movie Status Changed!");
-                                        }
-                                        case 3-> {
-                                            cineplexes[optionCineplex-1].getCinemas()[optionCinema - 1].movieListings.remove(i);
-                                            System.out.println("Movie Status Changed!");
-                                            break a;
-                                        }
+                    boolean found = false;
+                    while (!found) {
+                        System.out.println("Enter the name of the movie you would like to add to the Cinema: ");
+                        String nameMovie = sc.nextLine();
+                        for (Movie movie : movies) {
+                            if (nameMovie.equals(movie.getTitle())) {
+                                found = true;
+                                System.out.printf(
+                                        """
+                                                Currently, The Status of the movie is %s
+                                                Enter your choice for the Status of the movie:
+                                                (1) COMING_SOON
+                                                (2) PREVIEW
+                                                (3) NOW_SHOWING
+                                                (4) END_OF_SHOWING
+                                                                                        
+                                                """, movie.getStatus().toString());
+                                String movieType;
+                                int movieTypeChoice = sc.nextInt();
+                                sc.nextLine();
+                                if (movieTypeChoice == 1) {
+                                    movieType = "COMING_SOON";
+                                } else if (movieTypeChoice == 2) {
+                                    movieType = "PREVIEW";
+                                } else if (movieTypeChoice == 4) {
+                                    movieType = "END_OF_SHOWING";
+                                    System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
+                                    String date = sc.nextLine();
+                                    while(date.length()!=10 || date.charAt(2)!='/' || date.charAt(5)!='/'){
+                                        System.out.println("Invalid imput of date format. Please try again:");
+                                        System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
+                                        date = sc.nextLine();
                                     }
-
+                                    movie.setEndOfShowingDate(date);
+                                } else {
+                                    movieType = "NOW_SHOWING";
                                 }
-                                case 2 -> {
-                                    MovieListing movieNew = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1].movieListings.get(i);
-                                    System.out.println("Enter timing you would like to replace: ");
-                                    int oldTime = sc.nextInt();
-                                    sc.nextLine();
-
-                                    for (int o = 0; o < movieNew.timeSlots.size(); o++) {
-                                        if (oldTime == movieNew.timeSlots.get(o).getTime()) {
-                                            System.out.println("Enter new timing : ");
-                                            int newTime = sc.nextInt();
-                                            sc.nextLine();
-
-                                            movieNew.timeSlots.get(o).setTime(newTime);
-                                        }
-                                    }
-                                }
+                                movie.setStatus(Movie.ShowingStatus.valueOf(movieType));
+                                break;
                             }
+                        }
+                        if (!found) {
+                            System.out.printf("No movie with name %s was found.\n Please try again.\n", nameMovie);
+                        }else{
+                        MovieDB.saveMovies("data/movies.txt", movies);
                         }
                     }
                 }
