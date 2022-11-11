@@ -467,18 +467,20 @@ public class MOBLIMAMain {
                                 set.changeTicketPrice(choice3, choice4, choice5);
                             }
                             case 4 -> {
-                                System.out.println("Day to set as holiday:");
-                                choice = sc.nextInt();
+                                System.out.println("Enter month(1-12):");
+                                int month = sc.nextInt();
+                                System.out.println("Enter date:");
+                                int date = sc.nextInt();
                                 sc.nextLine();
-
-                                set.addHoliday(choice);
+                                set.addHoliday(date,month);
                             }
                             case 5 -> {
-                                System.out.println("Day to unset as holiday:");
-                                choice = sc.nextInt();
+                                System.out.println("Enter month(1-12):");
+                                int month = sc.nextInt();
+                                System.out.println("Enter date:");
+                                int date = sc.nextInt();
                                 sc.nextLine();
-
-                                set.removeHoliday(choice);
+                                set.removeHoliday(date,month);
                             }
                             case 6 -> set.loadSettings();
                             case 7 -> set.storeSettings();
