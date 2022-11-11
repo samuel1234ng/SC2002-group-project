@@ -13,38 +13,15 @@ public class Settings {
 	int [] seatMod = new int[2];
 	int [] ageMod = new int[3];
 	int [] dayMod = new int[3];
-	ArrayList<String> holidays;
+	ArrayList<String> holidays = new ArrayList<>();
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
 	
-	Settings()
-	{
-		holidays = new ArrayList<>();
-		//adding 1 jan as holiday
-		
-		LocalDateTime time = LocalDateTime.of(0,1,1,0,0,0);
-		String date = dtf.format(time);
-		holidays.add(date);
-
-		baseTicketPrice = 10;
-
-		typeMod[0] = 0; // imax2d
-		typeMod[1] = 2; // imax3d
-		typeMod[2] = 3; // Blockbuster
-
-		seatMod[0] = 0; // normal
-		seatMod[1] = 2; // Elite
-
-		ageMod[0] = 0; //adult
-		ageMod[1] = -2; //child
-		ageMod[2] = -1; //senior citizen
-
-		dayMod[0] = 0; //weekday
-		dayMod[1] = 2; //weekend
-		dayMod[2] = 5; //holiday
+	public Settings() {
+		this.loadSettings();
 	}
 	public void storeSettings()
 	{
-		ArrayList<String> data = new ArrayList<String>();
+		ArrayList<String> data = new ArrayList<>();
 		data.add(Integer.toString(baseTicketPrice));
 		data.add("\n");
 		data.add(Integer.toString(typeMod[0]));
@@ -75,11 +52,10 @@ public class Settings {
 			e.printStackTrace();
 		}
 		
-		ArrayList<String> data2 = new ArrayList<String>();
+		ArrayList<String> data2 = new ArrayList<>();
 
-		for(int j=0;j<holidays.size();j++)
-		{
-			data2.add(holidays.get(j));
+		for (String holiday : holidays) {
+			data2.add(holiday);
 			data2.add("\n");
 		}
 		
@@ -92,12 +68,10 @@ public class Settings {
 	}
 	public void loadSettings()
 	{
-		List<String> data = null;
+		ArrayList<String> data;
 		try {
 			data=SettingsDB.readFile("data/settings.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+
 		baseTicketPrice = Integer.parseInt(data.get(0));
 		typeMod[0] = Integer.parseInt(data.get(1));
 		typeMod[1] = Integer.parseInt(data.get(2));
@@ -110,18 +84,19 @@ public class Settings {
 		dayMod[0] = Integer.parseInt(data.get(9));
 		dayMod[1] = Integer.parseInt(data.get(10));
 		dayMod[2] = Integer.parseInt(data.get(11));
-		
-		List<String> data2 = null;
-		try {
-			data2=SettingsDB.readFile("data/holidays.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		for(int j=0;j<data2.size();j++)
-		{
-			if(!(data2.get(j)=="\n")){
-				holidays.add(j,data2.get(j)); 
+		List<String> data2;
+		try {
+			data2=SettingsDB.readFile("data/holidays.txt");
+			for (String line : data2) {
+				if (!(line.equals("\n"))) {
+					holidays.add(line);
+				}
 			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	public void printSettings()
@@ -139,9 +114,8 @@ public class Settings {
 		System.out.println("Weekend price modifier: " + dayMod[1]);
 		System.out.println("Holiday price modifier: " + dayMod[2]);
 		System.out.print("Holidays: ");
-		for(int j=0;j<holidays.size();j++)
-		{
-			System.out.printf("%s",holidays.get(j));
+		for (String holiday : holidays) {
+			System.out.printf("%s", holiday);
 		}
 		System.out.println();
 		System.out.println();
@@ -158,8 +132,9 @@ public class Settings {
 		LocalDateTime time = LocalDateTime.of(0,month,date,0,0,0);
 		String holidate = dtf.format(time);
 		for(int j=0;j<holidays.size();j++){
-			if(holidays.get(j)==holidate){
+			if(holidays.get(j).equals(holidate)){
 				holidays.remove(j);
+				break;
 			}
 		}
 	}
