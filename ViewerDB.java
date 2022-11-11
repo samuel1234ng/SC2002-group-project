@@ -163,7 +163,11 @@ public class ViewerDB {
         data.set(update_index, new_viewer_data.toString());
         return data;
     }
-
+    /**
+     * Return all email and password of all users
+     * @param fileName 
+     * @return arraylist of all user's email and password
+     */
     public static HashMap<String, String> getViewerData(String fileName) {
         HashMap<String, String> viewer_data = new HashMap<>();
         ArrayList<String> string_data = ViewerDB.readFile(fileName);
@@ -177,7 +181,11 @@ public class ViewerDB {
         }
         return viewer_data;
     }
-
+    /**
+     * Return email, name, id, number of user
+     * @param email email of user
+     * @return viewer object with email, name, id, number of user
+     */
     public static Viewer getViewer(String email) {
         ArrayList<String> data = readFile("data/viewer.txt");
 
@@ -196,7 +204,10 @@ public class ViewerDB {
         }
         return new Viewer(email, name, id, number);
     }
-
+    /**
+     * Store a new viewer object in viewer file
+     * @param v viewer object to store
+     */
     public static void createViewerInFile(Viewer v) {
         StringBuilder s = new StringBuilder(v.getViewerID() + "|" + v.getFullName() + "|" + v.getEmail() + "|" + v.getMobileNumber());
         String fileName = "data/viewer.txt";
