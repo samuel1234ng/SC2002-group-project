@@ -2,6 +2,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+//import java.time.Month;
 
 public class Settings {
 
@@ -10,16 +13,17 @@ public class Settings {
 	int [] seatMod = new int[2];
 	int [] ageMod = new int[3];
 	int [] dayMod = new int[3];
-	int [] holidays = new int[365];
-
+	ArrayList<String> holidays;
+	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM");
 	
 	Settings()
 	{
-		for(int j=0;j<365;j++)
-		{
-			holidays[j] = 0;
-		}
-		holidays[299] =  1;
+		holidays = new ArrayList<>();
+		//adding 1 jan as holiday
+		
+		LocalDateTime time = LocalDateTime.of(0,1,1,0,0,0);
+		String date = dtf.format(time);
+		holidays.add(date);
 
 		baseTicketPrice = 10;
 
@@ -73,14 +77,14 @@ public class Settings {
 		
 		ArrayList<String> data2 = new ArrayList<String>();
 
-		for(int j=0;j<365;j++)
+		for(int j=0;j<holidays.size();j++)
 		{
-			data2.add(String.valueOf(holidays[j]));
+			data2.add(holidays.get(j));
 			data2.add("\n");
 		}
-
+		
 		try {
-			SettingsDB.writeFile("data/holidays.txt", data2);
+			SettingsDB.writeFile("data/holidays.txt",data2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -113,9 +117,11 @@ public class Settings {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		for(int j=0;j<365;j++)
+		for(int j=0;j<data2.size();j++)
 		{
-			holidays[j] = Integer.parseInt(data2.get(j));
+			if(!(data2.get(j)=="\n")){
+				holidays.add(j,data2.get(j)); 
+			}
 		}
 	}
 	public void printSettings()
@@ -133,24 +139,29 @@ public class Settings {
 		System.out.println("Weekend price modifier: " + dayMod[1]);
 		System.out.println("Holiday price modifier: " + dayMod[2]);
 		System.out.print("Holidays: ");
-		for(int j=0;j<365;j++)
+		for(int j=0;j<holidays.size();j++)
 		{
-			if (holidays[j]==1)
-			{
-				System.out.print(j);
-				System.out.print(" ");
-			}
+			System.out.printf("%s",holidays.get(j));
 		}
 		System.out.println();
 		System.out.println();
 	}
-	public void addHoliday(int day)
+	public void addHoliday(int date,int month)
 	{
-		holidays[day] = 1;
+		LocalDateTime time = LocalDateTime.of(0,month,date,0,0,0);
+		String holidate = dtf.format(time);
+		holidays.add(holidate);
+
 	}
-	public void removeHoliday(int day)
+	public void removeHoliday(int date, int month)
 	{
-		holidays[day] = 0;
+		LocalDateTime time = LocalDateTime.of(0,month,date,0,0,0);
+		String holidate = dtf.format(time);
+		for(int j=0;j<holidays.size();j++){
+			if(holidays.get(j)==holidate){
+				holidays.remove(j);
+			}
+		}
 	}
 	public void changeBasePrice(int newPrice)
 	{
@@ -182,5 +193,8 @@ public class Settings {
 		return baseTicketPrice + typeMod[cinemaType]+ seatMod[cinemaClass] + ageMod[age] + dayMod[day];
 	}
 	
+	public ArrayList<String> getHolidays(){
+		return this.holidays;
+	}
 
 }
