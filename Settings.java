@@ -8,11 +8,11 @@ import java.time.format.DateTimeFormatter;
 
 public class Settings {
 
-	int baseTicketPrice;
-	int [] typeMod = new int[3];
-	int [] seatMod = new int[2];
-	int [] ageMod = new int[3];
-	int [] dayMod = new int[3];
+	public int baseTicketPrice;
+	public int [] typeMod = new int[3];
+	public int [] seatMod = new int[2];
+	public int [] ageMod = new int[3];
+	public int [] dayMod = new int[3];
 	ArrayList<String> holidays = new ArrayList<>();
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
