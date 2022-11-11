@@ -1,3 +1,6 @@
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -8,6 +11,7 @@ public class MOBLIMAMain {
     public static final String BLACK = "\u001B[30m";
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
+    public static final String GREEN_BRIGHT = "\033[0;92m";  // GREEN
     public static final String YELLOW = "\u001B[33m";
     public static final String BLUE = "\u001B[34m";
     public static final String PURPLE = "\u001B[35m";
@@ -263,15 +267,23 @@ public class MOBLIMAMain {
                     int ans = sc.nextInt();
                     sc.nextLine();
                     if (ans == 1) {
+                        String ticket = "🎟";
                         ArrayList<Movie> sortedMovies = SearchMovie.movieByTickets(movies);
                         for (int i = 0; i < 5; i++) {
-                            System.out.printf("%d. %s\n", i + 1, sortedMovies.get(i).getTitle());
+                            System.out.printf("(%d) %s - %s%s%s %s tickets sold\n", i + 1, sortedMovies.get(i).getTitle(), RED, sortedMovies.get(i).getNoOfTickets(), RESET, ticket);
                         }
+                        System.out.println();
                     } else {
                         ArrayList<Movie> sortedMovies = SearchMovie.movieByRating(movies);
+                        String star = "✰";
                         for (int i = 0; i < 5; i++) {
-                            System.out.printf("%d. %s\n", i + 1, sortedMovies.get(i).getTitle());
+                            System.out.printf("(%d) %s (Rated ", i + 1, sortedMovies.get(i).getTitle());
+                            for(int j = 0; j< Math.round(Float.parseFloat(sortedMovies.get(i).getOverallReviewerRating())); j++){
+                                   System.out.print(BOLD+ GREEN_BRIGHT+star+RESET);
+                            }
+                            System.out.printf(" - %s Stars)\n", sortedMovies.get(i).getOverallReviewerRating());
                         }
+                        System.out.println();
                     }
                 }
                 case 8 -> {

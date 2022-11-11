@@ -55,7 +55,7 @@ public class SearchMovie {
                 double currRating = Double.parseDouble(curr_rating);
                 String prev_rating = pre_sorted_movies.get(j-1).getOverallReviewerRating();
                 double prevRating = Double.parseDouble(prev_rating);
-                if(currRating<prevRating){
+                if(currRating>prevRating){
                     temp = pre_sorted_movies.get(j);
                     pre_sorted_movies.set(j, pre_sorted_movies.get(j-1));
                     pre_sorted_movies.set(j-1, temp);
@@ -76,7 +76,7 @@ public class SearchMovie {
                 int curr_tickets = pre_sorted_movies.get(j).getNoOfTickets();
                 int prev_tickets = pre_sorted_movies.get(j - 1).getNoOfTickets();
 
-                if (curr_tickets < prev_tickets) {
+                if (curr_tickets > prev_tickets) {
                     temp = pre_sorted_movies.get(j);
                     pre_sorted_movies.set(j, pre_sorted_movies.get(j - 1));
                     pre_sorted_movies.set(j - 1, temp);
