@@ -2,14 +2,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+/**
+ * A Class that handles seat booking
+ * @author Samuel Ng
+ * @version 1.0
+ * @since 2022-11-05
+ *
+ */
 public class Booking {
 
     public static final String RED = "\u001B[31m";
     public static final String GREEN = "\u001B[32m";
     public static final String RESET = "\u001B[0m";
 
-
+     /**
+     * Prints out seats and their details
+     * @param timeslot seat data
+     */
     public static void availableSeats(TimeSlot timeslot) { //add numbering
         Seat[][] seats = timeslot.getSeats();
 
@@ -69,7 +78,14 @@ public class Booking {
         System.out.printf("%-15s\n","Elite Seat: *");
         System.out.printf("%-15s\n\n","Couple Seat: O--O");
     }
-
+    /**
+     * Books a seat
+     * @param listing movie details
+     * @param timeslot seat data
+     * @param viewer user details
+     * @param settings class used to calculate ticket price
+     * @return
+     */
     public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings) {
         //assign a seat from 2D seat array in movieListing
         ArrayList<String> holidays = settings.getHolidays();
@@ -209,7 +225,11 @@ public class Booking {
         sc.close();
         return selectedSeats;
     }
-
+    /**
+     * Returns cinema ID and time of booking
+     * @param cinema cinema that seat booking is created in
+     * @return
+     */
     public static String completePayment(Cinema cinema) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
         LocalDateTime now = LocalDateTime.now();
@@ -218,7 +238,11 @@ public class Booking {
         return cinemaCode + currTime;
 
     }
-
+    /**
+     * Returns what age group user is in
+     * @param myAge are of viewer
+     * @return age group 
+     */
     public static int getAgeType(int myAge) {
         if (myAge < 12) {
             myAge = 1;
