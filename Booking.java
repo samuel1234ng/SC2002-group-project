@@ -156,7 +156,6 @@ public class Booking {
         }
         System.out.printf("The amount for your tickets is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
 
-        sc.close();
         return selectedSeats;
     }
 
