@@ -218,12 +218,12 @@ public class MOBLIMAMain {
                         String movie_name = star.nextToken().trim();
                         String date = star.nextToken().trim();
                         System.out.printf("""
-                                Booking for movie: %s
-                                Seat number: %s
-                                Booking for date: %s
-                                Transaction Id: %s
+                                %sBooking for movie%s: %s
+                                %sSeat%s: %s
+                                %sBooking for date%s: %s
+                                %sTransaction Id%s: %s
                                 	
-                                	""", movie_name, seat, date, transaction_id);
+                                	""", BOLD, RESET, movie_name,BOLD, RESET, seat, BOLD, RESET, date, BOLD, RESET, transaction_id);
                     }
                 }
                 case 6 ->{
@@ -287,7 +287,7 @@ public class MOBLIMAMain {
             }
 
             System.out.printf(""" 
-                Welcome back %s! What would you like to do? Enter your choice:
+                Welcome back %s%s%s! What would you like to do? Enter your choice:
                 What would you like to do? Enter your choice:
                 (1) View a list of all the movies
                 (2) Search for a Movie and view its details
@@ -299,7 +299,7 @@ public class MOBLIMAMain {
                     (i) Ticket sales
                     (ii) Overall reviewers’ ratings
                 (8) Logout
-                    """, v.getFullName());
+                    """, GREEN, v.getFullName(), RESET);
             choice = sc.nextInt();
             sc.nextLine();
         }
@@ -636,7 +636,7 @@ public class MOBLIMAMain {
                 
                 """, BLUE, RESET,GREEN, RESET, GREEN, RESET, RED, RESET);
         boolean logged_in = false;
-        while (!logged_in) {
+        a:while (!logged_in) {
             logged_in = true;
             System.out.println("Enter your username or Email:");
             String username = sc.nextLine();
@@ -653,22 +653,32 @@ public class MOBLIMAMain {
                 case 3 -> {
                     System.out.printf("%sThe login details entered were wrong.%s \nWould you like to try again?\n", RED, RESET);
                     System.out.println("Enter your choice (y/n)");
-                    String re_login = sc.nextLine();
-                    if (re_login.equals("y")) {
-                        logged_in = false;
+                    String response;
+                    while(!(response = sc.nextLine()).equals("n")) {
+                        if (response.equals("y")) {
+                            logged_in = false;
+                            break;
+                        }
+                        System.out.println("Invalid Entry. Please try again. ");
                     }
-                    else{
-                        return;
+                    if(response.equals("n")){
+                        break a;
                     }
                 }
             }
             if(logged_in) {
                 System.out.println("Successfully logged out! Would you like to log in again? (y/n)");
-                String ans = sc.nextLine();
-                if (ans.equals("y")) {
-                    logged_in = false;
+                String ans;
+                while(!(ans = sc.nextLine()).equals("n")) {
+                    if (ans.equals("y")) {
+                        logged_in = false;
+                        break;
+                    }
+                    System.out.println("Invalid Entry. Please try again. ");
                 }
             }
         }
+
+        System.out.println("Thank you for using our Booking system!");
     }
 }
