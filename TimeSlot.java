@@ -76,7 +76,7 @@ public class TimeSlot {
 public int getDayType(ArrayList<String> holidays){
 	
     LocalDateTime date = this.dateTime;
-    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM");
+    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	String dateType = f.format(date);
     for(int j=0;j<holidays.size();j++){
         if(holidays.get(j)==dateType){
