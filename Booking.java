@@ -72,6 +72,7 @@ public class Booking {
 
     public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings) {
         //assign a seat from 2D seat array in movieListing
+        ArrayList<String> holidays = settings.getHolidays();
         Seat[][] seats = timeslot.getSeats();
         char[] letters = {'*', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'};
         Scanner sc = new Scanner(System.in);
@@ -136,7 +137,7 @@ public class Booking {
                 int movieType = listing.getMovieType();
                 int myAge = ages.get(i);
                 myAge = getAgeType(myAge);
-                int day = timeslot.getDayType();
+                int day = timeslot.getDayType(holidays);
 
                 priceAdded = settings.calculateTicketPrice(movieType, 1, myAge, day);
             }
@@ -145,7 +146,7 @@ public class Booking {
                 int movieType = listing.getMovieType();
                 int myAge = ages.get(i);
                 myAge = getAgeType(myAge);
-                int day = timeslot.getDayType();
+                int day = timeslot.getDayType(holidays);
 
                 priceAdded = settings.calculateTicketPrice(movieType, 0, myAge, day);
             }
