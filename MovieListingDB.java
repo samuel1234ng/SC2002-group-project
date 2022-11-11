@@ -86,8 +86,9 @@ public class MovieListingDB {
             String movie = st.nextToken();
             StringTokenizer st2 = new StringTokenizer(movie, SEPARATOR2);
             String name = st2.nextToken().trim();
+            String movieType = st2.nextToken().trim();
             Movie m = SearchMovie.movieByName(name, allMovies);
-            ml = new MovieListing(m, "IMAX_3D" , m.getStatus().name());
+            ml = new MovieListing(m, movieType , m.getStatus().name());
 
             // separates show-times
             while(st2.hasMoreTokens()){
@@ -132,6 +133,7 @@ public class MovieListingDB {
             }
             String movieName = ml.getMovie().getTitle();
             output.append(movieName).append(";");
+            output.append(ml.getMovieTypeString()).append(";");
             for(TimeSlot timeSlot: ml.getTimeSlots()){
                 String date = timeSlot.getDate();
                 int time = timeSlot.getTime();

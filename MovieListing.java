@@ -5,18 +5,15 @@ public class MovieListing {
 
     private Movie movieName;
 
-    private Moviestatus moviestatus;
-    private Movietypes movietype;
+    private MovieStatus movieStatus;
+    private MovieTypes movieType;
 
     //private double[] TicketPrice;
-    public MovieListing(Movie movie, String movietype, String moviestatus) {
+    public MovieListing(Movie movie, String movieType, String movieStatus) {
         this.movieName = movie;
-        this.timeSlots = new ArrayList<TimeSlot>();
-        //this.TicketPrice = TicketPrice;
-        this.movietype = Movietypes.valueOf(movietype);
-        this.moviestatus = Moviestatus.valueOf(moviestatus);
-    }
-    public MovieListing() {
+        this.timeSlots = new ArrayList<>();
+        this.movieType = MovieTypes.valueOf(movieType);
+        this.movieStatus = MovieStatus.valueOf(movieStatus);
     }
 
     public Movie getMovie() {
@@ -27,48 +24,37 @@ public class MovieListing {
         this.movieName = movie;
     }
 
-//    public Moviestatus getStatus() {
-//        return this.moviestatus;
-//    }
-
     public void setStatus(String status) {
-        this.moviestatus = Moviestatus.valueOf(status);
+        this.movieStatus = MovieStatus.valueOf(status);
     }
 
 public int getMovieType() {
-        String typeMovie = this.movietype.name();
-        int returnType;
-        if(typeMovie.equals("IMAX_3D")){
-            returnType = 1;
+        MovieTypes typeMovie = this.movieType;
+        if(typeMovie== MovieTypes.IMAX_3D){
+            return 1;
         }
-        else if(typeMovie.equals("BLOCKBUSTER")){
-            returnType = 2;
+        else if(typeMovie== MovieTypes.BLOCKBUSTER){
+            return 2;
         }
-        else{
-            returnType = 0;
+        else if ((typeMovie== MovieTypes.IMAX_2D)){
+            return 0;
+        }else{
+            return 0;
         }
-        return returnType;
-
     }
+
+
 
     public ArrayList<TimeSlot> getTimeSlots() {
         return timeSlots;
     }
 
-//    public void setTimeSlots(ArrayList<TimeSlot> timeslots) {
-//        this.timeSlots = timeslots;
-//    }
 
     public void addTimeSlots(int timing, String date) {
-        TimeSlot newtiming = new TimeSlot(timing, date);
-        this.timeSlots.add(newtiming);
-
-
+        TimeSlot newTiming = new TimeSlot(timing, date);
+        this.timeSlots.add(newTiming);
     }
 
-//    public void setMovieTypes(Movietypes movietype) {
-//        this.movietype = movietype;
-//    }
 
     public TimeSlot getTime(int time) {
         for (TimeSlot timeSlot : timeSlots) {
@@ -79,6 +65,13 @@ public int getMovieType() {
         return null;
     }
 
+    public MovieStatus getMovieStatus() {
+        return movieStatus;
+    }
+
+    public String getMovieTypeString(){
+        return this.movieType.toString();
+    }
     public void setTimeSlots(ArrayList<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
     }
@@ -88,9 +81,9 @@ public int getMovieType() {
         this.timeSlots.add(t);
     }
 
-    enum Movietypes {BLOCKBUSTER, IMAX_3D, IMAX_2D};
+    enum MovieTypes {BLOCKBUSTER, IMAX_3D, IMAX_2D}
 
-    enum Moviestatus {COMING_SOON, NOW_SHOWING, END_OF_SHOWING}
+    enum MovieStatus {COMING_SOON, NOW_SHOWING, END_OF_SHOWING}
 
 
 }
