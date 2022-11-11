@@ -5,20 +5,51 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 //import java.time.Month;
-
+/**
+ * Class that stores settings
+ * @author Samuel Ng
+ * @version 1.0
+ * @since 2022-11-05
+ *
+ */
 public class Settings {
-
+	/**
+	* How much the each type of movie modifies the cost
+	*/
 	public int baseTicketPrice;
-	public int [] typeMod = new int[3];
-	public int [] seatMod = new int[2];
-	public int [] ageMod = new int[3];
-	public int [] dayMod = new int[3];
+	/**
+	* How much the each type of seat modifies the cost
+	*/
+	int [] typeMod = new int[3];
+        /**
+         * How much the each type of seat modifies the cost
+        */
+	int [] seatMod = new int[2];
+        /**
+         * How much the each type of age group modifies the cost
+         */
+	int [] ageMod = new int[3];
+        /**
+         * How much the each type of day modifies the cost
+         */
+	int [] dayMod = new int[3];
+        /**
+         * Stores the dates that are holidays
+         */
 	ArrayList<String> holidays = new ArrayList<>();
+	/**
+        * formats the date into specified string
+        */
 	public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	
+	/**
+	 * Constructor, load settings from file
+	 */
 	public Settings() {
 		this.loadSettings();
 	}
+	/**
+	 * stores settings to file
+	 */
 	public void storeSettings()
 	{
 		ArrayList<String> data = new ArrayList<>();
@@ -66,6 +97,9 @@ public class Settings {
 		}
 		
 	}
+	/**
+	 * load settings from file
+	 */
 	public void loadSettings()
 	{
 		ArrayList<String> data;
@@ -99,6 +133,9 @@ public class Settings {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * prints out settings
+	 */
 	public void printSettings()
 	{
 		System.out.println("Base Ticket Price: $" + baseTicketPrice);
@@ -120,6 +157,11 @@ public class Settings {
 		System.out.println();
 		System.out.println();
 	}
+	/**
+	 * adds day as holiday
+	 * @param date day
+	 * @param month month
+	 */
 	public void addHoliday(int date,int month,int year)
 	{
 		LocalDateTime time = LocalDateTime.of(year,month,date,0,0,0);
@@ -127,6 +169,11 @@ public class Settings {
 		holidays.add(holidate);
 
 	}
+	/**
+	 * removes day from holiday
+	 * @param date day
+	 * @param month month
+	 */
 	public void removeHoliday(int date, int month,int year)
 	{
 		LocalDateTime time = LocalDateTime.of(year,month,date,0,0,0);
@@ -138,11 +185,20 @@ public class Settings {
 			}
 		}
 	}
+	/**
+	 * change the base price of a ticket
+	 * @param newPrice new price
+	 */
 	public void changeBasePrice(int newPrice)
 	{
 		baseTicketPrice = newPrice;
 	}
-	
+	/**
+	 * changes a setting
+	 * @param setting which setting to change
+	 * @param option which option in setting to change
+	 * @param value new value
+	 */
 	public void changeTicketPrice(int setting,int option,int value)
 	{
 		if (setting==1)
@@ -162,12 +218,22 @@ public class Settings {
 			dayMod[option-1]=value;
 		}
 	}
-
+	/**
+	 * calculates price of ticket
+	 * @param cinemaType type of movie
+	 * @param cinemaClass class of cinema
+	 * @param age age of viewer
+	 * @param day day that movie is booked
+	 * @return price of ticket
+	 */
 	public int calculateTicketPrice(int cinemaType,int cinemaClass, int age, int day)
 	{
 		return baseTicketPrice + typeMod[cinemaType]+ seatMod[cinemaClass] + ageMod[age] + dayMod[day];
 	}
-	
+	/**
+	 * Returns arraylist of holidays
+	 * @return arraylist of holidays
+	 */
 	public ArrayList<String> getHolidays(){
 		return this.holidays;
 	}
