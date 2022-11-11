@@ -485,7 +485,6 @@ public class MOBLIMAMain {
                         }
                     } while (choice2 < 7);
                 }
-                //NEED TO FIX
                 case 2 -> {
                     System.out.printf("""
                                     Select a Cineplex
@@ -503,9 +502,24 @@ public class MOBLIMAMain {
                     }
                     int optionCinema = sc.nextInt();
                     sc.nextLine();
-
-                    System.out.println("Enter movieType: ");
-                    String movieType = sc.nextLine();
+                    System.out.println(
+                            """
+                            Enter your choice for the type of the movie:
+                            (1) IMAX_2D
+                            (2) IMAX_3D
+                            (3) BLOCKBUSTER
+                            
+                            """);
+                    String movieType;
+                    int movieTypeChoice = sc.nextInt();
+                    sc.nextLine();
+                    if(movieTypeChoice==1){
+                        movieType = "IMAX_2D";
+                    }else if(movieTypeChoice==2){
+                        movieType = "IMAX_3D";
+                    }else{
+                        movieType = "BLOCKBUSTER";
+                    }
                     ArrayList<Movie> movieList = MovieDB.readMovies("data/movies.txt");
                     System.out.println("Enter the name of the movie: ");
                     String nameMovie = sc.nextLine();
