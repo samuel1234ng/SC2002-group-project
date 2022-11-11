@@ -1,10 +1,21 @@
 import java.util.ArrayList;
-
+/**
+ * Class representing a Cineplex
+ * @author Samuel Ng
+ * @version 1.0
+ * @since 2022-11-05
+ *
+ */
 public class Cineplex{
 	private final String cineplexName;
 	private final Cinema[] cinemas;
 	
-	
+	/**
+	 * Constructor, sets cinemaname and id, initialise array of cinemas
+	 * @param cineplexName
+	 * @param numCinemas
+	 * @param cineplexNumber
+	 */
 	public Cineplex(String cineplexName, int numCinemas, int cineplexNumber) {
 		this.cineplexName = cineplexName;
 		this.cinemas= new Cinema[numCinemas];
@@ -12,11 +23,19 @@ public class Cineplex{
             this.cinemas[i] = new Cinema(i+1, cineplexNumber);
         }
 	}
-
+	
+    /**
+    * Returns array of Cinemas
+    * @return array of cinemas
+    */
     public Cinema[] getCinemas(){
         return this.cinemas;
     }
-
+    /**
+     * Find all cinemas that are showing a specific movie
+     * @param movieName name of movie to search for
+     * @return Cinemas that are playing the movie
+     */
     public ArrayList<Cinema> cinemasByMovie(String movieName){
 		ArrayList<Cinema> movieCinemas= new ArrayList<>();
 		for (Cinema cinema : cinemas) {
@@ -31,7 +50,10 @@ public class Cineplex{
 		}
 		return movieCinemas;
 	}
-
+    /**
+     * Return name of cineplex
+     * @return name of cineplex
+     */
 	public String getCineplexName() {
 		return cineplexName;
 	}
@@ -51,7 +73,9 @@ public class Cineplex{
 		}
 		return cineplexMovies;
 	}
-
+	/**
+	 * Prints out all movies and their details that are in this cineplex
+	 */
 	public void listMovies(){
 		for (Movie movie : this.movieByCineplex()) {
 			System.out.println("Movie Title: " + movie.getTitle());
