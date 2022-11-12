@@ -62,7 +62,7 @@ public class Cinema {
     public void setMovieListings(ArrayList<MovieListing> movieListings) {
         this.movieListings = movieListings;
     }
-}
+
 	
 }
 
