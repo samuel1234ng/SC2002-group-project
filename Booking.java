@@ -208,9 +208,9 @@ public class Booking {
                     case 1 -> typeAge = "Child (<12 years)";
                     default -> typeAge = "Senior Citizen (>60 years)";
                 }
-                System.out.printf("Base ticket price : %d", settings.baseTicketPrice);
+                System.out.printf("Base ticket price : %d\n", settings.baseTicketPrice);
                 System.out.printf("Additional price for movie type '%s' : %d\n", typeMovie, settings.typeMod[movieType]);
-                System.out.printf("Additional price for day type '%s' : %d\n", typeDay, settings.dayMod[day]);
+                System.out.printf("Change in price for day type '%s' : %d\n", typeDay, settings.dayMod[day]);
                 System.out.printf("Reduction in price for '%s' : %d\n", typeAge, -1 * settings.ageMod[myAge]);
                 System.out.printf("Price for seat %s : %d", seatSelect, priceAdded);
                 System.out.println();
@@ -221,8 +221,6 @@ public class Booking {
 
         }
         System.out.printf("The total amount for seats is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
-
-        sc.close();
         return selectedSeats;
     }
     /**
