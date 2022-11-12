@@ -139,4 +139,14 @@ public int getMovieType() {
         TimeSlot t = new TimeSlot(time, date);
         this.timeSlots.add(t);
     }
+	
+	/**
+     * Returns the Movie's type
+     * @return
+     * this movie's MovieType
+     */
+    public Movie.MovieType getMovieTypeEnum() {
+        return this.movieType;
+    }
+
 }
