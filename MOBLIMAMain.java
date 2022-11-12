@@ -1,11 +1,12 @@
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 /**
  * Main UI Class
- * @author Samuel Ng
+ * @author Samuel Ng, Shikhar Jain, Karishein Chandran, Khoo Yong Quan, Chinmay prasad
  * @version 1.0
  * @since 2022-11-05
  *
@@ -453,27 +454,26 @@ public class MOBLIMAMain {
                                 switch (choice3) {
                                     case 1 -> System.out.println("""
                                             What would you like to change
-                                            (1) Cost of normal movie
-                                            (2) Cost of 3D movie
-                                            (3) Cost of blockbuster movie
+                                            (1) Cost of a 2D movie
+                                            (2) Cost of a 3D movie
+                                            (3) Cost of a Blockbuster movie
                                             """);
                                     case 2 -> System.out.println("""
                                             What would you like to change
-                                            (1) Cost of normal class theater
-                                            (2) Cost of elite class theater
-                                            (3) Cost of budget class theater
+                                            (1) Cost of a Normal seat
+                                            (2) Cost of an Elite seat
                                             """);
                                     case 3 -> System.out.println("""
                                             What would you like to change
-                                            (1) Cost of adult
-                                            (2) Cost of child
-                                            (3) Cost of senior citizen
+                                            (1) Base cost of adult ticket
+                                            (2) Base cost of a child ticket
+                                            (3) Base cost of a senior citizen ticket
                                             """);
                                     case 4 -> System.out.println("""
                                             What would you like to change
-                                            (1) Cost of weekday
-                                            (2) Cost of weekend
-                                            (3) Cost of holiday
+                                            (1) Cost of a movie on a weekday
+                                            (2) Cost of a movie on a weekend
+                                            (3) Cost of a movie on a public holiday
                                             """);
                                 }
                                 choice4 = sc.nextInt();
@@ -524,7 +524,7 @@ public class MOBLIMAMain {
                     sc.nextLine();
 
                     System.out.println("Select a Cinema to add a movie to: ");
-                    for (int i = 0; i < cineplexes[optionCineplex - 1].getCinemas().length; i++) {
+                    for (int i = 1; i <= cineplexes[optionCineplex - 1].getCinemas().length; i++) {
                         System.out.printf("(%d) Cinema %d\n", i, i);
                     }
                     int optionCinema = sc.nextInt();
@@ -565,15 +565,30 @@ public class MOBLIMAMain {
                                 }
 
                                 MovieListing newListing = new MovieListing(movie, movieType, movie.getStatus().toString());
-                                System.out.println("Enter the numbers shows you would like to add to the movie listing : ");
+                                                                System.out.println("Enter the number of shows you would like to add to the movie listing : ");
                                 int numberOfShows = sc.nextInt();
                                 sc.nextLine();
 
-                                for (int j = 0; j < numberOfShows; j++) {
+                                for (int j = 1; j <= numberOfShows; j++) {
                                     System.out.printf("Enter a date for showtime #%d in the format DD/MM/YYYY: \n", j);
                                     String date = sc.nextLine();
+                                    while(date.length()!=10 || date.charAt(2)!='/' || date.charAt(5)!='/'){
+                                        System.out.println("Invalid input of date format. Please try again:");
+                                        System.out.println("Please enter a date for showtime #%d in the format DD/MM/YYYY: ");
+                                        date = sc.nextLine();
+                                    }
+
                                     System.out.printf("Enter the time for showtime #%d of new movie: \n", j);
-                                    int time = sc.nextInt();
+                                    int time = -1;
+                                    while(time==-1 || (String.valueOf(time).length()!=3 && String.valueOf(time).length()!=4)){
+//                                        String sTime = sc.next();
+                                        try{
+                                            time = sc.nextInt();
+                                        }catch(Exception e){
+                                            System.out.println("Invalid input of time format. Please try again:");
+                                            System.out.println("Please Enter the time for showtime #%d of new movie: ");
+                                        }
+                                    }
                                     sc.nextLine();
 
                                     newListing.addShowtime(time, date);
@@ -585,6 +600,7 @@ public class MOBLIMAMain {
                                 // update file
                                 String strListing = MovieListingDB.movieListingToString(cinema.getMovieListings());
                                 MovieListingDB.changeLine(MovieListingDB.readFile(), strListing, optionCineplex, optionCinema);
+
                                 break;
                             }
                         }
@@ -593,7 +609,7 @@ public class MOBLIMAMain {
                                 System.out.println("You can only add movies which are NOW_SHOWING or in PREVIEW.\n Please try again.");
                             }
                         } else {
-                            System.out.printf("No movie with name %s was found.\n Please try again.\n", nameMovie);
+                            System.out.printf("No movie with name %s was found.\nPlease try again.\n", nameMovie);
                         }
                     }
                 }
@@ -607,7 +623,7 @@ public class MOBLIMAMain {
 
                     boolean found = false;
                     while (!found) {
-                        System.out.println("Enter the name of the movie you would like to add to the Cinema: ");
+                        System.out.println("Enter the name of the movie you would like Edit: ");
                         String nameMovie = sc.nextLine();
                         for (Movie movie : movies) {
                             if (nameMovie.equals(movie.getTitle())) {
@@ -634,11 +650,34 @@ public class MOBLIMAMain {
                                     System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
                                     String date = sc.nextLine();
                                     while(date.length()!=10 || date.charAt(2)!='/' || date.charAt(5)!='/'){
-                                        System.out.println("Invalid imput of date format. Please try again:");
+                                        System.out.println("Invalid input of date format. Please try again:");
                                         System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
                                         date = sc.nextLine();
                                     }
                                     movie.setEndOfShowingDate(date);
+                                    int endDay = Integer.parseInt(date.substring(0, 2));
+                                    int endMonth = Integer.parseInt(date.substring(3, 5));
+                                    int endYear = Integer.parseInt(date.substring(6));
+                                    LocalDateTime endDate = LocalDateTime.of(endYear, endMonth, endDay, 0, 0);
+                                    LocalDateTime now = LocalDateTime.now();
+                                    if(now.isAfter(endDate)) {
+                                        ArrayList<String> newListings = new ArrayList<>();
+                                        for (Cineplex cineplex : cineplexes) {
+                                            Cinema[] cinemas = cineplex.getCinemas();
+                                            newListings.add(Integer.toString(cinemas.length));
+                                            for (Cinema cinema : cinemas) {
+                                                ArrayList<MovieListing> movieListings = cinema.getMovieListings();
+                                                MovieListing requiredMVL = cinema.getListing(nameMovie);
+                                                if (requiredMVL != null) {
+                                                    movieListings.remove(requiredMVL);
+                                                    cinema.setMovieListings(movieListings);
+                                                }
+                                                newListings.add(MovieListingDB.movieListingToString(movieListings));
+                                            }
+                                        }
+                                        MovieListingDB.writeFile(newListings);
+
+                                    }
                                 } else {
                                     movieType = "NOW_SHOWING";
                                 }
@@ -650,8 +689,10 @@ public class MOBLIMAMain {
                             System.out.printf("No movie with name %s was found.\n Please try again.\n", nameMovie);
                         }else{
                         MovieDB.saveMovies("data/movies.txt", movies);
+
                         }
                     }
+                     System.out.println("Movie updated!\n");
                 }
                 case 4 -> {
                     // Display the top 5 movies by Ticket Sales
@@ -676,8 +717,9 @@ public class MOBLIMAMain {
             }
         } while (true);
     }
+					
     /**
-     * Login UI
+     * Main runner methed of MOBLIMA
      * @param args
      */
     public static void main(String[] args) {
