@@ -53,4 +53,17 @@ public class Cinema {
     public ArrayList<MovieListing> getMovieListings() {
         return movieListings;
     }
+	
+	/**
+     * Sets this Cinema's movielisting array
+     * @param movieListings
+     *	The movielisting array to be set
+     */
+    public void setMovieListings(ArrayList<MovieListing> movieListings) {
+        this.movieListings = movieListings;
+    }
 }
+	
+}
+
+
