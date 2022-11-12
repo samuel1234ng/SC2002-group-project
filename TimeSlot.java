@@ -28,7 +28,7 @@ public class TimeSlot {
     public TimeSlot(int timing, String date) {
         String time = Integer.toString(timing);
         int hour = Integer.parseInt(time.substring(0, time.length()-2));
-        int minute = Integer.parseInt(time.substring(time.length()-2, time.length()-1));
+        int minute = Integer.parseInt(time.substring(time.length()-2));
         int year = Integer.parseInt(date.substring(6));
         int month = Integer.parseInt(date.substring(3, 5));
         int day = Integer.parseInt(date.substring(0, 2));
