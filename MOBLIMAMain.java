@@ -420,7 +420,7 @@ public class MOBLIMAMain {
         Settings set = new Settings();
         set.loadSettings();
         int choice, choice2, choice3, choice4, choice5;
-        System.out.println("Welcome, Admin!");
+        System.out.printf("Welcome, %sAdmin%s!\n",BLUE,RESET);
         do {
             System.out.print("""
                     What would you like to do?
@@ -450,7 +450,7 @@ public class MOBLIMAMain {
                         choice2 = sc.nextInt();
                         sc.nextLine();
                         while (choice2 > 7 || choice2 < 1) {
-                            System.out.println("Invalid option");
+                            System.out.println(RED + "Invalid option" + RESET);
                             choice2 = sc.nextInt();
                             sc.nextLine();
                         }
@@ -462,6 +462,7 @@ public class MOBLIMAMain {
                                 sc.nextLine();
 
                                 set.changeBasePrice(choice3);
+                                System.out.println(PURPLE + "Base Price has been updated to $"+ choice3 +RESET);
                             }
                             case 3 -> {
                                 System.out.println("""
@@ -475,7 +476,7 @@ public class MOBLIMAMain {
                                 sc.nextLine();
 
                                 while (choice3 > 4 || choice3 < 1) {
-                                    System.out.println("Invalid option");
+                                    System.out.println(RED + "Invalid option" + RESET);
                                     choice3 = sc.nextInt();
                                     sc.nextLine();
 
@@ -513,28 +514,58 @@ public class MOBLIMAMain {
                                 sc.nextLine();
 
                                 set.changeTicketPrice(choice3, choice4, choice5);
+
+                                System.out.println(PURPLE+ "Ticket price has been updated" +RESET);
                             }
                             case 4 -> {
                                 System.out.println("Enter date:");
                                 int date = sc.nextInt();
-                                System.out.println("Enter month(1-12):");
+                                while(date<=0 || date>31)
+                                {
+                                    System.out.println(RED + "Please enter a valid date" + RESET);
+                                    System.out.println("Enter date:");
+                                    date = sc.nextInt();
+                                }
+                                System.out.println("Enter month (1-12):");
                                 int month = sc.nextInt();
+                                while(month<=0 || month>12)
+                                {
+                                    System.out.println(RED + "Please enter a valid month" + RESET);
+                                    System.out.println("Enter month:");
+                                    month = sc.nextInt();
+                                }
+
                                 System.out.println("Enter year:");
                                 int year = sc.nextInt();
                                 
                                 sc.nextLine();
                                 set.addHoliday(date,month,year);
+                                System.out.println(PURPLE + "New holiday added" + RESET);
                             }
                             case 5 -> {
                                 System.out.println("Enter date:");
                                 int date = sc.nextInt();
-                                System.out.println("Enter month(1-12):");
+                                while(date<=0 || date>31)
+                                {
+                                    System.out.println(RED + "Please enter a valid date" + RESET);
+                                    System.out.println("Enter date:");
+                                    date = sc.nextInt();
+                                }
+                                System.out.println("Enter month (1-12):");
                                 int month = sc.nextInt();
+                                while(month<=0 || month>12)
+                                {
+                                    System.out.println(RED + "Please enter a valid month" + RESET);
+                                    System.out.println("Enter month:");
+                                    month = sc.nextInt();
+                                }
+
                                 System.out.println("Enter year:");
                                 int year = sc.nextInt();
                                 
                                 sc.nextLine();
                                 set.removeHoliday(date,month,year);
+                                System.out.println(PURPLE + "The holiday has been removed" + RESET);
                             }
                             case 6 -> set.loadSettings();
                             case 7 -> set.storeSettings();
@@ -583,11 +614,17 @@ public class MOBLIMAMain {
                                 String movieType;
                                 int movieTypeChoice = sc.nextInt();
                                 sc.nextLine();
+                                while(movieTypeChoice <1 || movieTypeChoice >3)
+                                {
+                                    System.out.println(RED + "Please enter a valid choice" + RESET);
+                                    movieTypeChoice = sc.nextInt();
+                                    sc.nextLine();
+                                }
                                 if (movieTypeChoice == 1) {
                                     movieType = "IMAX_2D";
                                 } else if (movieTypeChoice == 2) {
                                     movieType = "IMAX_3D";
-                                } else {
+                                } else{
                                     movieType = "BLOCKBUSTER";
                                 }
 
@@ -600,7 +637,6 @@ public class MOBLIMAMain {
                                 }
                                 System.out.println("Enter the number of shows you would like to add to the movie listing : ");
 
-
                                 int numberOfShows = sc.nextInt();
                                 sc.nextLine();
 
@@ -608,7 +644,7 @@ public class MOBLIMAMain {
                                     System.out.printf("Enter a date for showtime #%d in the format DD/MM/YYYY: \n", j);
                                     String date = sc.nextLine();
                                     while(date.length()!=10 || date.charAt(2)!='/' || date.charAt(5)!='/'){
-                                        System.out.println("Invalid input of date format. Please try again:");
+                                        System.out.println(RED + "Invalid input of date format. Please try again:" + RESET);
                                         System.out.println("Please enter a date for showtime #%d in the format DD/MM/YYYY: ");
                                         date = sc.nextLine();
                                     }
@@ -620,7 +656,7 @@ public class MOBLIMAMain {
                                         try{
                                             time = sc.nextInt();
                                         }catch(Exception e){
-                                            System.out.println("Invalid input of time format. Please try again:");
+                                            System.out.println(RED + "Invalid input of time format. Please try again:" + RESET);
                                             System.out.println("Please Enter the time for showtime #%d of new movie: ");
                                         }
                                     }
@@ -641,13 +677,13 @@ public class MOBLIMAMain {
                         }
                         if (found) {
                             if (!correct_movie) {
-                                System.out.println("You can only add movies which are NOW_SHOWING or in PREVIEW.\n Please try again.");
+                                System.out.println(RED+ "You can only add movies which are NOW_SHOWING or in PREVIEW.\n Please try again."+RESET);
                             }
                         } else {
-                            System.out.printf("No movie with name %s was found.\nPlease try again.\n", nameMovie);
+                            System.out.printf(RED+ "No movie with name %s was found.\nPlease try again.\n" +RESET , nameMovie);
                         }
                     }
-			System.out.println("Movie Listing successfully created!\n");
+			System.out.println(PURPLE+ "Movie Listing successfully created!\n" + RESET);
 
                 }
                  case 3 -> {
@@ -687,7 +723,7 @@ public class MOBLIMAMain {
                                     System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
                                     String date = sc.nextLine();
                                     while(date.length()!=10 || date.charAt(2)!='/' || date.charAt(5)!='/'){
-                                        System.out.println("Invalid input of date format. Please try again:");
+                                        System.out.println(RED+ "Invalid input of date format. Please try again:" +RESET);
                                         System.out.println("Please enter the date when the movie is to be set to END_OF_SHOWING (DD/MM/YYYY): ");
                                         date = sc.nextLine();
                                     }
@@ -723,13 +759,13 @@ public class MOBLIMAMain {
                             }
                         }
                         if (!found) {
-                            System.out.printf("No movie with name %s was found.\n Please try again.\n", nameMovie);
+                            System.out.printf(RED+"No movie with name %s was found.\n Please try again.\n", RESET, nameMovie);
                         }else{
                         MovieDB.saveMovies("data/movies.txt", movies);
 
                         }
                     }
-                     System.out.println("Movie updated!\n");
+                     System.out.println(PURPLE+ "Movie updated!\n" +RESET);
                 }
                 case 4 -> {
                     // Display the top 5 movies by Ticket Sales
@@ -738,6 +774,7 @@ public class MOBLIMAMain {
                     for (int i = 0; i < 5; i++) {
                         System.out.printf("%d. %s\n", i + 1, sortedMovies.get(i).getTitle());
                     }
+                    System.out.println();
                 }
                 case 5 -> {
                     // Display the top 5 movies by Reviews
@@ -746,6 +783,7 @@ public class MOBLIMAMain {
                     for (int i = 0; i < 5; i++) {
                         System.out.printf("%d. %s\n", i + 1, sortedMovies.get(i).getTitle());
                     }
+                    System.out.println();
                 }
                 case 6 -> {
                     return;
@@ -773,7 +811,7 @@ public class MOBLIMAMain {
                 If you are a %sViewer%s and have an existing account, please enter your emailID and mobile Number.
                 If you would like to create a %sViewer%s account, please enter %s"g"%s in the username field.
                 
-                """, BLUE, RESET,GREEN, RESET, GREEN, RESET, RED, RESET);
+                """, BLUE, RESET,GREEN, RESET, GREEN, RESET, YELLOW, RESET);
         boolean logged_in = false;
         a:while (!logged_in) {
             logged_in = true;
