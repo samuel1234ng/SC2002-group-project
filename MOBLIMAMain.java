@@ -197,12 +197,11 @@ public class MOBLIMAMain {
                             int intTime = time.getTime();
                             String timeS = String.valueOf(intTime);
                             String output = date + ", " + timeS;
-                            System.out.printf("(%d) %s\n", i++, output);
+                            System.out.printf("(%d) %s --> %s\n", i++, output, listing.getMovieTypeEnum().toString());
                             timeCinema.put(intTime, cinema);
                             allTimes.add(intTime);
                         }
                     }
-                    System.out.println("Select timeslot : ");
                     int selectedTime = sc.nextInt();
                     sc.nextLine();
                     int timeChosen = allTimes.get(selectedTime-1);
@@ -548,7 +547,6 @@ public class MOBLIMAMain {
                             (1) %s
                             (2) %s
                             (3) %s
-                                                                
                             """, cineplexes[0].getCineplexName(), cineplexes[1].getCineplexName(), cineplexes[2].getCineplexName());
                     int optionCineplex = sc.nextInt();
                     sc.nextLine();
@@ -575,13 +573,12 @@ public class MOBLIMAMain {
                                     break;
                                 }
 
-                                System.out.println(
+                                System.out.print(
                                         """
                                                 Enter your choice for the type of the movie:
                                                 (1) IMAX_2D
                                                 (2) IMAX_3D
                                                 (3) BLOCKBUSTER
-                                                                                        
                                                 """);
                                 String movieType;
                                 int movieTypeChoice = sc.nextInt();
@@ -594,8 +591,16 @@ public class MOBLIMAMain {
                                     movieType = "BLOCKBUSTER";
                                 }
 
-                                MovieListing newListing = new MovieListing(movie, movieType, movie.getStatus().toString());
-                                                                System.out.println("Enter the number of shows you would like to add to the movie listing : ");
+				Cinema cinema = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1];
+                                MovieListing newListing = cinema.getListing(nameMovie);
+                                if(newListing==null) {
+                                    newListing = new MovieListing(movie, movieType, movie.getStatus().toString());
+                                }else{
+                                    cinema.movieListings.remove(newListing);
+                                }
+                                System.out.println("Enter the number of shows you would like to add to the movie listing : ");
+
+
                                 int numberOfShows = sc.nextInt();
                                 sc.nextLine();
 
@@ -624,8 +629,8 @@ public class MOBLIMAMain {
                                     newListing.addShowtime(time, date);
                                 }
                                 // add movielisting to movieListings
-                                Cinema cinema = cineplexes[optionCineplex - 1].getCinemas()[optionCinema - 1];
-                                cinema.getMovieListings().add(newListing);
+                                cinema.movieListings.add(newListing);
+
 
                                 // update file
                                 String strListing = MovieListingDB.movieListingToString(cinema.getMovieListings());
@@ -642,6 +647,8 @@ public class MOBLIMAMain {
                             System.out.printf("No movie with name %s was found.\nPlease try again.\n", nameMovie);
                         }
                     }
+			System.out.println("Movie Listing successfully created!\n");
+
                 }
                  case 3 -> {
                     // Edit a movie
