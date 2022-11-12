@@ -266,15 +266,24 @@ public class Movie implements Serializable {
             System.out.println("IOException > " + e.getMessage());
         }
     }
-
+    /**
+     * Changes status of movie
+     * @param status new status
+     */
     public void setStatus(ShowingStatus status) {
         this.status = status;
     }
-
+    /**
+     * Changes EndOfShowingDate
+     * @param endOfShowingDate
+     */
     public void setEndOfShowingDate(String endOfShowingDate) {
         this.endOfShowingDate = endOfShowingDate;
     }
-
+    /**
+     * Returns EndOfShowingDate
+     * @return EndOfShowingDate
+     */
     public String getEndOfShowingDate() {
         return endOfShowingDate;
     }
