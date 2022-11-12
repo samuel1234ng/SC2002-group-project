@@ -17,8 +17,8 @@ public class Cinema {
     ArrayList<MovieListing> movieListings;
     /**
      * Constructor, stores given id and cineplexNumber and populates movielisting array with movies from movie file
-     * @param id
-     * @param cineplexNumber
+     * @param id id for cinema
+     * @param cineplexNumber id for cineplex that cinema is in
      */
     public Cinema(int id, int cineplexNumber) {
         this.cinemaId = "00" + id;
@@ -27,7 +27,7 @@ public class Cinema {
     }
     /**
      * Returns CinemaId
-     * @return
+     * @return ID of cinema
      */
     public String getCinemaId() {
         return this.cinemaId;
@@ -35,7 +35,7 @@ public class Cinema {
     /**
      * Returns movielisting, that corresponds to moviename
      * @param movieName name of movie to find movielisting for
-     * @return
+     * @return movielisting
      */
     public MovieListing getListing(String movieName) {
         for (MovieListing movielisting : this.getMovieListings()) {
@@ -47,8 +47,8 @@ public class Cinema {
 		return null;
     }
     /**
-     * Returns arraylist of movielistings
-     * @return
+     * Returns arraylist of movielistings that belong to this cinema
+     * @return arraylist of movielistings
      */
     public ArrayList<MovieListing> getMovieListings() {
         return movieListings;

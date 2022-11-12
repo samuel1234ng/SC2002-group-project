@@ -54,7 +54,6 @@ public class ReviewDB{
      * This list is written to the existing reviews.txt file.
      * @param filename The file path of the reviews.txt file which contains all the reviews and ratings.
      * @param al An arraylist containing the new review object.
-     * @throws IOException
      * @see #write(String, ArrayList)
      */
     public static void saveReviews(String filename, ArrayList<Review> al){

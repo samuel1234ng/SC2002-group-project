@@ -10,9 +10,17 @@ import java.util.Scanner;
  *
  */
 public class Booking {
-
+	/**
+	 * Color for red text
+	 */
     public static final String RED = "\u001B[31m";
+	/**
+	 * Color for green text
+	 */
     public static final String GREEN = "\u001B[32m";
+	/**
+	 * Color for normal text
+	 */
     public static final String RESET = "\u001B[0m";
 
      /**
@@ -84,7 +92,7 @@ public class Booking {
      * @param timeslot seat data
      * @param viewer user details
      * @param settings class used to calculate ticket price
-     * @return
+     * @return arraylist of seats that have been booked
      */
     public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings) {
         //assign a seat from 2D seat array in movieListing
@@ -226,7 +234,7 @@ public class Booking {
     /**
      * Returns cinema ID and time of booking
      * @param cinema cinema that seat booking is created in
-     * @return
+     * @return cinema ID and time as string
      */
     public static String completePayment(Cinema cinema) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmm");

@@ -165,7 +165,7 @@ public class ViewerDB {
     }
     /**
      * Return all email and password of all users
-     * @param fileName 
+     * @param fileName location of file
      * @return arraylist of all user's email and password
      */
     public static HashMap<String, String> getViewerData(String fileName) {

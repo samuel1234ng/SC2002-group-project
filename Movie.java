@@ -19,7 +19,9 @@ public class Movie implements Serializable {
      * The showing status of this movie in Cinema.
      */
     public enum ShowingStatus{COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING}
-
+    /**
+     * The type of this movie (3d,3d,blockbuster)
+     */
     public enum MovieType{IMAX_2D,IMAX_3D, BLOCKBUSTER}
 
 
@@ -82,7 +84,9 @@ public class Movie implements Serializable {
      * Stores the current status of this movie.
      */
     private ShowingStatus status;
-
+    /**
+     * The date when the movie is switched to end of showing
+     */
     private String endOfShowingDate;
 
     /**

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Objects;
 /**
- * 
+ * Class to print movies in order
  * @author Samuel Ng
  * @version 1.0
  * @since 2022-11-05

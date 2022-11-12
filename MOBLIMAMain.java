@@ -14,18 +14,48 @@ import java.util.concurrent.TimeUnit;
 public class MOBLIMAMain {
     // Text color changing constants
     /**
-	 * Colour of display texts
+	 * Formatting information of display texts
 	 */
     public static final String BOLD = "\u001B[1m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String RESET = "\u001B[0m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String BLACK = "\u001B[30m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String RED = "\u001B[31m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String GREEN = "\u001B[32m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String GREEN_BRIGHT = "\033[0;92m";  // GREEN
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String YELLOW = "\u001B[33m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String BLUE = "\u001B[34m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String PURPLE = "\u001B[35m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String CYAN = "\u001B[36m";
+    /**
+	 * Formatting information of display texts
+	 */
     public static final String WHITE = "\u001B[37m";
     /**
      * UI for guest

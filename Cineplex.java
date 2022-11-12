@@ -12,9 +12,9 @@ public class Cineplex{
 	
 	/**
 	 * Constructor, sets cinemaname and id, initialise array of cinemas
-	 * @param cineplexName
-	 * @param numCinemas
-	 * @param cineplexNumber
+	 * @param cineplexName name of cineplex
+	 * @param numCinemas number of cinemas in the cineplex
+	 * @param cineplexNumber ID of cineplex
 	 */
 	public Cineplex(String cineplexName, int numCinemas, int cineplexNumber) {
 		this.cineplexName = cineplexName;
@@ -57,7 +57,10 @@ public class Cineplex{
 	public String getCineplexName() {
 		return cineplexName;
 	}
-
+	/**
+	 * Sorts movie by cineplex
+	 * @return sorted arraylist of cineplex
+	 */
 	public ArrayList<Movie> movieByCineplex(){
 		ArrayList<Movie> cineplexMovies = new ArrayList<>();
 		ArrayList<String> cineplexMovieNames = new ArrayList<>();

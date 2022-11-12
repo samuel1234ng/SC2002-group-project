@@ -158,9 +158,10 @@ public class Settings {
 		System.out.println();
 	}
 	/**
-	 * adds day as holiday
+	 * adds date as holiday
 	 * @param date day
 	 * @param month month
+	 * @param year year
 	 */
 	public void addHoliday(int date,int month,int year)
 	{
@@ -170,9 +171,10 @@ public class Settings {
 
 	}
 	/**
-	 * removes day from holiday
+	 * removes date from holiday
 	 * @param date day
 	 * @param month month
+	 * @param year year
 	 */
 	public void removeHoliday(int date, int month,int year)
 	{
