@@ -14,7 +14,7 @@ public class Cinema {
     /**
      * Arraylist of movielisting, details of movies that are scheduled to play in this cinema
      */
-    private ArrayList<MovieListing> movieListings;
+    ArrayList<MovieListing> movieListings;
     /**
      * Constructor, stores given id and cineplexNumber and populates movielisting array with movies from movie file
      * @param id id for cinema
