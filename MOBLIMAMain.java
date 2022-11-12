@@ -3,9 +3,18 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * Main UI Class
+ * @author Samuel Ng
+ * @version 1.0
+ * @since 2022-11-05
+ *
+ */
 public class MOBLIMAMain {
     // Text color changing constants
+    /**
+	 * Colour of display texts
+	 */
     public static final String BOLD = "\u001B[1m";
     public static final String RESET = "\u001B[0m";
     public static final String BLACK = "\u001B[30m";
@@ -17,7 +26,11 @@ public class MOBLIMAMain {
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
     public static final String WHITE = "\u001B[37m";
-    
+    /**
+     * UI for guest
+     * @param sc scanner
+     * @param cineplexes array of cineplexes
+     */
     public static void guestUser(Scanner sc, Cineplex[] cineplexes) {
         System.out.printf("""
                 Welcome to the booking system!
@@ -52,7 +65,12 @@ public class MOBLIMAMain {
             }
         }
     }
-
+    /**
+     * UI for user
+     * @param sc scanner
+     * @param v viewer object
+     * @param cineplexes array of cineplexes
+     */
     public static void viewerUser(Scanner sc, Viewer v, Cineplex[] cineplexes) {
         /*
         Movie-goer module
@@ -353,7 +371,11 @@ public class MOBLIMAMain {
         // guest user
         return 3;
     }
-
+    /**
+     * UI for admin
+     * @param sc scanner
+     * @param cineplexes array of cineplexes
+     */
     public static void adminUser(Scanner sc, Cineplex[] cineplexes) {
         /*
         b. Cinema staff can configure the system settings (e.g., tic ket prices, holidays,etc.)   
@@ -654,7 +676,10 @@ public class MOBLIMAMain {
             }
         } while (true);
     }
-
+    /**
+     * Login UI
+     * @param args
+     */
     public static void main(String[] args) {
         Cineplex[] cineplexes = new Cineplex[3];
         cineplexes[0] = new Cineplex("Jurong", 5, 1);
