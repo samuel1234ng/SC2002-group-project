@@ -42,7 +42,7 @@ public class SearchMovie {
      * @return movies that are played in the cinema
      */
     public static ArrayList<Movie> movieByCinema(Cinema cinema){
-        ArrayList<MovieListing> all_listings = cinema.movieListings;
+        ArrayList<MovieListing> all_listings = cinema.getMovieListings();
         ArrayList<Movie> movies  = new ArrayList<>();
         for (MovieListing listing : all_listings) {
             Movie movie = listing.getMovie();
