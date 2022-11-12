@@ -10,7 +10,7 @@ public class MovieListing {
     /**
 	 * Arraylist of timeslots objects 
 	 */
-    ArrayList<TimeSlot> timeSlots;
+    private ArrayList<TimeSlot> timeSlots;
     /**
 	 * Movie object
 	 */
