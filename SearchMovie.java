@@ -1,33 +1,22 @@
 import java.util.ArrayList;
 import java.util.Objects;
+
 /**
  * Class to print movies in order
+ *
  * @author Shikhar
  * @version 1.0
  * @since 2022-11-05
- *
  */
 public class SearchMovie {
     /**
-     * Prints list all of movies that have a status of now showing or preview
-     * @param movies arraylist of all movies
-     */
-    public static void listCurrentMovies(ArrayList<Movie> movies){
-        int k = 1;
-        for (Movie movie : movies) {
-            if (movie.getStatus().name().equals("NOW_SHOWING") || movie.getStatus().name().equals("PREVIEW")) {
-                System.out.printf("Movie %d : %s\n", k, movie.getTitle());
-                k++;
-            }
-        }
-    }
-    /**
      * Find movie object in moviearray
+     *
      * @param movieName of movie
-     * @param movies arraylist of all movies
+     * @param movies    arraylist of all movies
      * @return movie object
      */
-    public static Movie movieByName(String movieName, ArrayList<Movie> movies){
+    public static Movie movieByName(String movieName, ArrayList<Movie> movies) {
         for (Movie movie : movies) {
             //movieListing object has movie object attribute
             if (Objects.equals(movie.getTitle(), movieName)) {
@@ -36,14 +25,16 @@ public class SearchMovie {
         }
         return null;
     }
+
     /**
      * Gets movies in a specific cinema
+     *
      * @param cinema cinema to check
      * @return movies that are played in the cinema
      */
-    public static ArrayList<Movie> movieByCinema(Cinema cinema){
+    public static ArrayList<Movie> movieByCinema(Cinema cinema) {
         ArrayList<MovieListing> all_listings = cinema.getMovieListings();
-        ArrayList<Movie> movies  = new ArrayList<>();
+        ArrayList<Movie> movies = new ArrayList<>();
         for (MovieListing listing : all_listings) {
             Movie movie = listing.getMovie();
 //            System.out.printf("Movie %d : %s\n",i+1,movie.getTitle());
@@ -51,15 +42,17 @@ public class SearchMovie {
         }
         return movies;
     }
+
     /**
      * Sorts movies by rating
+     *
      * @param pre_sorted_movies arraylist of all movies
      * @return arraylist of movies that have been sorted
      */
-    public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies){
+    public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies) {
         Movie temp;
         boolean finished = false;
-        while (!finished){
+        while (!finished) {
             for (int i = 0; i < pre_sorted_movies.size(); i++) {
                 if (pre_sorted_movies.get(i).getOverallReviewerRating().equals("NA")) {
                     pre_sorted_movies.remove(i);
@@ -70,19 +63,18 @@ public class SearchMovie {
                 }
             }
         }
-        for(int i=1;i<pre_sorted_movies.size();i++){
+        for (int i = 1; i < pre_sorted_movies.size(); i++) {
 
-            for(int j=i;j>0;j--){
+            for (int j = i; j > 0; j--) {
                 String curr_rating = pre_sorted_movies.get(j).getOverallReviewerRating();
                 double currRating = Double.parseDouble(curr_rating);
-                String prev_rating = pre_sorted_movies.get(j-1).getOverallReviewerRating();
+                String prev_rating = pre_sorted_movies.get(j - 1).getOverallReviewerRating();
                 double prevRating = Double.parseDouble(prev_rating);
-                if(currRating>prevRating){
+                if (currRating > prevRating) {
                     temp = pre_sorted_movies.get(j);
-                    pre_sorted_movies.set(j, pre_sorted_movies.get(j-1));
-                    pre_sorted_movies.set(j-1, temp);
-                }
-                else{
+                    pre_sorted_movies.set(j, pre_sorted_movies.get(j - 1));
+                    pre_sorted_movies.set(j - 1, temp);
+                } else {
                     break;
                 }
             }
@@ -90,8 +82,10 @@ public class SearchMovie {
         }
         return pre_sorted_movies;
     }
+
     /**
      * Sorts movies by tickets
+     *
      * @param pre_sorted_movies arraylist of all movies
      * @return arraylist of movies that have been sorted
      */
@@ -114,12 +108,14 @@ public class SearchMovie {
         }
         return pre_sorted_movies;
     }
+
     /**
      * Prints movie details
+     *
      * @param movie movie object
      */
-    public static void printMovieDetails(Movie movie){
-        if (movie == null){
+    public static void printMovieDetails(Movie movie) {
+        if (movie == null) {
             System.out.println("Sorry, there exists no such Movie");
             return;
         }
@@ -142,10 +138,11 @@ public class SearchMovie {
             }
             System.out.print(element + "|");
             count++;
-        }System.out.println();
+        }
+        System.out.println();
         System.out.println("Number of tickets sold: " + movie.getNoOfTickets());
         System.out.println();
-        }
+    }
 
 }
 

@@ -2,29 +2,31 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 /**
  * A Class that handles seat booking
+ *
  * @author Samuel Ng
  * @version 1.0
  * @since 2022-11-05
- *
  */
 public class Booking {
-	/**
-	 * Color for red text
-	 */
+    /**
+     * Color for red text
+     */
     public static final String RED = "\u001B[31m";
-	/**
-	 * Color for green text
-	 */
+    /**
+     * Color for green text
+     */
     public static final String GREEN = "\u001B[32m";
-	/**
-	 * Color for normal text
-	 */
+    /**
+     * Color for normal text
+     */
     public static final String RESET = "\u001B[0m";
 
-     /**
+    /**
      * Prints out seats and their details
+     *
      * @param timeslot seat data
      */
     public static void availableSeats(TimeSlot timeslot) { //add numbering
@@ -83,36 +85,37 @@ public class Booking {
         System.out.println("Legend:");
         System.out.printf("Seats that can be booked: %sO%s\n", GREEN, RESET);
         System.out.printf("Seats that are occupied: %sX%s\n", RED, RESET);
-        System.out.printf("%-15s\n","Elite Seat: *");
-        System.out.printf("%-15s\n\n","Couple Seat: O--O");
+        System.out.printf("%-15s\n", "Elite Seat: *");
+        System.out.printf("%-15s\n\n", "Couple Seat: O--O");
     }
+
     /**
      * Books a seat
-     * @param listing movie details
+     *
+     * @param listing  movie details
      * @param timeslot seat data
-     * @param viewer user details
      * @param settings class used to calculate ticket price
      * @return arraylist of seats that have been booked
      */
-    public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Viewer viewer, Settings settings) {
+    public static ArrayList<String> makeBooking(MovieListing listing, TimeSlot timeslot, Settings settings) {
         //assign a seat from 2D seat array in movieListing
         ArrayList<String> holidays = settings.getHolidays();
         Seat[][] seats = timeslot.getSeats();
         char[] letters = {'*', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'};
         Scanner sc = new Scanner(System.in);
-//        String[] selectedSeats = new String[];
         ArrayList<String> selectedSeats = new ArrayList<>();
         ArrayList<Integer> ages = new ArrayList<>();
         boolean firstBooking = true;
-        a:while (true) {
-            if(firstBooking){
+        a:
+        while (true) {
+            if (firstBooking) {
                 System.out.println("Would you like to book a seat? (y/n): ");
                 firstBooking = false;
-            }else{
+            } else {
                 System.out.println("Would you like to book another seat? (y/n): ");
             }
             String flag;
-            while(!(flag = sc.nextLine()).equals("y")) {
+            while (!(flag = sc.nextLine()).equals("y")) {
                 if (flag.equals("n")) {
                     break a;
                 }
@@ -122,7 +125,7 @@ public class Booking {
             System.out.println("Enter your choice of seat (eg. 1A):");
             String seatNo = sc.nextLine();
 
-            if (seatNo.charAt(seatNo.length()-1) == 'B' || seatNo.charAt(seatNo.length()-1) == 'A') {
+            if (seatNo.charAt(seatNo.length() - 1) == 'B' || seatNo.charAt(seatNo.length() - 1) == 'A') {
                 for (int numAges = 0; numAges < 2; numAges++) {
                     System.out.printf("Enter age of person %d in couple: \n", numAges + 1);
                     int age = sc.nextInt();
@@ -130,11 +133,11 @@ public class Booking {
                     ages.add(age);
                 }
                 selectedSeats.add(seatNo);
-                int seatNum = Integer.parseInt(seatNo.substring(0, seatNo.length()-1));
-                if(seatNum%2==0){
-                    selectedSeats.add(seatNum - 1 + seatNo.substring(seatNo.length()-1));
-                }else {
-                    selectedSeats.add(seatNum + 1 + seatNo.substring(seatNo.length()-1));
+                int seatNum = Integer.parseInt(seatNo.substring(0, seatNo.length() - 1));
+                if (seatNum % 2 == 0) {
+                    selectedSeats.add(seatNum - 1 + seatNo.substring(seatNo.length() - 1));
+                } else {
+                    selectedSeats.add(seatNum + 1 + seatNo.substring(seatNo.length() - 1));
                 }
             } else {
                 System.out.println("Enter age of the viewer: ");
@@ -156,9 +159,9 @@ public class Booking {
                 }
             }
             int priceAdded;
-            int actAge = 0;
+            int actAge;
             if (letter == 0) { //elite
-                seats[letter][num - 1].assign(viewer.getViewerID());
+                seats[letter][num - 1].assign();
                 int movieType = listing.getMovieType();
                 actAge = ages.get(i);
                 int myAge = getAgeType(actAge);
@@ -191,7 +194,7 @@ public class Booking {
                 System.out.println();
 
             } else {
-                seats[letter][num - 1].assign(viewer.getViewerID());
+                seats[letter][num - 1].assign();
                 int movieType = listing.getMovieType();
                 int myAge = ages.get(i);
                 myAge = getAgeType(myAge);
@@ -231,8 +234,10 @@ public class Booking {
         System.out.printf("The total amount for seats is: %s%.2f SGD%s, Inclusive of GST.\n", RED, totalPrice, RESET);
         return selectedSeats;
     }
+
     /**
      * Returns cinema ID and time of booking
+     *
      * @param cinema cinema that seat booking is created in
      * @return cinema ID and time as string
      */
@@ -244,10 +249,12 @@ public class Booking {
         return cinemaCode + currTime;
 
     }
+
     /**
      * Returns what age group user is in
+     *
      * @param myAge are of viewer
-     * @return age group 
+     * @return age group
      */
     public static int getAgeType(int myAge) {
         if (myAge < 12) {

@@ -3,6 +3,7 @@ import java.util.HashMap;
 
 /**
  * Represents a viewer who watches and can book tickets for movies through the booking system
+ *
  * @author Chinmay Prasad
  * @version 1.0
  * @since 2022-11-05
@@ -12,7 +13,7 @@ public class Viewer {
     /**
      * an integer value which is the value of the viewerID of the next user to be created
      */
-    private static int idCounter = ViewerDB.getLastViewerID()+1;
+    private static int idCounter = ViewerDB.getLastViewerID() + 1;
 
     /**
      * the emailID of the viewer
@@ -42,12 +43,10 @@ public class Viewer {
 
     /**
      * Creates a new viewer
-     * @param email
-     * emailID of the viewer
-     * @param fullName
-     * name of the viewer
-     * @param mobileNumber
-     * mobile number of the viewer
+     *
+     * @param email        emailID of the viewer
+     * @param fullName     name of the viewer
+     * @param mobileNumber mobile number of the viewer
      */
     public Viewer(String email, String fullName, String mobileNumber) {
         this.email = email;
@@ -60,14 +59,11 @@ public class Viewer {
 
     /**
      * Creates an instance of an already existing viewer from the text file with a given viewerID
-     * @param email
-     * emailID of the viewer
-     * @param fullName
-     * name of the viewer
-     * @param mobileNumber
-     * mobile number of the viewer
-     * @param viewerID
-     * viewerID of the viewer
+     *
+     * @param email        emailID of the viewer
+     * @param fullName     name of the viewer
+     * @param mobileNumber mobile number of the viewer
+     * @param viewerID     viewerID of the viewer
      */
     public Viewer(String email, String fullName, String mobileNumber, String viewerID) {
         this.email = email;
@@ -79,10 +75,10 @@ public class Viewer {
 
     /**
      * Adds a new booking to the viewer's booking history
-     * @param booking
-     * A string of the new booking to be added to the booking history
+     *
+     * @param booking A string of the new booking to be added to the booking history
      */
-    public void addNewBookingToHistory(String booking){
+    public void addNewBookingToHistory(String booking) {
         ArrayList<String> current = getBookingHistory();
 
         if (current.get(0).equals("NA")) {
@@ -95,8 +91,8 @@ public class Viewer {
 
     /**
      * Find and return an arraylist of the booking history from the viewer text file
-     * @return
-     * booking history
+     *
+     * @return booking history
      */
     public ArrayList<String> getBookingHistoryFromFile() {
         try {
@@ -111,24 +107,22 @@ public class Viewer {
 
     /**
      * Creates and stores a new booking
-     * @param tID
-     * the transactionID of the booking
-     * @param seatID
-     * The seat in the cinema which was booked for the movie
-     * @param movieName
-     * the movie which was booked
+     *
+     * @param tID       the transactionID of the booking
+     * @param seatID    The seat in the cinema which was booked for the movie
+     * @param movieName the movie which was booked
      */
-    public void createNewBookingInstance(String tID, String seatID, String movieName){
-         // XXXYYYYMMDDHHMM
+    public void createNewBookingInstance(String tID, String seatID, String movieName) {
+        // XXXYYYYMMDDHHMM
         String booking = tID + "-" + seatID + "-";
         String date = "-" + tID.substring(9, 11) + "/" + tID.substring(7, 9) + "/" + tID.substring(3, 7);
-        this.addNewBookingToHistory(booking+ movieName+ date);
+        this.addNewBookingToHistory(booking + movieName + date);
     }
 
     /**
      * gets the emailID of the student
-     * @return
-     * returns this Viewer's emailID
+     *
+     * @return returns this Viewer's emailID
      */
     public String getEmail() {
         return email;
@@ -136,8 +130,8 @@ public class Viewer {
 
     /**
      * gets the viewer's booking History from the value stored in the instance
-     * @return
-     * this viewer's booking history
+     *
+     * @return this viewer's booking history
      */
     public ArrayList<String> getBookingHistory() {
         return bookingHistory;
@@ -145,8 +139,8 @@ public class Viewer {
 
     /**
      * gets the Viewer's full Name
-     * @return
-     * this viewer's full name
+     *
+     * @return this viewer's full name
      */
     public String getFullName() {
         return fullName;
@@ -154,8 +148,8 @@ public class Viewer {
 
     /**
      * gets this viewer's ViewerID
-     * @return
-     * this viewer's viewerID
+     *
+     * @return this viewer's viewerID
      */
     public String getViewerID() {
         return viewerID;
@@ -163,8 +157,8 @@ public class Viewer {
 
     /**
      * gets this Viewer mobileNumber
-     * @return
-     * this viewer's mobile number
+     *
+     * @return this viewer's mobile number
      */
     public String getMobileNumber() {
         return mobileNumber;

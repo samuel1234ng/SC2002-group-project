@@ -1,39 +1,42 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 /**
  * Class that stores information on which seats in a cinema are booked at a specific date and time
+ *
  * @author Khoo Yong Quan
  * @version 1.0
  * @since 2022-11-05
- *
  */
 public class TimeSlot {
 //    private int timing;
     /**
-    * 2d array of seats
-    */
-    private Seat[][] seating = new Seat[10][16];
-    /**
-    * date and time
-    */
+     * date and time
+     */
     public LocalDateTime dateTime;
+    /**
+     * 2d array of seats
+     */
+    private Seat[][] seating = new Seat[10][16];
 
 //    private final String date;
-     /**
+
+    /**
      * Constructor, saves date and time and initializes seat array
+     *
      * @param timing time of timeslot
-     * @param date date of timeslot
+     * @param date   date of timeslot
      */
     public TimeSlot(int timing, String date) {
         String time = Integer.toString(timing);
-        int hour = Integer.parseInt(time.substring(0, time.length()-2));
-        int minute = Integer.parseInt(time.substring(time.length()-2));
+        int hour = Integer.parseInt(time.substring(0, time.length() - 2));
+        int minute = Integer.parseInt(time.substring(time.length() - 2));
         int year = Integer.parseInt(date.substring(6));
         int month = Integer.parseInt(date.substring(3, 5));
         int day = Integer.parseInt(date.substring(0, 2));
         this.dateTime = LocalDateTime.of(year, month, day, hour, minute);
-        char[] letters = {'*','I','H','G','F','E','D','C','B','A'};
+        char[] letters = {'*', 'I', 'H', 'G', 'F', 'E', 'D', 'C', 'B', 'A'};
         for (int i = 0; i < 10; i++) {
             char alpha = letters[i];
             for (int j = 0; j < 16; j++) {
@@ -43,97 +46,115 @@ public class TimeSlot {
             }
         }
     }
+
     /**
      * Returns Date and time of timeslot
+     *
      * @return Date and time
      */
     public LocalDateTime getDateTime() {
         return this.dateTime;
     }
+
+    /**
+     * Change date and time of timeslot
+     *
+     * @param dateTime date and time
+     */
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
     /**
      * Returns array of seats
+     *
      * @return array of seats
      */
     public Seat[][] getSeats() {
         return this.seating;
 
     }
+
     /**
      * Change array of seats
+     *
      * @param seating array of seats
      */
     public void setSeats(Seat[][] seating) {
         this.seating = seating;
 
     }
-    /**
-     * Change date and time of timeslot
-     * @param dateTime date and time
-     */
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
+
     /**
      * Returns time of timeslot
+     *
      * @return time
      */
-    public int getTime(){
-        return this.dateTime.getHour()*100+this.dateTime.getMinute();
+    public int getTime() {
+        return this.dateTime.getHour() * 100 + this.dateTime.getMinute();
     }
-    /**
-     * Returns date of timeslot
-     * @return date
-     */
-    public String getDate(){
-        return this.dateTime.getDayOfMonth()+"/"+this.dateTime.getMonthValue()+"/" + this.dateTime.getYear();
-    }
-    /**
-     * Change seat booking status
-     * @param i x coordinate of seat
-     * @param j y coordinate of seat
-     * @param val value to change the status to
-     */
-    public void setSeat(int i, int j, boolean val){
-		if(val){
-			this.seating[i][j].assign();
-		}else{
-			this.seating[i][j].unassign();
-		}
-	}
+
     /**
      * Change time of timeslot
+     *
      * @param time time
      */
-    public void setTime(int time){
+    public void setTime(int time) {
         String s_time = Integer.toString(time);
-        int hour = Integer.parseInt(s_time.substring(0, s_time.length()-2));
-        int minute = Integer.parseInt(s_time.substring(s_time.length()-2, s_time.length()-1));
+        int hour = Integer.parseInt(s_time.substring(0, s_time.length() - 2));
+        int minute = Integer.parseInt(s_time.substring(s_time.length() - 2, s_time.length() - 1));
         int year = this.dateTime.getYear();
         int month = this.dateTime.getMonthValue();
         int day = this.dateTime.getDayOfMonth();
         this.dateTime = LocalDateTime.of(year, month, day, hour, minute);
     }
-/**
-* Check if date is holiday, weekend or weekday
-* @param holidays arraylist of dates that are holidays
-* @return 0:weekday 1:weekend 2: holiday
-*/
-public int getDayType(ArrayList<String> holidays){
-	
-    LocalDateTime date = this.dateTime;
-    DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	String dateType = f.format(date);
-    for(int j=0;j<holidays.size();j++){
-        if(holidays.get(j)==dateType){
-            return 2;
+
+    /**
+     * Returns date of timeslot
+     *
+     * @return date
+     */
+    public String getDate() {
+        return this.dateTime.getDayOfMonth() + "/" + this.dateTime.getMonthValue() + "/" + this.dateTime.getYear();
+    }
+
+    /**
+     * Change seat booking status
+     *
+     * @param i   x coordinate of seat
+     * @param j   y coordinate of seat
+     * @param val value to change the status to
+     */
+    public void setSeat(int i, int j, boolean val) {
+        if (val) {
+            this.seating[i][j].assign();
+        } else {
+            this.seating[i][j].unAssign();
         }
     }
-	String dayType = this.dateTime.getDayOfWeek().name();
-	if(dayType=="SATURDAY" || dayType=="SUNDAY"){
-		return 1;
-	}
-	return 0;
-	
-}
+
+    /**
+     * Check if date is holiday, weekend or weekday
+     *
+     * @param holidays arraylist of dates that are holidays
+     * @return 0:weekday 1:weekend 2: holiday
+     */
+    public int getDayType(ArrayList<String> holidays) {
+
+        LocalDateTime date = this.dateTime;
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dateType = f.format(date);
+        for (String holiday : holidays) {
+            if (holiday.equals(dateType)) {
+                return 2;
+            }
+        }
+        String dayType = this.dateTime.getDayOfWeek().name();
+        if (dayType.equals("SATURDAY") || dayType.equals("SUNDAY")) {
+            return 1;
+        }
+        return 0;
+
+    }
 
 }

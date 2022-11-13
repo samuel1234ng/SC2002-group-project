@@ -1,9 +1,13 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * A class which reads data from the Admin text file
+ *
  * @author Chinmay Prasad
  * @version 1.0
  * @since 2022-11-05
@@ -82,27 +86,6 @@ public class ViewerDB {
     }
 
     /**
-     * reads the Viewer text file and returns the viewerID corresponding to the emailID
-     *
-     * @param email The email of the viewer
-     * @return The Viewer ID of the viewer
-     */
-    public static int getViewerID(String email) {
-        String fileName = "data/viewer.txt";
-        ArrayList<String> string_data = readFile(fileName);
-        for (String line : string_data) {
-            StringTokenizer star = new StringTokenizer(line, SEPARATOR);
-            String id = star.nextToken();
-            star.nextToken();
-            String data_email = star.nextToken().trim();
-            if (email.equals(data_email)) {
-                return Integer.parseInt(id);
-            }
-        }
-        return 0;
-    }
-
-    /**
      * Find the ID value of the last viewer to be created
      *
      * @return The id if found, else -1
@@ -163,8 +146,10 @@ public class ViewerDB {
         data.set(update_index, new_viewer_data.toString());
         return data;
     }
+
     /**
      * Return all email and password of all users
+     *
      * @param fileName location of file
      * @return arraylist of all user's email and password
      */
@@ -181,8 +166,10 @@ public class ViewerDB {
         }
         return viewer_data;
     }
+
     /**
      * Return email, name, id, number of user
+     *
      * @param email email of user
      * @return viewer object with email, name, id, number of user
      */
@@ -204,8 +191,10 @@ public class ViewerDB {
         }
         return new Viewer(email, name, id, number);
     }
+
     /**
      * Store a new viewer object in viewer file
+     *
      * @param v viewer object to store
      */
     public static void createViewerInFile(Viewer v) {

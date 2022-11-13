@@ -1,11 +1,13 @@
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.FileInputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * Represents a movie database which can be used to write and read from a text file (movies.txt).
+ *
  * @author Karishein Chandran
  * @version 1.0
  * @since 2022-11-10
@@ -19,11 +21,12 @@ public class MovieDB {
 
     /**
      * Creates an array list of movie objects after reading all the movies from the movies.txt file.
+     *
      * @param filename The file path of the movies.txt file which contains all the movies.
      * @return An array list containing multiple movie objects.
      * @see #read(String)
      */
-    public static ArrayList<Movie> readMovies(String filename){
+    public static ArrayList<Movie> readMovies(String filename) {
         ArrayList<String> stringArray = read(filename); // read String from text file
         ArrayList<Movie> movRead = new ArrayList<>(); // to store movie objects
 
@@ -59,18 +62,19 @@ public class MovieDB {
             // add to movie list
             movRead.add(movie);
         }
-        return movRead ;
+        return movRead;
     }
 
     /**
      * Converts a new movie object into a string and stores it into list.
      * This list is written to the existing movies.txt file.
+     *
      * @param filename The file path of the movies.txt file which contains all the movies.
-     * @param al A list containing the new movie object.
+     * @param al       A list containing the new movie object.
      * @see #write(String, ArrayList)
      */
     public static void saveMovies(String filename, ArrayList<Movie> al) {
-        ArrayList<String> movWrite = new ArrayList<>() ;// to store movies data
+        ArrayList<String> movWrite = new ArrayList<>();// to store movies data
 
         for (Movie movie : al) {
             StringBuilder st = new StringBuilder();
@@ -106,42 +110,42 @@ public class MovieDB {
 
             movWrite.add(st.toString());
         }
-        write(filename,movWrite);
+        write(filename, movWrite);
     }
 
     /**
      * Writes the movie data obtained from saveMovies() into the movies.txt file.
+     *
      * @param fileName The file path of the movies.txt file which contains all the movies.
-     * @param data A list containing the movie data in string format.
+     * @param data     A list containing the movie data in string format.
      * @see PrintWriter
      * @see FileWriter
      */
-    public static void write(String fileName, ArrayList<String> data){
+    public static void write(String fileName, ArrayList<String> data) {
         try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
             for (String line : data) {
                 out.println(line);
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception >> " + e);
         }
     }
 
     /**
      * Reads all the movies from the movies.txt file.
+     *
      * @param fileName The file path of the movies.txt file which contains all the movies.
      * @return An array list containing the movies in string format.
      * @see Scanner
      * @see FileInputStream
      */
-    public static ArrayList<String> read(String fileName){
+    public static ArrayList<String> read(String fileName) {
         ArrayList<String> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
                 data.add(scanner.nextLine());
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Exception >> " + e);
         }
         return data;
