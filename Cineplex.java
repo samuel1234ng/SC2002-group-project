@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 /**
  * Class representing a Cineplex
- * @author Samuel Ng
+ * @author Khoo Yong Quan
  * @version 1.0
  * @since 2022-11-05
  *
