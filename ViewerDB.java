@@ -114,9 +114,9 @@ public class ViewerDB {
      * Updates the booking history of a viewer and returns the data in a format
      * that can be used to write into the viewer text file
      *
-     * @param email   email id of the viewer
-     * @param booking the updated booking history of a viewer
-     * @return booking data that can be used to write into the text file
+     * @param email   Email id of the viewer
+     * @param booking The updated booking history of a viewer
+     * @return booking Data that can be used to write into the text file
      */
     public static ArrayList<String> updateBookingHistory(String email, ArrayList<String> booking) {
         ArrayList<String> data = readFile("data/viewer.txt");
@@ -151,8 +151,8 @@ public class ViewerDB {
     /**
      * Return all email and password of all users
      *
-     * @param fileName location of file
-     * @return arraylist of all user's email and password
+     * @param fileName Location of file
+     * @return Arraylist of all user's email and password
      */
     public static HashMap<String, String> getViewerData(String fileName) {
         HashMap<String, String> viewer_data = new HashMap<>();
@@ -171,8 +171,8 @@ public class ViewerDB {
     /**
      * Return email, name, id, number of user
      *
-     * @param email email of user
-     * @return viewer object with email, name, id, number of user
+     * @param email Email of user
+     * @return Viewer object with email, name, id, number of user
      */
     public static Viewer getViewer(String email) {
         ArrayList<String> data = readFile("data/viewer.txt");
@@ -196,7 +196,7 @@ public class ViewerDB {
     /**
      * Store a new viewer object in viewer file
      *
-     * @param v viewer object to store
+     * @param v Viewer object to store
      */
     public static void createViewerInFile(Viewer v) {
         StringBuilder s = new StringBuilder(v.getViewerID() + "|" + v.getFullName() + "|" + v.getEmail() + "|" + v.getMobileNumber());

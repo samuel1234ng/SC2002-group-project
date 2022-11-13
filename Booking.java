@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * A Class that handles seat booking
  *
- * @author Samuel Ng
+ * @author Shikhar Jain 
  * @version 1.0
  * @since 2022-11-05
  */

@@ -16,8 +16,8 @@ public class SettingsDB {
     /**
      * Writes setting to file
      *
-     * @param fileName settings file location
-     * @param data     data to store
+     * @param fileName Settings file location
+     * @param data     Data to store
      * @throws IOException When the file with filename does not exist
      */
     public static void writeFile(String fileName, ArrayList<String> data) throws IOException {
@@ -32,8 +32,8 @@ public class SettingsDB {
     /**
      * Reads settings from file
      *
-     * @param fileName settings file location
-     * @return data from file
+     * @param fileName Settings file location
+     * @return Data from file
      * @throws FileNotFoundException When the file with filename does not exist
      */
     public static ArrayList<String> readFile(String fileName) throws FileNotFoundException {

@@ -50,11 +50,11 @@ public class MovieListingDB {
     /**
      * reads the movielisting file and finds the required movielisting by cineplex and cinema
      *
-     * @param cineplexNumber the number of the cineplex for which the movielisting arraylist is required
-     * @param cinemaNumber   the number of the cinema for which the movielisting arraylist is required
-     * @param data           data read from the movielisting file
-     * @param allMovies      movie data
-     * @return the cinema's movielistings
+     * @param cineplexNumber The number of the cineplex for which the movielisting arraylist is required
+     * @param cinemaNumber   The number of the cinema for which the movielisting arraylist is required
+     * @param data           Data read from the movielisting file
+     * @param allMovies      Movie data
+     * @return The cinema's movielistings
      */
     public static ArrayList<MovieListing> getCinemaListing(int cineplexNumber, int cinemaNumber, ArrayList<String> data, ArrayList<Movie> allMovies) {
         ArrayList<MovieListing> movieListings = new ArrayList<>();
@@ -111,10 +111,10 @@ public class MovieListingDB {
     }
 
     /**
-     * converts a  cinema's movielistings to a string equivalent
+     * Converts a  cinema's movielistings to a string equivalent
      *
-     * @param movieListings a cinema's movielistings
-     * @return the string equivalent of the cinema's movielistings
+     * @param movieListings A cinema's movielistings
+     * @return The string equivalent of the cinema's movielistings
      */
     public static String movieListingToString(ArrayList<MovieListing> movieListings) {
         StringBuilder output = new StringBuilder();
@@ -157,10 +157,10 @@ public class MovieListingDB {
     /**
      * writes data from an arraylist into the movielisting file after swapping out the necessary line with the new line
      *
-     * @param data           data to write into the file before the change
-     * @param newData        a String which gets swapped with the old String data
-     * @param cineplexNumber the number of the cineplex which contains the required cinema
-     * @param cinemaNumber   the number of the cinema which contains the required movielisting to edit
+     * @param data           Data to write into the file before the change
+     * @param newData        A String which gets swapped with the old String data
+     * @param cineplexNumber The number of the cineplex which contains the required cinema
+     * @param cinemaNumber   The number of the cinema which contains the required movielisting to edit
      */
     public static void changeLine(ArrayList<String> data, String newData, int cineplexNumber, int cinemaNumber) {
         int index = 0;
@@ -181,7 +181,7 @@ public class MovieListingDB {
     /**
      * Writes an arraylist if String data into the movielisting text file
      *
-     * @param data the data to write into the file
+     * @param data The data to write into the file
      */
     public static void writeFile(ArrayList<String> data) {
 

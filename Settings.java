@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Settings {
     /**
-     * formats the date into specified string
+     * Formats the date into specified string
      */
     public static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     /**
@@ -44,12 +44,12 @@ public class Settings {
     public int baseTicketPrice;
 
     /**
-     * boolean variable that denotes if the viewers can display movies sorted by review
+     * Boolean variable that denotes if the viewers can display movies sorted by review
      */
     public static boolean byReview = true;
 
     /**
-     * boolean variable that denotes if the viewers can display movies sorted by tickets
+     * Boolean variable that denotes if the viewers can display movies sorted by tickets
      */
     public static boolean byTicket = true;
 
@@ -61,7 +61,7 @@ public class Settings {
     }
 
     /**
-     * stores settings to file
+     * Stores settings to file
      */
     public void storeSettings() {
         ArrayList<String> data = new ArrayList<>();
@@ -125,7 +125,7 @@ public class Settings {
     }
 
     /**
-     * load settings from file
+     * Load settings from file
      */
     public void loadSettings() {
         ArrayList<String> data;
@@ -164,7 +164,7 @@ public class Settings {
     }
 
     /**
-     * prints out settings
+     * Prints out settings
      */
     public void printSettings() {
         System.out.println("Base Ticket Price: $" + baseTicketPrice);
@@ -188,11 +188,11 @@ public class Settings {
     }
 
     /**
-     * adds date as holiday
+     * Adds date as holiday
      *
-     * @param date  day
-     * @param month month
-     * @param year  year
+     * @param date  Day
+     * @param month Month
+     * @param year  Year
      */
     public void addHoliday(int date, int month, int year) {
         LocalDateTime time = LocalDateTime.of(year, month, date, 0, 0, 0);
@@ -204,9 +204,9 @@ public class Settings {
     /**
      * removes date from holiday
      *
-     * @param date  day
-     * @param month month
-     * @param year  year
+     * @param date  Day
+     * @param month Month
+     * @param year  Year
      */
     public void removeHoliday(int date, int month, int year) {
         LocalDateTime time = LocalDateTime.of(year, month, date, 0, 0, 0);
@@ -220,20 +220,20 @@ public class Settings {
     }
 
     /**
-     * change the base price of a ticket
+     * Change the base price of a ticket
      *
-     * @param newPrice new price
+     * @param newPrice New price
      */
     public void changeBasePrice(int newPrice) {
         baseTicketPrice = newPrice;
     }
 
     /**
-     * changes a setting
+     * Changes a setting
      *
-     * @param setting which setting to change
-     * @param option  which option in setting to change
-     * @param value   new value
+     * @param setting Which setting to change
+     * @param option  Which option in setting to change
+     * @param value   New value
      */
     public void changeTicketPrice(int setting, int option, int value) {
         if (setting == 1) {
@@ -253,11 +253,11 @@ public class Settings {
     /**
      * calculates price of ticket
      *
-     * @param cinemaType  type of movie
-     * @param cinemaClass class of cinema
-     * @param age         age of viewer
-     * @param day         day that movie is booked
-     * @return price of ticket
+     * @param cinemaType  Type of movie
+     * @param cinemaClass Class of cinema
+     * @param age         Age of viewer
+     * @param day         Day that movie is booked
+     * @return Price of ticket
      */
     public int calculateTicketPrice(int cinemaType, int cinemaClass, int age, int day) {
         return baseTicketPrice + typeMod[cinemaType] + seatMod[cinemaClass] + ageMod[age] + dayMod[day];
@@ -266,7 +266,7 @@ public class Settings {
     /**
      * Returns arraylist of holidays
      *
-     * @return arraylist of holidays
+     * @return Arraylist of holidays
      */
     public ArrayList<String> getHolidays() {
         return this.holidays;

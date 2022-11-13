@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class TimeSlot {
 //    private int timing;
     /**
-     * date and time
+     * Date and time
      */
     public LocalDateTime dateTime;
     /**
@@ -50,7 +50,7 @@ public class TimeSlot {
     /**
      * Change date and time of timeslot
      *
-     * @param dateTime date and time
+     * @param dateTime Date and time
      */
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
@@ -59,7 +59,7 @@ public class TimeSlot {
     /**
      * Returns array of seats
      *
-     * @return array of seats
+     * @return Array of seats
      */
     public Seat[][] getSeats() {
         return this.seating;
@@ -69,7 +69,7 @@ public class TimeSlot {
     /**
      * Change array of seats
      *
-     * @param seating array of seats
+     * @param seating Array of seats
      */
     public void setSeats(Seat[][] seating) {
         this.seating = seating;
@@ -79,7 +79,7 @@ public class TimeSlot {
     /**
      * Returns time of timeslot
      *
-     * @return time
+     * @return Time
      */
     public int getTime() {
         return this.dateTime.getHour() * 100 + this.dateTime.getMinute();
@@ -88,7 +88,7 @@ public class TimeSlot {
     /**
      * Change time of timeslot
      *
-     * @param time time
+     * @param time Time
      */
     public void setTime(int time) {
         String s_time = Integer.toString(time);
@@ -103,7 +103,7 @@ public class TimeSlot {
     /**
      * Returns date of timeslot
      *
-     * @return date
+     * @return Date
      */
     public String getDate() {
         return this.dateTime.getDayOfMonth() + "/" + this.dateTime.getMonthValue() + "/" + this.dateTime.getYear();
@@ -114,7 +114,7 @@ public class TimeSlot {
      *
      * @param i   x coordinate of seat
      * @param j   y coordinate of seat
-     * @param val value to change the status to
+     * @param val Value to change the status to
      */
     public void setSeat(int i, int j, boolean val) {
         if (val) {
@@ -127,7 +127,7 @@ public class TimeSlot {
     /**
      * Check if date is holiday, weekend or weekday
      *
-     * @param holidays arraylist of dates that are holidays
+     * @param holidays Arraylist of dates that are holidays
      * @return 0:weekday 1:weekend 2: holiday
      */
     public int getDayType(ArrayList<String> holidays) {

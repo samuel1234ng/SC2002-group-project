@@ -11,17 +11,17 @@ import java.util.HashMap;
 public class Viewer {
 
     /**
-     * an integer value which is the value of the viewerID of the next user to be created
+     * An integer value which is the value of the viewerID of the next user to be created
      */
     private static int idCounter = ViewerDB.getLastViewerID() + 1;
 
     /**
-     * the emailID of the viewer
+     * The emailID of the viewer
      */
     private final String email;
 
     /**
-     * the first middle and last name of the viewer
+     * The first middle and last name of the viewer
      */
     private final String fullName;
 
@@ -45,8 +45,8 @@ public class Viewer {
      * Creates a new viewer
      *
      * @param email        emailID of the viewer
-     * @param fullName     name of the viewer
-     * @param mobileNumber mobile number of the viewer
+     * @param fullName     Name of the viewer
+     * @param mobileNumber Mobile number of the viewer
      */
     public Viewer(String email, String fullName, String mobileNumber) {
         this.email = email;
@@ -61,8 +61,8 @@ public class Viewer {
      * Creates an instance of an already existing viewer from the text file with a given viewerID
      *
      * @param email        emailID of the viewer
-     * @param fullName     name of the viewer
-     * @param mobileNumber mobile number of the viewer
+     * @param fullName     Name of the viewer
+     * @param mobileNumber Mobile number of the viewer
      * @param viewerID     viewerID of the viewer
      */
     public Viewer(String email, String fullName, String mobileNumber, String viewerID) {
@@ -92,7 +92,7 @@ public class Viewer {
     /**
      * Find and return an arraylist of the booking history from the viewer text file
      *
-     * @return booking history
+     * @return Booking history
      */
     public ArrayList<String> getBookingHistoryFromFile() {
         try {
@@ -108,7 +108,7 @@ public class Viewer {
     /**
      * Creates and stores a new booking
      *
-     * @param tID       the transactionID of the booking
+     * @param tID       The transactionID of the booking
      * @param seatID    The seat in the cinema which was booked for the movie
      * @param movieName the movie which was booked
      */
@@ -120,25 +120,25 @@ public class Viewer {
     }
 
     /**
-     * gets the emailID of the student
+     * Gets the emailID of the student
      *
-     * @return returns this Viewer's emailID
+     * @return This Viewer's emailID
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * gets the viewer's booking History from the value stored in the instance
+     * Gets the viewer's booking History from the value stored in the instance
      *
-     * @return this viewer's booking history
+     * @return This viewer's booking history
      */
     public ArrayList<String> getBookingHistory() {
         return bookingHistory;
     }
 
     /**
-     * gets the Viewer's full Name
+     * Gets the Viewer's full Name
      *
      * @return this viewer's full name
      */
@@ -149,7 +149,7 @@ public class Viewer {
     /**
      * gets this viewer's ViewerID
      *
-     * @return this viewer's viewerID
+     * @return This viewer's viewerID
      */
     public String getViewerID() {
         return viewerID;
@@ -158,7 +158,7 @@ public class Viewer {
     /**
      * gets this Viewer mobileNumber
      *
-     * @return this viewer's mobile number
+     * @return This viewer's mobile number
      */
     public String getMobileNumber() {
         return mobileNumber;

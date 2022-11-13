@@ -13,11 +13,11 @@ public class MovieListing {
      */
     private final Movie movieName;
     /**
-     * status of movie
+     * Status of movie
      */
     private final Movie.ShowingStatus movieStatus;
     /**
-     * type of movie
+     * Type of movie
      */
     private final Movie.MovieType movieType;
     /**
@@ -30,9 +30,9 @@ public class MovieListing {
     /**
      * Constructor, sets movie, type and status
      *
-     * @param movie       movie
-     * @param movieType   type of movie
-     * @param movieStatus status of movie
+     * @param movie       Movie
+     * @param movieType   Type of movie
+     * @param movieStatus Status of movie
      */
     public MovieListing(Movie movie, String movieType, String movieStatus) {
         this.movieName = movie;
@@ -44,16 +44,16 @@ public class MovieListing {
     /**
      * Returns movie object
      *
-     * @return movie object
+     * @return movie Object
      */
     public Movie getMovie() {
         return movieName;
     }
 
     /**
-     * Return type if movie
+     * Return type of movie
      *
-     * @return type of movie
+     * @return Type of movie
      */
     public int getMovieType() {
         Movie.MovieType typeMovie = this.movieType;
@@ -72,7 +72,7 @@ public class MovieListing {
     /**
      * Return timeslot arraylist
      *
-     * @return timeslot arraylist
+     * @return Timeslot arraylist
      */
     public ArrayList<TimeSlot> getTimeSlots() {
         return timeSlots;
@@ -81,7 +81,7 @@ public class MovieListing {
     /**
      * Changes entire timeslots array
      *
-     * @param timeSlots new timeslots array
+     * @param timeSlots New timeslots array
      */
     public void setTimeSlots(ArrayList<TimeSlot> timeSlots) {
         this.timeSlots = timeSlots;
@@ -90,8 +90,8 @@ public class MovieListing {
     /**
      * returns timeslot which is at a specified time
      *
-     * @param time time of timeslot
-     * @return timeslot
+     * @param time Time of timeslot
+     * @return Timeslot
      */
     public TimeSlot getTime(int time) {
         for (TimeSlot timeSlot : timeSlots) {
@@ -103,19 +103,19 @@ public class MovieListing {
     }
 
     /**
-     * return type of movie as a string
+     * Returns type of movie as a string
      *
-     * @return type of movie
+     * @return Type of movie
      */
     public String getMovieTypeString() {
         return this.movieType.toString();
     }
 
     /**
-     * adds a new timeslot
+     * Adds a new timeslot
      *
-     * @param time time of timeslot
-     * @param date date of timeslot
+     * @param time Time of timeslot
+     * @param date Date of timeslot
      */
     public void addShowtime(int time, String date) {
         TimeSlot t = new TimeSlot(time, date);

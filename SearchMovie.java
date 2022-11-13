@@ -12,9 +12,9 @@ public class SearchMovie {
     /**
      * Find movie object in moviearray
      *
-     * @param movieName of movie
-     * @param movies    arraylist of all movies
-     * @return movie object
+     * @param movieName Name of movie
+     * @param movies    Arraylist of all movies
+     * @return movie Object
      */
     public static Movie movieByName(String movieName, ArrayList<Movie> movies) {
         for (Movie movie : movies) {
@@ -46,8 +46,8 @@ public class SearchMovie {
     /**
      * Sorts movies by rating
      *
-     * @param pre_sorted_movies arraylist of all movies
-     * @return arraylist of movies that have been sorted
+     * @param pre_sorted_movies Arraylist of all movies
+     * @return Arraylist of movies that have been sorted
      */
     public static ArrayList<Movie> movieByRating(ArrayList<Movie> pre_sorted_movies) {
         Movie temp;
@@ -86,8 +86,8 @@ public class SearchMovie {
     /**
      * Sorts movies by tickets
      *
-     * @param pre_sorted_movies arraylist of all movies
-     * @return arraylist of movies that have been sorted
+     * @param pre_sorted_movies Arraylist of all movies
+     * @return Arraylist of movies that have been sorted
      */
     public static ArrayList<Movie> movieByTickets(ArrayList<Movie> pre_sorted_movies) {
         Movie temp;
@@ -112,7 +112,7 @@ public class SearchMovie {
     /**
      * Prints movie details
      *
-     * @param movie movie object
+     * @param movie Movie object
      */
     public static void printMovieDetails(Movie movie) {
         if (movie == null) {
