@@ -48,15 +48,6 @@ public class TimeSlot {
     }
 
     /**
-     * Returns Date and time of timeslot
-     *
-     * @return Date and time
-     */
-    public LocalDateTime getDateTime() {
-        return this.dateTime;
-    }
-
-    /**
      * Change date and time of timeslot
      *
      * @param dateTime date and time

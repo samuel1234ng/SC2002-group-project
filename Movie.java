@@ -288,7 +288,7 @@ public class Movie implements Serializable {
     public enum ShowingStatus {COMING_SOON, PREVIEW, NOW_SHOWING, END_OF_SHOWING}
 
     /**
-     * The type of this movie (3d,3d,blockbuster)
+     * The type of this movie (2d,3d,blockbuster)
      */
     public enum MovieType {IMAX_2D, IMAX_3D, BLOCKBUSTER}
 }

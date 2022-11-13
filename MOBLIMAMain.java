@@ -1,8 +1,5 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,7 +10,6 @@ import java.util.concurrent.TimeUnit;
  * @since 2022-11-05
  */
 public class MOBLIMAMain {
-    // Text color changing constants
     /**
      * Formatting information of display texts
      */
@@ -47,6 +43,7 @@ public class MOBLIMAMain {
      * Formatting information of display texts
      */
     public static final String PURPLE = "\u001B[35m";
+
 
     /**
      * UI for guest
@@ -134,8 +131,9 @@ public class MOBLIMAMain {
         int cineplexChoice = sc.nextInt();
         sc.nextLine();
         Cineplex cineplex = cineplexes[cineplexChoice - 1];
-
-        System.out.printf(""" 
+        if(Settings.byReview){
+            if (Settings.byTicket){
+                System.out.printf(""" 
                 Welcome to the booking system for Cineplex %s!
                 What would you like to do? Enter your choice:
                 (1) View a list of all the movies
@@ -149,6 +147,36 @@ public class MOBLIMAMain {
                     (ii) Overall reviewers’ ratings
                 (8) Logout
                 """, cineplex.getCineplexName());
+            }else{
+                System.out.printf(""" 
+                Welcome to the booking system for Cineplex %s!
+                What would you like to do? Enter your choice:
+                (1) View a list of all the movies
+                (2) Search for a Movie and view its details
+                (3) Check seat availability for show-times
+                (4) Select  and purchase seats and make a Booking
+                (5) View your booking history
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by Overall reviewers’ ratings
+                (8) Logout
+                """, cineplex.getCineplexName());
+            }
+        }else{
+            if(Settings.byTicket){
+                System.out.printf(""" 
+                Welcome to the booking system for Cineplex %s!
+                What would you like to do? Enter your choice:
+                (1) View a list of all the movies
+                (2) Search for a Movie and view its details
+                (3) Check seat availability for show-times
+                (4) Select  and purchase seats and make a Booking
+                (5) View your booking history
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by ticket sales
+                (8) Logout
+                """, cineplex.getCineplexName());
+            }
+        }
 
         int choice = sc.nextInt();
         sc.nextLine();
@@ -201,7 +229,7 @@ public class MOBLIMAMain {
                     //Check seat availability for show-times
                     System.out.println("Movies: ");
                     for (Movie m : cineplex.movieByCineplex()) {
-                        System.out.println(m.getTitle());
+                        System.out.println(m.getTitle() + " Movie Status -> " + m.getStatus().toString());
                     }
                     System.out.println("Enter a movie's name : ");
                     String selection = sc.nextLine();
@@ -254,6 +282,15 @@ public class MOBLIMAMain {
                     for (String seat : selectedSeats) {
                         v.createNewBookingInstance(t_id, seat, selection);
                     }
+                    ArrayList<String> data = new ArrayList<>();
+                    for(Cineplex c: cineplexes){
+                        Cinema[] cinemas = c.getCinemas();
+                        data.add(Integer.toString(cinemas.length));
+                        for(Cinema cinema1: cinemas){
+                            data.add(MovieListingDB.movieListingToString(cinema1.getMovieListings()));
+                        }
+                    }
+                    MovieListingDB.writeFile(data);
                 }
                 case 5 -> {
                     //View your booking history
@@ -299,12 +336,13 @@ public class MOBLIMAMain {
                         System.out.println("Exception << " + e);
                     }
                 }
-
                 case 7 -> {
                     /* View the Top 5 ranked movies by
                           (i) Ticket sales
                          (ii) Overall reviewers’ ratings */
                     ArrayList<Movie> movies = MovieDB.readMovies("data/movies.txt");
+                    if(Settings.byReview){
+                        if(Settings.byTicket){
                     System.out.println("View top 5 movies based on:");
                     System.out.println("1. Ticket sales");
                     System.out.println("2. Ratings");
@@ -329,6 +367,29 @@ public class MOBLIMAMain {
                         }
                         System.out.println();
                     }
+                        }
+                        else{
+                            ArrayList<Movie> sortedMovies = SearchMovie.movieByRating(movies);
+                            String star = "✰";
+                            for (int i = 0; i < 5; i++) {
+                                System.out.printf("(%d) %s (Rated ", i + 1, sortedMovies.get(i).getTitle());
+                                for (int j = 0; j < Math.round(Float.parseFloat(sortedMovies.get(i).getOverallReviewerRating())); j++) {
+                                    System.out.print(BOLD + GREEN_BRIGHT + star + RESET);
+                                }
+                                System.out.printf(" - %s Stars)\n", sortedMovies.get(i).getOverallReviewerRating());
+                            }
+                            System.out.println();
+                        }
+                    }else{
+                        if(Settings.byTicket){
+                            String ticket = "🎟";
+                            ArrayList<Movie> sortedMovies = SearchMovie.movieByTickets(movies);
+                            for (int i = 0; i < 5; i++) {
+                                System.out.printf("(%d) %s - %s%s%s %s tickets sold\n", i + 1, sortedMovies.get(i).getTitle(), RED, sortedMovies.get(i).getNoOfTickets(), RESET, ticket);
+                            }
+                            System.out.println();
+                        }
+                    }
                 }
                 case 8 -> {
                     return;
@@ -341,21 +402,52 @@ public class MOBLIMAMain {
             } catch (InterruptedException e) {
                 System.out.println("Exception << " + e);
             }
-
-            System.out.printf(""" 
-                    Welcome back %s%s%s! What would you like to do? Enter your choice:
-                    What would you like to do? Enter your choice:
-                    (1) View a list of all the movies
-                    (2) Search for a Movie and view its details
-                    (3) Check seat availability for show-times
-                    (4) Select  and purchase seats and make a Booking
-                    (5) View your booking history
-                    (6) Review a movie
-                    (7) View the Top 5 ranked movies by
-                        (i) Ticket sales
-                        (ii) Overall reviewers’ ratings
-                    (8) Logout
-                        """, GREEN, v.getFullName(), RESET);
+            if(Settings.byReview){
+                if (Settings.byTicket){
+                    System.out.printf(""" 
+                Welcome back to the booking system for Cineplex %s!
+                What would you like to do? Enter your choice:
+                (1) View a list of all the movies
+                (2) Search for a Movie and view its details
+                (3) Check seat availability for show-times
+                (4) Select  and purchase seats and make a Booking
+                (5) View your booking history
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by
+                    (i) Ticket sales
+                    (ii) Overall reviewers’ ratings
+                (8) Logout
+                """, cineplex.getCineplexName());
+                }else{
+                    System.out.printf(""" 
+                Welcome back to the booking system for Cineplex %s!
+                What would you like to do? Enter your choice:
+                (1) View a list of all the movies
+                (2) Search for a Movie and view its details
+                (3) Check seat availability for show-times
+                (4) Select  and purchase seats and make a Booking
+                (5) View your booking history
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by Overall reviewers’ ratings
+                (8) Logout
+                """, cineplex.getCineplexName());
+                }
+            }else{
+                if(Settings.byTicket){
+                    System.out.printf(""" 
+                Welcome back to the booking system for Cineplex %s!
+                What would you like to do? Enter your choice:
+                (1) View a list of all the movies
+                (2) Search for a Movie and view its details
+                (3) Check seat availability for show-times
+                (4) Select  and purchase seats and make a Booking
+                (5) View your booking history
+                (6) Review a movie
+                (7) View the Top 5 ranked movies by ticket sales
+                (8) Logout
+                """, cineplex.getCineplexName());
+                }
+            }
             choice = sc.nextInt();
             sc.nextLine();
         }
@@ -431,12 +523,14 @@ public class MOBLIMAMain {
                                 (3) Change ticket prices
                                 (4) Add a holiday
                                 (5) Remove a holiday
-                                (6) Reset Changes
-                                (7) Save and return
+                                (6) Edit top 5 Movies Display
+                                (7) Reset Changes
+                                (8) Save and return
+                              
                                 """);
                         choice2 = sc.nextInt();
                         sc.nextLine();
-                        while (choice2 > 7 || choice2 < 1) {
+                        while (choice2 > 8 || choice2 < 1) {
                             System.out.println(RED + "Invalid option" + RESET);
                             choice2 = sc.nextInt();
                             sc.nextLine();
@@ -550,10 +644,67 @@ public class MOBLIMAMain {
                                 set.removeHoliday(date, month, year);
                                 System.out.println(PURPLE + "The holiday has been removed" + RESET);
                             }
-                            case 6 -> set.loadSettings();
-                            case 7 -> set.storeSettings();
+                            case 6 -> {
+                                if(Settings.byReview){
+                                    if(Settings.byTicket){
+                                        System.out.println(
+                                                """
+                                                The Viewer can currently view movies sorted by:
+                                                (1) Overall Reviews
+                                                (2) Total Number of tickets sold
+                                                """);
+                                    }else{
+                                        System.out.println(
+                                                """
+                                                The Viewer can currently view movies sorted by:
+                                                (1) Overall Reviews
+                                                """);
+                                    }
+                                }else{
+                                    if(Settings.byTicket){
+                                        System.out.println(
+                                                """
+                                                The Viewer can currently view movies sorted by:
+                                                (1) Total Number of tickets sold
+                                                """);
+                                    }
+                                }
+                                System.out.println(
+                                        """
+                                        How would you want the Viewers to view sorted movies?
+                                        (1) Overall Reviews
+                                        (2) Total Number of tickets sold
+                                        (3) Overall Reviews and Total Number of tickets sold
+                                        """);
+                                int sortingChoice;
+                                while(true){
+                                    try{
+                                        sortingChoice = sc.nextInt();
+                                        break;
+                                    }catch(Exception e){
+                                        System.out.println("Invalid Input. Please enter an integer between 1 and 3.");
+                                    }
+                                }
+                                switch (sortingChoice){
+                                    case 1 -> {
+                                        Settings.byReview = true;
+                                        Settings.byTicket = false;
+                                    }
+                                    case 2-> {
+                                        Settings.byReview = false;
+                                        Settings.byTicket = true;
+                                    }
+                                    default-> {
+                                        Settings.byReview = true;
+                                        Settings.byTicket = true;
+                                    }
+                                }
+                                System.out.println("Settings Successfully Updated!");
+                            }
+                            case 7 -> set.loadSettings();
+                            case 8 -> set.storeSettings();
                         }
-                    } while (choice2 < 7);
+                    } while (choice2 < 8);
                 }
                 case 2 -> {
                     System.out.printf("""
@@ -775,6 +926,8 @@ public class MOBLIMAMain {
 
     /**
      * Main runner method of MOBLIMA
+     * @param args
+     * general main parameter argument
      */
     public static void main(String[] args) {
         Cineplex[] cineplexes = new Cineplex[3];
@@ -799,27 +952,30 @@ public class MOBLIMAMain {
             String username = sc.nextLine();
             if (username.equals("g")) {
                 guestUser(sc, cineplexes);
-            }
-            System.out.println("Enter your password or mobile Number:");
-            String password = sc.nextLine();
 
-            int result = login(username, password);
-            switch (result) {
-                case 1 -> adminUser(sc, cineplexes);
-                case 2 -> viewerUser(sc, ViewerDB.getViewer(username), cineplexes);
-                case 3 -> {
-                    System.out.printf("%sThe login details entered were wrong.%s \nWould you like to try again?\n", RED, RESET);
-                    System.out.println("Enter your choice (y/n)");
-                    String response;
-                    while (!(response = sc.nextLine()).equals("n")) {
-                        if (response.equals("y")) {
-                            logged_in = false;
-                            break;
+            }
+            else{
+                System.out.println("Enter your password or mobile Number:");
+                String password = sc.nextLine();
+
+                int result = login(username, password);
+                switch (result) {
+                    case 1 -> adminUser(sc, cineplexes);
+                    case 2 -> viewerUser(sc, ViewerDB.getViewer(username), cineplexes);
+                    case 3 -> {
+                        System.out.printf("%sThe login details entered were wrong.%s \nWould you like to try again?\n", RED, RESET);
+                        System.out.println("Enter your choice (y/n)");
+                        String response;
+                        while (!(response = sc.nextLine()).equals("n")) {
+                            if (response.equals("y")) {
+                                logged_in = false;
+                                break;
+                            }
+                            System.out.println("Invalid Entry. Please try again. ");
                         }
-                        System.out.println("Invalid Entry. Please try again. ");
-                    }
-                    if (response.equals("n")) {
-                        break a;
+                        if (response.equals("n")) {
+                            break a;
+                        }
                     }
                 }
             }

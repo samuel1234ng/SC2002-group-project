@@ -37,11 +37,21 @@ public class Settings {
     /**
      * Stores the dates that are holidays
      */
-    final ArrayList<String> holidays = new ArrayList<>();
+    ArrayList<String> holidays = new ArrayList<>();
     /**
      * How much each type of movie modifies the cost
      */
     public int baseTicketPrice;
+
+    /**
+     * boolean variable that denotes if the viewers can display movies sorted by review
+     */
+    public static boolean byReview = true;
+
+    /**
+     * boolean variable that denotes if the viewers can display movies sorted by tickets
+     */
+    public static boolean byTicket = true;
 
     /**
      * Constructor, load settings from file
@@ -78,6 +88,20 @@ public class Settings {
         data.add(Integer.toString(dayMod[1]));
         data.add("\n");
         data.add(Integer.toString(dayMod[2]));
+        data.add("\n");
+        if(byReview){
+            data.add(Integer.toString(1));
+        }else{
+            data.add(Integer.toString(0));
+        }
+        data.add("\n");
+        if(byTicket){
+            data.add(Integer.toString(1));
+        }else{
+            data.add(Integer.toString(0));
+        }
+        data.add("\n");
+
 
         try {
             SettingsDB.writeFile("data/settings.txt", data);
@@ -107,7 +131,6 @@ public class Settings {
         ArrayList<String> data;
         try {
             data = SettingsDB.readFile("data/settings.txt");
-
             baseTicketPrice = Integer.parseInt(data.get(0));
             typeMod[0] = Integer.parseInt(data.get(1));
             typeMod[1] = Integer.parseInt(data.get(2));
@@ -120,11 +143,15 @@ public class Settings {
             dayMod[0] = Integer.parseInt(data.get(9));
             dayMod[1] = Integer.parseInt(data.get(10));
             dayMod[2] = Integer.parseInt(data.get(11));
+            byReview= data.get(12).equals("1");
+            byTicket= data.get(13).equals("1");
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         List<String> data2;
         try {
+            holidays = new ArrayList<>();
             data2 = SettingsDB.readFile("data/holidays.txt");
             for (String line : data2) {
                 if (!(line.equals("\n"))) {
@@ -154,7 +181,7 @@ public class Settings {
         System.out.println("Holiday price modifier: " + dayMod[2]);
         System.out.print("Holidays: ");
         for (String holiday : holidays) {
-            System.out.printf("%s", holiday);
+            System.out.printf("%s\n", holiday);
         }
         System.out.println();
         System.out.println();

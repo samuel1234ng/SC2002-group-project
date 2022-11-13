@@ -7,11 +7,9 @@
  */
 public class Seat {
     //class attributes
-    private final String seatId;
     private boolean assigned;
 
     public Seat(String seat_id) {
-        this.seatId = seat_id;
         this.assigned = false;
     }
 

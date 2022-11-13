@@ -131,7 +131,8 @@ public class ViewerDB {
             StringTokenizer star = new StringTokenizer(line, SEPARATOR);
             id = star.nextToken();
             name = star.nextToken();
-            number = data_email = star.nextToken().trim();
+            data_email = star.nextToken().trim();
+            number = star.nextToken().trim();
             star.nextToken();
             if (email.equals(data_email)) {
                 update_index = i;
