@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
  * Class that stores information on which seats in a cinema are booked at a specific date and time
- * @author Samuel Ng
+ * @author Khoo Yong Quan
  * @version 1.0
  * @since 2022-11-05
  *
