@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 /**
  * Class representing booking status of a movie
- * @author Samuel Ng
+ * @author Khoo Yong Quan
  * @version 1.0
  * @since 2022-11-05
  *
