@@ -284,9 +284,9 @@ public class MOBLIMAMain {
                         System.out.printf("""
                                 %sBooking for movie%s: %s
                                 %sSeat%s: %s
-                                %sBooking for date%s: %s
+                                %sBooking on date%s: %s
                                 %sTransaction Id%s: %s
-                                	
+    
                                 	""", BOLD, RESET, movie_name,BOLD, RESET, seat, BOLD, RESET, date, BOLD, RESET, transaction_id);
                     }
                 }
